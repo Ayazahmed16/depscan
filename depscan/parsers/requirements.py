@@ -60,5 +60,6 @@ def parse_requirements(text: str, source: str = "requirements.txt") -> ParseResu
         deps.append(Dependency(
             name=normalize_pypi_name(req.name), ecosystem="PyPI", spec=str(req.specifier) or "(any)",
             version=exact, lower_bound=low, direct=True, scope=scope, source=source, line=lineno,
+            resolution="pin" if exact else "range",
         ))
     return ParseResult(deps, source, "requirements.txt", warnings)

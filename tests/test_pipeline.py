@@ -23,7 +23,7 @@ def test_known_sample_ranking_and_fields(data_dir):
     assert beta["cvss"] == 5.3 and beta["fixed_version"] == "3.0" and beta["major_bump"] is True
     assert alpha["risk"]["score"] > beta["risk"]["score"]
     assert alpha["action"] == "fix_now" and beta["action"] in ("monitor", "no_action")
-    assert alpha["match"]["confidence"] == "exact" and alpha["match"]["evidence"]
+    assert alpha["match"]["confidence"] == "confirmed" and alpha["match"]["evidence"]
     assert r["snapshots"]["kev"] == "2030-03-01"
 
 

@@ -91,7 +91,7 @@ def dep(version="1.2", exact=True, **kw):
 def test_exact_match_has_evidence_and_fix():
     [m] = match_dependency(dep(), [adv("PYSEC-1", ["CVE-2020-1"])])
     assert m.id == "CVE-2020-1" and m.aliases == ["PYSEC-1"]
-    assert m.confidence == "exact" and m.fixed_versions == ["1.4"]
+    assert m.confidence == "confirmed" and m.fixed_versions == ["1.4"]
     assert "inside the range introduced 1.0, fixed 1.4" in m.evidence[0]
 
 
@@ -111,14 +111,14 @@ def test_two_records_for_same_cve_merge_into_one_finding():
     pysec = adv("PYSEC-1", ["CVE-2020-1", "GHSA-aaaa"])
     [m] = match_dependency(dep(), [ghsa, pysec])
     assert m.id == "CVE-2020-1" and sorted(m.aliases) == ["GHSA-aaaa", "PYSEC-1"]
-    assert len(m.verdicts) == 2 and m.confidence == "exact"
+    assert len(m.verdicts) == 2 and m.confidence == "confirmed"
 
 
 def test_disagreeing_sources_are_recorded_but_do_not_demote_the_match():
     yes = adv("GHSA-aaaa", ["CVE-2020-1"], fixed="1.4")
     no = adv("PYSEC-1", ["CVE-2020-1"], fixed="1.1")  # this record thinks 1.2 is already fixed
     [m] = match_dependency(dep(), [yes, no])
-    assert m.confidence == "exact"  # one source clearly affirms; the trust score will carry the doubt
+    assert m.confidence == "confirmed"  # one source clearly affirms; the trust score will carry the doubt
     assert any("sources disagree" in e for e in m.evidence)
     assert sorted((v.advisory_id, v.affected) for v in m.verdicts) == [("GHSA-aaaa", True), ("PYSEC-1", False)]
 
@@ -132,7 +132,7 @@ def test_withdrawn_duplicate_next_to_a_live_record_does_not_demote_the_match():
     live = adv("GHSA-live", ["CVE-2020-1"])
     dupe = adv("PYSEC-old", ["CVE-2020-1", "GHSA-live"], withdrawn="2023-05-05T00:00:00Z")
     [m] = match_dependency(dep(), [live, dupe])
-    assert m.confidence == "exact"
+    assert m.confidence == "confirmed"
     assert any("PYSEC-old was withdrawn" in e for e in m.evidence)  # still disclosed
 
 

@@ -36,7 +36,7 @@ def test_cvss_rejects_non_v3_and_malformed():
 def make(direct=True, scope="runtime", exact=True, claims=None, aliases=("CVE-2030-0001",), advisories=None, fixed=("1.5",)):
     d = Dependency(name="alpha", ecosystem="PyPI", spec="==1.0", version="1.0" if exact else None,
                    lower_bound="1.0", direct=direct, scope=scope, claims=claims or [])
-    return Match(id=aliases[0], aliases=list(aliases[1:]), dependency=d, confidence="exact", evidence=[],
+    return Match(id=aliases[0], aliases=list(aliases[1:]), dependency=d, confidence="confirmed", evidence=[],
                  verdicts=[], advisories=advisories or [], fixed_versions=list(fixed))
 
 

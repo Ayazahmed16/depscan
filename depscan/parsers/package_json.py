@@ -56,6 +56,7 @@ def parse_package_json(text: str, source: str = "package.json") -> ParseResult:
             deps.append(Dependency(
                 name=name.lower(), ecosystem="npm", spec=spec, version=exact, lower_bound=low,
                 direct=True, scope=scope, source=source,
+                resolution="pin" if exact else "range",
             ))
     if (doc.get("peerDependencies") or {}):
         warnings.append("peerDependencies are not scanned (they are provided by the consuming project)")
@@ -86,6 +87,6 @@ def parse_package_lock(text: str, source: str = "package-lock.json") -> ParseRes
         dev = bool(info.get("dev")) or (direct and name in direct_dev and name not in direct_runtime)
         deps.append(Dependency(
             name=name.lower(), ecosystem="npm", spec=version, version=version, lower_bound=version,
-            direct=direct, scope="dev" if dev else "runtime", source=source,
+            direct=direct, scope="dev" if dev else "runtime", source=source, resolution="lockfile",
         ))
     return ParseResult(deps, source, "package-lock.json", [])

@@ -5,9 +5,18 @@ import { Gauge } from '../components/primitives/Gauge'
 import { Panel } from '../components/primitives/Panel'
 import { IconRisk, IconTrust, IconWarning } from '../lib/icons'
 import {
-  ACTION_LABEL, ACTION_SIGNAL, riskSignal, SIGNAL_TEXT_CLASS, trustSignal,
+  ACTION_LABEL, ACTION_SIGNAL, riskSignal, SIGNAL_TEXT_CLASS, trustSignal, type Signal,
 } from '../lib/severity'
-import { REQUIRED_NOTICE, type Finding, type ReviewDecision } from '../lib/types'
+import { REQUIRED_NOTICE, type Finding, type MatchConfidence, type ReviewDecision } from '../lib/types'
+
+// Match confidence, strongest first. Colour says how far to rely on the match itself.
+const CONFIDENCE_SIGNAL: Record<MatchConfidence, Signal> = {
+  confirmed: 'info',
+  likely: 'info',
+  possible: 'warning',
+  probable: 'warning',
+  uncertain: 'critical',
+}
 
 const DECISIONS: { id: ReviewDecision; label: string }[] = [
   { id: 'fix_now', label: 'fix now' },
@@ -150,7 +159,7 @@ function Detail({ finding: f, onReview }: {
         </p>
       </Panel>
 
-      <Panel title="Why it matched" aside={<Badge signal={f.match.confidence === 'exact' ? 'info' : f.match.confidence === 'probable' ? 'warning' : 'critical'}>{f.match.confidence}</Badge>} bodyClassName="p-3">
+      <Panel title="Why it matched" aside={<Badge signal={CONFIDENCE_SIGNAL[f.match.confidence]}>{f.match.confidence}</Badge>} bodyClassName="p-3">
         <ul className="flex flex-col gap-1 border border-outline-variant bg-surface-container-lowest p-2.5 font-mono text-[10px] leading-relaxed text-on-surface">
           {f.match.evidence.map((e, i) => <li key={i}>{e}</li>)}
         </ul>

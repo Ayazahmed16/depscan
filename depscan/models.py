@@ -26,6 +26,9 @@ class Dependency:
     source: str = ""                  # file the dependency came from
     line: int | None = None
     claims: list[ScannerClaim] = field(default_factory=list)
+    resolution: str = "range"         # pin | lockfile | range: how `version` was learned
+    newest: str | None = None         # newest registry release satisfying the range (step 2)
+    registry_status: str | None = None  # resolved | failed | None (not attempted)
 
     @property
     def exact(self) -> bool:
@@ -33,8 +36,8 @@ class Dependency:
 
     @property
     def candidate(self) -> str | None:
-        """The version we test against advisories: the pinned one, else the spec's lower bound."""
-        return self.version or self.lower_bound
+        """The version used for display and fallbacks: pinned, else newest resolved, else the lower bound."""
+        return self.version or self.newest or self.lower_bound
 
 
 @dataclass
@@ -60,10 +63,11 @@ class Match:
     id: str                           # primary id, a CVE when one exists
     aliases: list[str]
     dependency: Dependency
-    confidence: str                   # exact | probable | uncertain
+    confidence: str                   # confirmed | likely | possible | probable | uncertain
     evidence: list[str]
     verdicts: list[SourceVerdict]
     advisories: list[dict]            # the raw (compact) OSV records behind this match
     fixed_versions: list[str] = field(default_factory=list)
     scanner_only: bool = False        # only a scan report claimed it, OSV data did not confirm
     contradicted: bool = False        # OSV data says the version is NOT affected
+    version: str | None = None        # the version that was found affected (used for fixes and display)

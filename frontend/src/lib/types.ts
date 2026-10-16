@@ -2,7 +2,7 @@
 // The backend (phase 9a) must return exactly these shapes.
 
 export type Action = 'fix_now' | 'verify_first' | 'monitor' | 'no_action'
-export type MatchConfidence = 'exact' | 'probable' | 'uncertain'
+export type MatchConfidence = 'confirmed' | 'likely' | 'possible' | 'probable' | 'uncertain'
 export type ReviewDecision = 'accept_risk' | 'false_positive' | 'fix_now'
 
 /** One weighted factor behind the risk score (see docs/SCORING.md). */

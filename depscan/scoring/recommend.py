@@ -8,7 +8,7 @@ from ..models import Match
 def minimum_fix(match: Match) -> tuple[str | None, bool | None]:
     """The lowest listed fixed version above the tested one, and whether it is a major bump."""
     dep = match.dependency
-    version = dep.candidate
+    version = match.version or dep.candidate
     if not match.fixed_versions or version is None:
         return None, None
     try:
@@ -36,7 +36,7 @@ def action_from_risk(score: float, cfg: dict, *, uncertain: bool = False) -> str
 
 def recommendation_text(match: Match, fixed: str | None, major: bool | None, action: str) -> str:
     dep = match.dependency
-    name, version = dep.name, dep.candidate
+    name, version = dep.name, match.version or dep.candidate
     if match.scanner_only and match.contradicted:
         return (f"Likely a false positive: advisory data says {name} {version} is not affected. "
                 f"Confirm against the advisory, then mark it as a false positive.")

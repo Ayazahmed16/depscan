@@ -19,7 +19,7 @@ export const fixtureScan: ScanResult = {
       id: 'FIXTURE-0001', aliases: ['FIXTURE-A'], package: 'example-web', version: '1.0.0', ecosystem: 'PyPI',
       direct: true, scope: 'runtime', summary: 'Placeholder advisory used only to check the layout.',
       cvss: 9.1, epss: 0.42, kev: true, fixed_version: '1.2.0', major_bump: false,
-      match: { confidence: 'exact', evidence: ['placeholder: version 1.0.0 is inside range >=0.5,<1.2.0 (source A)', 'placeholder: source B lists the same range'] },
+      match: { confidence: 'confirmed', evidence: ['placeholder: version 1.0.0 is inside range >=0.5,<1.2.0 (source A)', 'placeholder: source B lists the same range'] },
       risk: { score: 82, factors: [{ name: 'cvss', value: '9.1', weight: 0.3, contribution: 27 }, { name: 'kev', value: 'listed', weight: 0.3, contribution: 30 }] },
       trust: { score: 88, signals: [{ name: 'independent sources', value: '2', effect: 25, note: 'two sources list this advisory' }, { name: 'fix exists', value: 'yes', effect: 15, note: 'patched release found' }] },
       action: 'fix_now', recommendation: 'Placeholder: upgrade example-web to 1.2.0 or later (minor bump).',

@@ -1,4 +1,4 @@
-"""Command line: python -m depscan scan requirements.txt [--out report.html|report.md|result.json]
+"""Command line: python -m depscan scan requirements.txt [more files or a folder] [--out report.html|report.md|result.json]
 
 Reads the file, never changes it, and works offline from the cached snapshots in ./data.
 """
@@ -9,7 +9,7 @@ import json
 import sys
 from pathlib import Path
 
-from .pipeline import DEFAULT_DATA_DIR, DataBundle, scan_bytes
+from .pipeline import DEFAULT_DATA_DIR, DataBundle, collect_files, scan_files
 from .report import render_html, render_markdown
 
 
@@ -17,7 +17,7 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="depscan")
     sub = ap.add_subparsers(dest="cmd", required=True)
     scan = sub.add_parser("scan", help="scan a dependency file or scan report (read-only)")
-    scan.add_argument("file", type=Path)
+    scan.add_argument("files", type=Path, nargs="+", help="dependency files or folders; lock files beside a manifest are found automatically")
     scan.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
     scan.add_argument("--out", type=Path, help=".html, .md or .json; default prints Markdown")
     args = ap.parse_args(argv)
@@ -27,7 +27,7 @@ def main(argv: list[str] | None = None) -> int:
     except FileNotFoundError as e:
         print(f"error: {e}", file=sys.stderr)
         return 2
-    result = scan_bytes(args.file.name, args.file.read_bytes(), bundle)  # read_bytes: input is never written
+    result = scan_files(collect_files(args.files), bundle)  # files are only read, never written
     if args.out is None:
         print(render_markdown(result))
     else:

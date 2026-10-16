@@ -65,8 +65,11 @@ def match_dependency(dep: Dependency, advisories: list[dict]) -> list[Match]:
         seen_ids.update([pid, *all_ids])  # only matched ids count as "confirmed" for scanner claims
 
         evidence = [f"{dep.name} {version}: {v.advisory_id}: {v.reason}" for v in hits]
-        confidence = "exact" if dep.exact else "probable"
-        if not dep.exact:
+        confidence = "confirmed" if dep.exact else "probable"
+        if dep.exact:
+            how = f"locked in {dep.source}" if dep.resolution == "lockfile" else f"pinned exactly in {dep.source or 'the manifest'}"
+            evidence.append(f"installed version {version} is known exactly: {how}")
+        else:
             evidence.append(
                 f"the file declares '{dep.spec}', not an exact version; {version} is the lowest version it allows, "
                 f"so the installed version may differ (a lock file or scan report would settle it)"
@@ -85,7 +88,7 @@ def match_dependency(dep: Dependency, advisories: list[dict]) -> list[Match]:
 
         matches.append(Match(
             id=pid, aliases=all_ids, dependency=dep, confidence=confidence, evidence=evidence,
-            verdicts=verdicts, advisories=records,
+            verdicts=verdicts, advisories=records, version=version,
             fixed_versions=sorted({h.fixed_in for h in hits if h.fixed_in}),
         ))
 
@@ -114,6 +117,7 @@ def match_dependency(dep: Dependency, advisories: list[dict]) -> list[Match]:
                 why,
             ],
             verdicts=[], advisories=[r for r, _ in contradicting], scanner_only=True, contradicted=contradicted,
+            version=version,
         ))
     return matches
 
