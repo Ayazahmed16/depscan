@@ -170,3 +170,31 @@ def test_api_index_get_returns_compact_records(tmp_path):
     [a] = idx.get("example.com/mod")
     assert a["id"] == "GO-2031-0001" and a["affected"][0]["ranges"][0]["events"][1] == {"fixed": "1.5.0"}
     assert json.loads((tmp_path / "osv_api" / "Go.names.json").read_text())["example.com/mod"]["vulns"]
+
+
+def test_truncated_querybatch_response_is_not_trusted(data_dir):
+    """OSV answers for fewer packages than we asked about: we cannot tell which, so none may look clean."""
+    class Truncated(FakeOsv):
+        def __call__(self, method, url, body, timeout):
+            if url.endswith("/querybatch"):
+                return {"results": [{"vulns": [{"id": "GO-2031-0001", "modified": "2031-01-01T00:00:00Z"}]}]}   # 1 answer for 2 questions
+            return super().__call__(method, url, body, timeout)
+    r = go_scan(data_dir, Truncated())
+    assert r["findings"] == []
+    assert any("2 Go package(s) could NOT be checked" in w for w in r["warnings"])
+
+
+def test_partial_pagination_is_not_cached_as_complete(data_dir, tmp_path):
+    """Page 2 fails: the first page's ids must not be stored as the full list, or vulnerabilities vanish for a week."""
+    class PageFails(FakeOsv):
+        def __call__(self, method, url, body, timeout):
+            if url.endswith("/querybatch"):
+                return {"results": [{"vulns": [{"id": "GO-2031-0001", "modified": "m"}], "next_page_token": "t1"}, {}]}
+            if url.endswith("/query"):
+                raise urllib.error.URLError("page 2 failed")
+            return super().__call__(method, url, body, timeout)
+    idx = OsvApiIndex("Go", tmp_path, transport=PageFails())
+    idx.prefetch(["example.com/mod", "example.com/clean"])
+    assert idx.failed == ["example.com/mod"]                        # reported as not checked
+    cache = json.loads((tmp_path / "osv_api" / "Go.names.json").read_text())
+    assert "example.com/mod" not in cache and "example.com/clean" in cache

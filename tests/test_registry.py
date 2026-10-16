@@ -4,9 +4,9 @@ import urllib.error
 
 import pytest
 
+from depscan.parsers import parse_file
 from depscan.pipeline import DataBundle, scan_files
 from depscan.registry import Registry, resolve_ranges
-from depscan.parsers import parse_file
 
 
 def pypi_body(*versions, yanked=()):

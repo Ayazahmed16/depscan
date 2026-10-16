@@ -41,6 +41,10 @@ risk:
     critical: 60
     high: 30
 
+data:
+  # Warn when a data snapshot is older than this many days. New vulnerabilities published since are not covered.
+  stale_days: 14
+
 trust:
   # Filled in with the trust layer (phase 5).
   fresh_days: 365

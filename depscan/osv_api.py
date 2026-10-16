@@ -19,8 +19,8 @@ import json
 import time
 import urllib.error
 import urllib.request
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable
 
 from .data.osv import compact_advisory
 from .ecosystems import normalize_name
@@ -53,6 +53,7 @@ class OsvApiIndex:
         self.down = offline
         self.failed: list[str] = []            # package names we could not check at all
         self._ids: dict[str, list[dict]] = {}  # name -> [{"id","modified"}]
+        self._tried: set[str] = set()          # names already asked about (a failed one is not silently retried)
         self.network_calls = 0
 
     # ---- disk cache
@@ -83,6 +84,7 @@ class OsvApiIndex:
         """Resolve advisory ids for all names with as few requests as possible (querybatch)."""
         cache = self._load_names()
         now = time.time()
+        self._tried.update(names)
         todo = []
         for n in dict.fromkeys(names):
             hit = cache.get(n)
@@ -94,27 +96,38 @@ class OsvApiIndex:
             chunk = todo[i:i + BATCH]
             resp = self._call("POST", "/querybatch", {"queries": [
                 {"package": {"name": n, "ecosystem": self.ecosystem}} for n in chunk]})
-            if resp is None:
-                for n in chunk:  # a stale cache entry beats nothing
-                    if n in cache:
-                        self._ids[n] = cache[n]["vulns"]
-                    else:
-                        self.failed.append(n)
+            results = resp.get("results", []) if resp else []
+            if resp is None or len(results) != len(chunk):
+                # No answer, or one that does not line up with the questions (truncated?). Never guess which
+                # package an answer belongs to: fall back to the cache, else report "not checked".
+                for n in chunk:
+                    self._stale_or_failed(n, cache)
                 continue
-            for n, result in zip(chunk, resp.get("results", [])):
+            for n, result in zip(chunk, results, strict=True):
                 vulns = list(result.get("vulns", []))
                 token = result.get("next_page_token")
+                complete = True
                 while token:  # querybatch pages large results: follow with /query
                     page = self._call("POST", "/query", {"package": {"name": n, "ecosystem": self.ecosystem}, "page_token": token})
                     if page is None:
+                        complete = False  # a partial list must NOT be cached as if it were everything
                         break
                     vulns += page.get("vulns", [])
                     token = page.get("next_page_token")
+                if not complete:
+                    self._stale_or_failed(n, cache)
+                    continue
                 self._ids[n] = [{"id": v["id"], "modified": v.get("modified")} for v in vulns]
                 cache[n] = {"fetched_at": now, "vulns": self._ids[n]}
         if todo:
             self.dir.mkdir(parents=True, exist_ok=True)
             self._names_path().write_text(json.dumps(cache), "utf-8")
+
+    def _stale_or_failed(self, name: str, cache: dict) -> None:
+        if name in cache:  # an old complete answer beats no answer
+            self._ids[name] = cache[name]["vulns"]
+        else:
+            self.failed.append(name)
 
     def _record(self, vid: str, modified: str | None) -> dict | None:
         p = self._vuln_path(vid)
@@ -133,7 +146,7 @@ class OsvApiIndex:
 
     # ---- the interface the matcher uses
     def get(self, name: str, default=None):
-        if name not in self._ids:
+        if name not in self._ids and name not in self._tried:
             self.prefetch([name])
         out = []
         for v in self._ids.get(name, []):

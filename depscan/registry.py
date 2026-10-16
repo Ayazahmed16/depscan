@@ -18,12 +18,13 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable
 
 from packaging.specifiers import InvalidSpecifier, SpecifierSet
 from packaging.version import InvalidVersion, Version
-from semantic_version import NpmSpec, Version as NpmVersion
+from semantic_version import NpmSpec
+from semantic_version import Version as NpmVersion
 
 from .models import Dependency
 

@@ -4,13 +4,13 @@ from __future__ import annotations
 import datetime as dt
 from pathlib import Path
 
-from .data.feeds import load_epss, load_kev, load_nvd, snapshot_dates
+from .data.feeds import load_epss, load_kev, load_nvd, snapshot_dates, snapshot_warnings
 from .data.osv import load_osv_index
 from .matcher import match_all
 from .matcher.versions import UnparsableVersion, parse_version
 from .models import Match
-from .parsers import parse_files
 from .osv_api import OsvApiIndex
+from .parsers import parse_files
 from .registry import Registry, resolve_ranges
 from .scoring.config import load_config
 from .scoring.recommend import action_from_risk, minimum_fix, recommendation_text
@@ -142,10 +142,11 @@ def scan_bytes(name: str, content: bytes, bundle: DataBundle, cfg: dict | None =
     return scan_files([(name, content)], bundle, cfg)
 
 
-def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | None = None) -> dict:
+def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | None = None, today: dt.date | None = None) -> dict:
     cfg = cfg or load_config()
     name = ", ".join(n for n, _ in files)
     parsed = parse_files(files)
+    parsed.warnings += snapshot_warnings(bundle.snapshots, today or dt.date.today(), cfg["data"]["stale_days"])
     if bundle.registry is not None:
         parsed.warnings += resolve_ranges(parsed.dependencies, bundle.registry)
     ecosystems = {d.ecosystem for d in parsed.dependencies}
@@ -166,7 +167,7 @@ def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | N
     findings.sort(key=lambda f: (tier[f["claim_status"]], -f["risk"]["score"], f["id"], f["package"]))
     return {
         "source": name,
-        "scanned_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "scanned_at": dt.datetime.now(dt.UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "kind": parsed.kind,
         "dependencies_read": len(parsed.dependencies),
         "warnings": parsed.warnings,

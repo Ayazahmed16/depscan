@@ -52,7 +52,7 @@ def render_markdown(result: dict) -> str:
             for n in x["risk"]["notes"]:
                 out.append(f"\n_Note: {n}_")
             out += ["", f"**Recommendation:** {x['recommendation']}", ""]
-    out += ["## Limitations", ""] + [f"- {l}" for l in LIMITS] + ["", f"**{NOTICE}**", ""]
+    out += ["## Limitations", ""] + [f"- {limit}" for limit in LIMITS] + ["", f"**{NOTICE}**", ""]
     return "\n".join(out)
 
 
@@ -96,4 +96,4 @@ table{{border-collapse:collapse;width:100%;margin:.5rem 0}}td,th{{border:1px sol
 <p class="notice">{NOTICE}</p>
 <p class="meta">Scanned {e(result['scanned_at'])} · {result['dependencies_read']} dependencies read · {len(f)} findings · data snapshots: {snap}</p>
 {f'<h2>Could not read or caveats</h2><ul>{warnings}</ul>' if warnings else ''}{body_find}
-<h2>Limitations</h2><ul>{''.join(f'<li>{e(l)}</li>' for l in LIMITS)}</ul><p class="notice">{NOTICE}</p></body></html>"""
+<h2>Limitations</h2><ul>{''.join(f'<li>{e(limit)}</li>' for limit in LIMITS)}</ul><p class="notice">{NOTICE}</p></body></html>"""

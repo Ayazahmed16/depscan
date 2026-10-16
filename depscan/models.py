@@ -3,7 +3,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-
 # Match confidence, strongest first. The trust layer (phase 5) reads this ordering.
 CONFIDENCE_ORDER = ["confirmed", "likely", "possible", "probable", "uncertain"]
 

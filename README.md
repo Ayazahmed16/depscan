@@ -39,6 +39,12 @@ automatically. Supported inputs: `requirements.txt`, `package.json`, `package-lo
 Known test sample: `tests/sample/` (real, frozen advisory records) with expected results in `tests/test_known_sample.py`
 and labels in `tests/sample/labels.yaml` (**unverified, needs the owner's check**).
 
+Data downloads are integrity-checked (OSV md5, NVD sha256, KEV/EPSS format checks), a bad download never replaces a good
+snapshot, and a scan warns when its data is older than `data.stale_days` (default 14) or NVD is missing.
+
+Development: `pytest`, `ruff check depscan scripts tests` (settings in `ruff.toml`),
+`coverage run -m pytest` then `coverage report`.
+
 Scoring: [docs/SCORING.md](docs/SCORING.md), weights in [config/scoring.yaml](config/scoring.yaml).
 Plan and data sources: [docs/PLAN.md](docs/PLAN.md). Tests: `pytest`.
 

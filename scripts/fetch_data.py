@@ -21,9 +21,11 @@ Nothing here touches a project's dependency files.
 from __future__ import annotations
 
 import argparse
+import base64
 import datetime as dt
 import gzip
 import hashlib
+import io
 import json
 import os
 import sys
@@ -52,14 +54,18 @@ def log(msg: str) -> None:
     print(msg, flush=True)
 
 
-def http_get(url: str, *, retries: int = 4, timeout: int = 120, headers: dict | None = None) -> bytes:
-    """GET with a few retries and a clear error. Returns the body bytes."""
+def http_fetch(url: str, *, retries: int = 4, timeout: int = 120, headers: dict | None = None) -> tuple[bytes, dict]:
+    """GET with a few retries and a clear error. Returns (body bytes, lower-cased response headers)."""
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, **(headers or {})})
     last: Exception | None = None
     for attempt in range(retries):
         try:
             with urllib.request.urlopen(req, timeout=timeout) as resp:
-                return resp.read()
+                # a header can repeat (x-goog-hash is sent twice), so join the values
+                hdrs: dict[str, str] = {}
+                for k, v in resp.headers.items():
+                    hdrs[k.lower()] = f"{hdrs[k.lower()]},{v}" if k.lower() in hdrs else v
+                return resp.read(), hdrs
         except urllib.error.HTTPError as e:
             last = e
             if e.code in (403, 429, 503):  # rate limited or briefly unavailable: wait and retry
@@ -74,6 +80,18 @@ def http_get(url: str, *, retries: int = 4, timeout: int = 120, headers: dict | 
     raise RuntimeError(f"giving up on {url}: {last}")
 
 
+def http_get(url: str, **kw) -> bytes:
+    return http_fetch(url, **kw)[0]
+
+
+def write_atomic(path: Path, data: bytes) -> None:
+    """Write via a temp file so an interrupted or invalid download never replaces a good snapshot."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(path.name + ".part")
+    tmp.write_bytes(data)
+    tmp.replace(path)
+
+
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -83,7 +101,7 @@ def sha256(path: Path) -> str:
 
 
 def now_iso() -> str:
-    return dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return dt.datetime.now(dt.UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 class Manifest:
@@ -107,19 +125,32 @@ class Manifest:
 
 
 # ---------------------------------------------------------------- OSV
+def _is_nonempty_zip(body: bytes) -> bool:
+    try:
+        return bool(zipfile.ZipFile(io.BytesIO(body)).namelist())
+    except zipfile.BadZipFile:
+        return False
+
+
 def fetch_osv(data_dir: Path, ecosystems: list[str], manifest: Manifest) -> None:
     for eco in ecosystems:
         url = OSV_URL.format(eco=eco)
         target = data_dir / "osv" / f"{eco}.zip"
         target.parent.mkdir(parents=True, exist_ok=True)
         log(f"[osv] downloading {url}")
-        body = http_get(url, timeout=600)
-        tmp = target.with_suffix(".part")
-        tmp.write_bytes(body)
-        if not zipfile.is_zipfile(tmp):
-            tmp.unlink()
-            raise RuntimeError(f"[osv] {eco}: download is not a zip file")
-        tmp.replace(target)
+        body, hdrs = http_fetch(url, timeout=600)
+        # Google Cloud Storage publishes the object's md5 (base64) in x-goog-hash: verify it when present.
+        expected = next((p.split("=", 1)[1] for p in hdrs.get("x-goog-hash", "").replace(" ", "").split(",")
+                         if p.startswith("md5=")), None)
+        if expected is not None:
+            got = base64.b64encode(hashlib.md5(body).digest()).decode()  # noqa: S324 (integrity check, not security)
+            if got != expected:
+                raise RuntimeError(f"[osv] {eco}: checksum mismatch (md5 {got} != published {expected}); snapshot not replaced")
+        else:
+            log(f"[osv] {eco}: no checksum published in the response headers; only the zip structure is verified")
+        if not _is_nonempty_zip(body):
+            raise RuntimeError(f"[osv] {eco}: download is not a valid, non-empty zip file; snapshot not replaced")
+        write_atomic(target, body)
         log(f"[osv] {eco}: {len(body) / 1e6:.1f} MB, building compact index")
         n_adv, n_pkg, newest = build_osv_index(target, data_dir / "osv" / f"{eco}.index.json", eco)
         manifest.record(
@@ -137,10 +168,11 @@ def fetch_kev(data_dir: Path, manifest: Manifest) -> None:
     log(f"[kev] downloading {KEV_URL}")
     body = http_get(KEV_URL)
     doc = json.loads(body)  # fail loudly if it is not JSON
-    if "vulnerabilities" not in doc:
-        raise RuntimeError("[kev] unexpected format: no 'vulnerabilities' key")
+    entries = doc.get("vulnerabilities") if isinstance(doc, dict) else None
+    if not entries or not all("cveID" in e and "dateAdded" in e for e in entries[:20]):
+        raise RuntimeError("[kev] unexpected format (need a non-empty 'vulnerabilities' list with cveID and dateAdded); snapshot not replaced")
     target = data_dir / "kev.json"
-    target.write_bytes(body)
+    write_atomic(target, body)
     released = str(doc.get("dateReleased", ""))[:10] or None
     manifest.record("kev", url=KEV_URL, file=target, snapshot_date=released,
                     extra={"count": len(doc["vulnerabilities"]), "catalogVersion": doc.get("catalogVersion")})
@@ -153,19 +185,25 @@ def fetch_epss(data_dir: Path, manifest: Manifest, history_days: list[int]) -> N
     folder = data_dir / "epss"
     folder.mkdir(parents=True, exist_ok=True)
     today = dt.date.today()
-    wanted = [("current", None)] + [(str((today - dt.timedelta(days=d))), d) for d in history_days]
+    wanted = [("current", None)] + [(str(today - dt.timedelta(days=d)), d) for d in history_days]
     for tag, days_back in wanted:
         url = EPSS_URL.format(tag=tag)
         try:
             body = http_get(url, timeout=300)
-        except urllib.error.HTTPError as e:
-            log(f"[epss] {tag}: not available ({e.code}), skipped")
+            text = gzip.decompress(body).decode("utf-8")
+            first, _, rest = text.partition("\n")
+            columns, _, data = rest.partition("\n")
+            if columns.strip() != "cve,epss,percentile" or data.count("\n") < 1000:
+                raise ValueError("not an EPSS score file (unexpected header or fewer than 1000 rows)")
+        except Exception as e:
+            if tag == "current":
+                raise  # the current scores are required; an old date is optional history
+            log(f"[epss] {tag}: skipped ({e})")
             continue
-        header = gzip.decompress(body).split(b"\n", 1)[0].decode()
-        score_date = header.split("score_date:")[-1][:10] if "score_date:" in header else (tag if days_back else None)
+        score_date = first.split("score_date:")[-1][:10] if "score_date:" in first else (tag if days_back else None)
         name = f"epss_{score_date or tag}.csv.gz"
         target = folder / name
-        target.write_bytes(body)
+        write_atomic(target, body)
         key = "epss" if tag == "current" else f"epss:{score_date}"
         manifest.record(key, url=url, file=target, snapshot_date=score_date)
         log(f"[epss] {tag} -> {name} ({len(body) / 1e6:.1f} MB)")
@@ -311,7 +349,7 @@ def fetch_nvd_feeds(data_dir: Path, ecosystems: list[str], manifest: Manifest, f
             raise
 
     with ThreadPoolExecutor(max_workers=8) as pool:
-        metas = dict(zip(years, pool.map(get_meta, years)))
+        metas = dict(zip(years, pool.map(get_meta, years), strict=True))
     todo = []
     for y in years:
         meta, st = metas[y], state.get(str(y))

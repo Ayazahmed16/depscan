@@ -42,7 +42,7 @@ class SemVer:
         self.pre = m["pre"].split(".") if m["pre"] else []
         self.text = text
 
-    def _key(self, other: "SemVer") -> int:
+    def _key(self, other: SemVer) -> int:
         for a, b in ((self.major, other.major), (self.minor, other.minor), (self.patch, other.patch)):
             if a != b:
                 return -1 if a < b else 1
@@ -52,7 +52,7 @@ class SemVer:
             return 1
         if not other.pre:
             return -1
-        for a, b in zip(self.pre, other.pre):
+        for a, b in zip(self.pre, other.pre, strict=False):  # unequal lengths are handled right after the loop
             if a == b:
                 continue
             a_num, b_num = a.isdigit(), b.isdigit()
