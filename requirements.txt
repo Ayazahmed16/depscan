@@ -7,3 +7,4 @@ networkx>=3
 pytest>=8
 httpx>=0.27
 semantic-version>=2.10
+ijson>=3.2

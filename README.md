@@ -19,7 +19,9 @@ pip install -r requirements.txt
 python scripts/fetch_data.py      # one-off download of OSV, KEV, EPSS, NVD snapshots into ./data
 ```
 
-NVD is slow without a free API key (set `NVD_API_KEY`); the other sources take a few minutes.
+The whole download takes roughly 10 minutes (NVD is about 6 of them: the official yearly feeds, each checked
+against its published sha256). Run it again any time to refresh: only NVD years that changed are re-downloaded.
+No API key is needed.
 
 ## Use
 
