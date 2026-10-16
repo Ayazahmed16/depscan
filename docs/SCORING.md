@@ -73,18 +73,36 @@ Phase 5 refines this with trust: **high risk with low trust reads `verify_first`
 
 ## 2. Match confidence (separate from risk and trust)
 
-Confidence says how sure we are that the **dependency version is affected**.
+Confidence says how sure we are that the **installed version of the dependency is affected**.
+It is shown wherever a match is shown (CLI report, JSON, UI badge). Strongest first:
 
-| Confidence | Meaning |
+| Confidence | When it is used |
 |---|---|
-| `exact` | The file or report pins an exact version, and an advisory range or explicit version list includes it. |
-| `probable` | The file only declares a range such as `>=1.2` or `^4.17.0`. We test its **lowest allowed version**. The installed version may differ. |
-| `uncertain` | Every record that affirms the match was withdrawn, the version could not be compared, or a scan report claims a vulnerability that the advisory data does not confirm (or contradicts). |
+| `confirmed` | The exact installed version is known and an advisory range or version list includes it. "Known" means: a **lock file** (`package-lock.json`, `yarn.lock`, `poetry.lock`, `Pipfile.lock`), an exact `==` pin in `requirements.txt`, an exact version in `package.json`, a `go.mod` / `go.sum` entry, or a scan report's package id. The evidence names which. |
+| `likely` | The file only gives a **range**, no lock file is present, and the registry was reachable. We test the **newest release that satisfies the range** (pre-releases and yanked releases skipped) and the **lowest allowed version**. If both are affected, any install in the range gets an affected version. |
+| `possible` | Same as `likely`, but only one of the two is affected. Whether it applies depends on when the dependency was installed (lowest only affected: a fresh install gets the patched release) or on a newer release that is itself affected (newest only). |
+| `probable` | The file gives a range and the registry could not be used (offline, unknown package, unreadable range). Only the **lowest allowed version** is tested, as in the first version of depscan. |
+| `uncertain` | Every record that affirms the match was withdrawn, a version could not be compared, or a scan report claims a vulnerability that the advisory data does not confirm (or contradicts). |
+
+`confirmed > likely > possible > probable`, with `uncertain` below all of them. The order is the constant
+`CONFIDENCE_ORDER` in `depscan/models.py`.
+
+**Lock files beat ranges.** If a lock file is supplied (or sits beside the manifest on the command line),
+its exact versions replace the manifest ranges. The manifest still says which packages are direct and
+which are dev-only. A manifest entry missing from the lock file stays a range and the report says so.
+
+**Registry lookups** (PyPI JSON API, npm registry) are cached on disk for 7 days, use a 6 second timeout and
+stop after the first network failure. `--offline` never uses the network. With a warm cache the same answer
+is given offline.
+
+**Does confidence change the risk score?** No. The risk formula and weights are unchanged: confidence says
+how sure we are the match is real, risk says how bad it is if it is. The trust score (phase 5) will read
+`CONFIDENCE_ORDER` as one of its signals. Today the only direct effect is that `uncertain` makes the provisional
+next step `verify_first`. There is no trust score yet to feed.
 
 Records from different sources are merged by alias (GHSA, CVE, PYSEC). If one source says a version is
 affected and another says it is not, the match stays as strong as its best evidence. The disagreement is
 written into the evidence and counted by the **trust** score in phase 5. It is not counted twice.
-
 A withdrawn record next to live records is noted but does not weaken the match.
 
 ## 3. Recommendations

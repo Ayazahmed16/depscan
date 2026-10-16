@@ -46,9 +46,9 @@ Tooling: Python 3.14 (installed), `packaging`, `PyYAML`, `fastapi`, `uvicorn`, `
 
 ## 3. Assumptions
 
-1. Ecosystems: **PyPI and npm** for matching; the exposure graph is **Python/Django only**.
-2. Version matching uses OSV ranges (`ECOSYSTEM` for PyPI via PEP 440, `SEMVER` for npm). `GIT` ranges are not used for matching but their fix commits count as "a fix exists" evidence.
-3. A manifest that pins an exact version (`==1.2.3`, or a lock/`package.json` exact version) gives an exact match. A range specifier (`>=1.2`) gives only a **probable** match, using the lowest version the range allows, and is labelled as such.
+1. Ecosystems: **PyPI, npm and Go** for matching (see `depscan/ecosystems.py`); the exposure graph is **Python/Django only**.
+2. Version matching uses OSV ranges (`ECOSYSTEM` for PyPI via PEP 440, `SEMVER` for npm and Go). `GIT` ranges are not used for matching but their fix commits count as "a fix exists" evidence.
+3. An exact version (a `==` pin, a lock file, or go.mod) gives a **confirmed** match. A range (`>=1.2`) is resolved against the package registry and tested at its lowest and newest satisfying version: **likely** or **possible**. If the registry is unreachable it falls back to the lowest version only: **probable**. See SCORING.md section 2.
 4. Transitive dependencies are only known from a scan report or a lock file. A bare `requirements.txt` yields direct dependencies only, and the report says so.
 5. "Fix availability" comes from OSV `fixed` events. If none exists the fix is shown as unknown, and trust drops. We never guess a version.
 6. Runtime vs dev: `requirements-dev*.txt` and `devDependencies` are dev; everything else is runtime.
