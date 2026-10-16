@@ -25,7 +25,7 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
 
     try:
-        bundle = DataBundle(args.data_dir, Registry(args.data_dir, offline=args.offline))
+        bundle = DataBundle(args.data_dir, Registry(args.data_dir, offline=args.offline), osv_api=True, offline=args.offline)
     except FileNotFoundError as e:
         print(f"error: {e}", file=sys.stderr)
         return 2

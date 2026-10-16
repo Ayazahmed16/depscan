@@ -6,6 +6,7 @@ from dataclasses import replace
 
 from ..models import Dependency, ParseResult
 from .depcheck import parse_depcheck
+from .gomod import parse_go_mod, parse_go_sum
 from .lockfiles import parse_pipfile_lock, parse_poetry_lock, parse_yarn_lock
 from .package_json import parse_package_json, parse_package_lock
 from .requirements import parse_requirements
@@ -27,6 +28,10 @@ def parse_file(name: str, content: bytes) -> ParseResult:
             return parse_yarn_lock(text, name)
         if base == "poetry.lock":
             return parse_poetry_lock(text, name)
+        if base == "go.mod":
+            return parse_go_mod(text, name)
+        if base == "go.sum":
+            return parse_go_sum(text, name)
         if base == "pipfile.lock":
             return parse_pipfile_lock(text, name)  # JSON, so check before the generic .json branch
     except (json.JSONDecodeError, ValueError) as e:  # tomllib.TOMLDecodeError is a ValueError
@@ -49,7 +54,7 @@ def parse_file(name: str, content: bytes) -> ParseResult:
         return parse_requirements(text, name)
     raise UnsupportedFile(
         f"{name}: supported files are requirements.txt, package.json, package-lock.json, yarn.lock, "
-        f"poetry.lock, Pipfile.lock and Dependency-Check JSON"
+        f"poetry.lock, Pipfile.lock, go.mod, go.sum and Dependency-Check JSON"
     )
 
 
@@ -65,6 +70,8 @@ def combine(results: list[ParseResult]) -> ParseResult:
     """
     if len(results) == 1:
         return results[0]
+    if any(r.kind == "go.mod" for r in results):  # go.mod already pins the selected versions; go.sum would add stale ones
+        results = [r for r in results if r.kind != "go.sum"]
     passthrough = [r for r in results if r.kind not in MANIFEST_KINDS | LOCK_KINDS]
     warnings = [w for r in results for w in r.warnings]
     deps: list[Dependency] = [d for r in passthrough for d in r.dependencies]

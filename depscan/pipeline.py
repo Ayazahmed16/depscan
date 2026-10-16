@@ -10,6 +10,7 @@ from .matcher import match_all
 from .matcher.versions import UnparsableVersion, parse_version
 from .models import Match
 from .parsers import parse_files
+from .osv_api import OsvApiIndex
 from .registry import Registry, resolve_ranges
 from .scoring.config import load_config
 from .scoring.recommend import action_from_risk, minimum_fix, recommendation_text
@@ -21,8 +22,10 @@ DEFAULT_DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 class DataBundle:
     """All cached snapshots, loaded once and reused across scans."""
 
-    def __init__(self, data_dir: Path = DEFAULT_DATA_DIR, registry: Registry | None = None):
+    def __init__(self, data_dir: Path = DEFAULT_DATA_DIR, registry: Registry | None = None,
+                 osv_api: bool = False, offline: bool = False, osv_transport=None):
         self.data_dir = data_dir
+        self.osv_api, self.offline, self.osv_transport = osv_api, offline, osv_transport
         self.registry = registry   # None = never resolve ranges (tests, strictly offline runs)
         self._osv: dict[str, dict] = {}
         self.kev = load_kev(data_dir)
@@ -31,8 +34,15 @@ class DataBundle:
         self.snapshots = snapshot_dates(data_dir)
 
     def osv(self, ecosystem: str) -> dict[str, list[dict]]:
+        """Local bulk index if there is one (fully offline), else the OSV.dev API (cached), else an error."""
         if ecosystem not in self._osv:
-            self._osv[ecosystem] = load_osv_index(self.data_dir, ecosystem)
+            if (self.data_dir / "osv" / f"{ecosystem}.index.json").exists():
+                self._osv[ecosystem] = load_osv_index(self.data_dir, ecosystem)
+            elif self.osv_api:
+                self._osv[ecosystem] = OsvApiIndex(ecosystem, self.data_dir, transport=self.osv_transport, offline=self.offline)
+            else:
+                raise FileNotFoundError(
+                    f"no local advisory index for {ecosystem}: run `python scripts/fetch_data.py --only osv --ecosystems {ecosystem}`")
         return self._osv[ecosystem]
 
 
@@ -104,7 +114,7 @@ SIBLING_LOCKS = {
     "package.json": ["package-lock.json", "yarn.lock"],
     "requirements.txt": ["Pipfile.lock", "poetry.lock"],
 }
-KNOWN_FILES = ["requirements.txt", "package.json", "package-lock.json", "yarn.lock", "poetry.lock", "Pipfile.lock"]
+KNOWN_FILES = ["requirements.txt", "package.json", "package-lock.json", "yarn.lock", "poetry.lock", "Pipfile.lock", "go.mod"]
 
 
 def collect_files(paths: list[Path]) -> list[tuple[str, bytes]]:
@@ -137,7 +147,16 @@ def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | N
     if bundle.registry is not None:
         parsed.warnings += resolve_ranges(parsed.dependencies, bundle.registry)
     ecosystems = {d.ecosystem for d in parsed.dependencies}
-    matches = match_all(parsed.dependencies, {e: bundle.osv(e) for e in ecosystems})
+    indexes = {e: bundle.osv(e) for e in ecosystems}
+    for e, idx in indexes.items():
+        if isinstance(idx, OsvApiIndex):
+            idx.prefetch([d.name for d in parsed.dependencies if d.ecosystem == e])  # one batched request
+    matches = match_all(parsed.dependencies, indexes)
+    for e, idx in indexes.items():
+        if isinstance(idx, OsvApiIndex) and idx.failed:
+            parsed.warnings.append(
+                f"{len(idx.failed)} {e} package(s) could NOT be checked: OSV.dev was unreachable and nothing was cached. "
+                f"Their absence from the findings is not a clean result.")
     findings = [build_finding(m, bundle, cfg) for m in matches]
     findings.sort(key=lambda f: (-f["risk"]["score"], f["id"], f["package"]))
     return {

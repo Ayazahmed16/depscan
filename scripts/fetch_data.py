@@ -247,7 +247,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--data-dir", default="data", type=Path)
     ap.add_argument("--only", nargs="+", choices=ALL_SOURCES, default=list(ALL_SOURCES))
-    ap.add_argument("--ecosystems", nargs="+", default=["PyPI", "npm"])
+    ap.add_argument("--ecosystems", nargs="+", default=["PyPI", "npm", "Go"], help="OSV ecosystem names; must be listed in depscan/ecosystems.py")
     ap.add_argument("--epss-history", nargs="*", type=int, default=[30, 90, 180, 365],
                     help="also fetch EPSS files from N days ago (real history for the timeline)")
     ap.add_argument("--resume", action="store_true", help="continue an interrupted NVD crawl")

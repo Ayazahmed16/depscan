@@ -12,6 +12,8 @@ from functools import cmp_to_key
 
 from packaging.version import InvalidVersion, Version
 
+from ..ecosystems import get as get_ecosystem
+
 
 class UnparsableVersion(ValueError):
     pass
@@ -72,7 +74,7 @@ class SemVer:
 def parse_version(ecosystem: str, text: str):
     """Returns an orderable version object, or raises UnparsableVersion."""
     try:
-        return Version(text) if ecosystem == "PyPI" else SemVer(text)
+        return Version(text) if get_ecosystem(ecosystem).scheme == "pep440" else SemVer(text)
     except InvalidVersion as e:
         raise UnparsableVersion(text) from e
 
