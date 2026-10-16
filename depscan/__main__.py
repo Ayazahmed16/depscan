@@ -34,7 +34,8 @@ def cmd_scan(args) -> int:
         print(f"error: {e}", file=sys.stderr)
         return 2
     store = ReviewStore(args.review_db) if args.review_db.exists() else None  # a scan alone never creates review state
-    result = scan_files(collect_files(args.files), bundle, review_store=store, project=args.project or "default")
+    project_dir = args.project_dir or next((p for p in args.files if p.is_dir() and (p / "manage.py").exists()), None)
+    result = scan_files(collect_files(args.files), bundle, review_store=store, project=args.project or "default", project_dir=project_dir)
     if args.out is None:
         print(render_markdown(result))
         return 0
@@ -102,6 +103,7 @@ def main(argv: list[str] | None = None) -> int:
     scan.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
     scan.add_argument("--offline", action="store_true", help="never use the network: version ranges use cached registry data or fall back to the lowest allowed version")
     scan.add_argument("--out", type=Path, help=".html, .md or .json; default prints Markdown")
+    scan.add_argument("--project-dir", type=Path, help="a Django project folder: finds which vulnerable packages its URL routes can reach (a folder given above that holds manage.py is used automatically)")
     _store_arg(scan)
 
     review = sub.add_parser("review", help="record a person's decision about a finding (never changes dependency files)")

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import ForceGraph2D, { type ForceGraphMethods } from 'react-force-graph-2d'
+import { ExposureBadge } from '../components/primitives/ExposureBadge'
 import { Panel } from '../components/primitives/Panel'
 import { IconGraph } from '../lib/icons'
 import type { ExposureGraph, Finding } from '../lib/types'
@@ -143,15 +144,22 @@ export function ExposureView({ graph, findings, selectedId }: {
               <p className="font-mono text-[11px] text-on-surface">{selected.id} <span className="text-on-surface-variant">{selected.package}@{selected.version}</span></p>
               {selected.exposure ? (
                 <>
-                  <p className={`font-mono text-[10px] uppercase tracking-wide ${selected.exposure.exposed ? 'text-signal-critical' : 'text-on-surface-variant'}`}>
-                    {selected.exposure.exposed ? 'reachable from an entry point' : 'not reached from an entry point'}
+                  <p className="flex items-center gap-2">
+                    <ExposureBadge level={selected.exposure.level} />
                   </p>
-                  <ol className="flex flex-col gap-1 border border-outline-variant bg-surface-container-lowest p-2.5 font-mono text-[10px] leading-relaxed">
-                    {selected.exposure.path.map((p, i) => <li key={i} className="text-on-surface">{i + 1}. {p}</li>)}
-                  </ol>
+                  <p className="font-sans text-[12px] leading-relaxed text-on-surface">{selected.exposure.note}</p>
+                  {selected.exposure.path_labels.length > 0 ? (
+                    <ol className="flex flex-col gap-1 border border-outline-variant bg-surface-container-lowest p-2.5 font-mono text-[10px] leading-relaxed">
+                      {selected.exposure.path_labels.map((p, i) => <li key={i} className="text-on-surface">{i + 1}. {p}</li>)}
+                    </ol>
+                  ) : selected.exposure.imported_by.length > 0 && (
+                    <p className="border border-outline-variant bg-surface-container-lowest p-2.5 font-mono text-[10px] leading-relaxed text-on-surface">
+                      imported by {selected.exposure.imported_by.join(', ')}
+                    </p>
+                  )}
                 </>
               ) : (
-                <p className="font-mono text-[10px] text-on-surface-variant">No path data for this finding.</p>
+                <p className="font-mono text-[10px] text-on-surface-variant">No exposure data: no project was analysed, or this package's place in the project cannot be known.</p>
               )}
             </>
           ) : (

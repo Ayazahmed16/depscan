@@ -31,7 +31,7 @@ risk = 100 × Σ ( weight_i × factor_i )        weights sum to 1, each factor i
 | `exploit_likelihood` | 0.20 | EPSS probability ÷ `epss_cap` (0.5), capped at 1 |
 | `criticality` | 0.15 | (direct 1.0, transitive 0.6) × (runtime 1.0, dev-only 0.3) |
 | `fix_availability` | 0.05 | fix in same major 1.0, fix needs a major bump 0.6, no fix 0.0 |
-| `exposure` | 0.10 | 1 if reachable from an app entry point, 0 if not (phase 7) |
+| `exposure` | 0.10 | by the strongest way an entry point reaches the package: web 1.0, startup 0.6, command 0.3, test or not reached 0 (see [EXPOSURE.md](EXPOSURE.md)) |
 
 **Severity source order** (first one available wins, and the source is shown):
 
@@ -44,7 +44,9 @@ risk = 100 × Σ ( weight_i × factor_i )        weights sum to 1, each factor i
 
 **Dropped factors.** If a factor cannot be computed (exposure, when no Django project was analysed),
 it is dropped and the other weights are renormalised to sum to 1. The finding carries a note saying so,
-so a score without exposure is never silently compared as if it had it.
+so a score without exposure is never silently compared as if it had it. **Scores with and without a project folder
+are therefore not comparable**: the weights differ. Exposure is also dropped for a transitive dependency when nothing
+(no `poetry.lock`) says what depends on it, and for every non-Python finding: unknown is not the same as "not exposed".
 
 ### Why these choices
 
@@ -182,8 +184,8 @@ sentence, including signals worth 0 points, so the total can always be recompute
   The ones the tools did report scored 37 to 100 (median 92) on PyPI and 64 to 80 (median 75) on npm; the lowest PyPI
   score, 37, is a CVE that is genuinely disputed. That is one small experiment with 5 unreported cases, a sanity check,
   not a validation.
-- Trust says nothing about whether the vulnerable code is reachable in your application. The exposure graph (a later
-  phase) addresses that, and feeds risk, not trust.
+- Trust says nothing about whether the vulnerable code is reachable in your application. The exposure graph
+  ([EXPOSURE.md](EXPOSURE.md)) addresses that, and feeds risk, not trust.
 
 ## 4. Recommendations
 

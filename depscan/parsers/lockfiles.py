@@ -63,7 +63,9 @@ def parse_poetry_lock(text: str, source: str = "poetry.lock") -> ParseResult:
         # Older Poetry: category = "dev". Newer Poetry: groups = ["main", "dev", ...].
         groups = pkg.get("groups")
         dev = pkg.get("category") == "dev" or (isinstance(groups, list) and groups and "main" not in groups)
-        deps.append(_dep(normalize_pypi_name(name), version, "PyPI", source, "dev" if dev else "runtime"))
+        d = _dep(normalize_pypi_name(name), version, "PyPI", source, "dev" if dev else "runtime")
+        d.requires = sorted(normalize_pypi_name(r) for r in (pkg.get("dependencies") or {}))  # what it depends on, from the lock file
+        deps.append(d)
     return ParseResult(deps, source, "poetry.lock", [])
 
 

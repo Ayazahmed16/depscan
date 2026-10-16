@@ -7,6 +7,9 @@ import pytest
 
 from depscan.data.osv import build_osv_index
 
+# The fixture Django app is read by the exposure analysis, never run: do not let pytest collect or import its files.
+collect_ignore_glob = ["sample/django_app/*"]
+
 
 def _adv(id, aliases, pkg, events, **extra):
     return {"id": id, "aliases": aliases, "summary": f"{id} summary", "modified": "2025-01-01T00:00:00Z",

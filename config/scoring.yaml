@@ -31,6 +31,15 @@ risk:
     runtime: 1.0
     dev: 0.3              # criticality = direct/transitive value x runtime/dev value
 
+  # How much of the exposure weight a package earns, by the strongest way an entry point reaches it (phase 7).
+  # Needs a Django project folder; without one the factor is dropped. See docs/SCORING.md.
+  exposure_levels:
+    web: 1.0        # a URL route, middleware, the root urlconf: an attacker can send a request that runs this code path's imports
+    startup: 0.6    # settings, installed apps, wsgi/asgi: loaded in the server process, but no route reaches it directly
+    command: 0.3    # management commands and background tasks: run by an operator or a queue, not by a web request
+    test: 0.0       # only used by tests
+    none: 0.0       # imported somewhere, but nothing reaches that code (or no import was found)
+
   fix:
     available: 1.0
     major_bump: 0.6       # a fix exists but needs a major version upgrade

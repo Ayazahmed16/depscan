@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .data.feeds import load_epss, load_kev, load_nvd, snapshot_dates, snapshot_warnings
 from .data.osv import load_osv_index
+from .graph import analyze_project
 from .matcher import match_all
 from .matcher.versions import UnparsableVersion, parse_version
 from .models import Match
@@ -103,11 +104,12 @@ def _parsable(eco: str, v: str) -> bool:
         return False
 
 
-def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposed: bool | None = None, release_exists=None) -> dict:
+def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposure: dict | None = None, release_exists=None) -> dict:
     dep = match.dependency
     fixed, major = minimum_fix(match)
     risk = compute_risk(match, nvd=bundle.nvd, kev=bundle.kev, epss=bundle.epss,
-                        fixed_version=fixed, major_bump=major, cfg=cfg, exposed=exposed)
+                        fixed_version=fixed, major_bump=major, cfg=cfg,
+                        exposed=exposure["level"] if exposure else None)
     fix_yanked = bool(fixed and release_exists and release_exists(dep.ecosystem, dep.name, fixed) == "yanked")
     trust = compute_trust(match, nvd=bundle.nvd, kev=bundle.kev, fixed_version=fixed, as_of=bundle.as_of, cfg=cfg, release_exists=release_exists)
     action = decide_action(risk["score"], trust["score"], cfg, uncertain=match.confidence == "uncertain")
@@ -132,7 +134,7 @@ def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposed: bool | N
         # matched = found by our advisory data; unconfirmed = only a scan report claims it; contradicted = advisory data says it is NOT affected
         "claim_status": "contradicted" if match.contradicted else "unconfirmed" if match.scanner_only else "matched",
         "recommendation": recommendation_text(match, fixed, major, action, fix_yanked=fix_yanked),
-        "exposure": None,
+        "exposure": exposure,       # from the project graph (phase 7), None when no project was analysed or it cannot be known
         "history": [],
         "watch": None,
         "review": None,             # filled in by apply_reviews when a person has decided
@@ -226,7 +228,7 @@ def scan_bytes(name: str, content: bytes, bundle: DataBundle, cfg: dict | None =
 
 
 def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | None = None, today: dt.date | None = None,
-               review_store: ReviewStore | None = None, project: str = "default") -> dict:
+               review_store: ReviewStore | None = None, project: str = "default", project_dir: Path | None = None) -> dict:
     cfg = cfg or load_config()
     name = ", ".join(n for n, _ in files)
     parsed = parse_files(files)
@@ -245,7 +247,16 @@ def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | N
                 f"{len(idx.failed)} {e} package(s) could NOT be checked: OSV.dev was unreachable and nothing was cached. "
                 f"Their absence from the findings is not a clean result.")
     release_exists = make_release_check(bundle.registry)
-    findings = [build_finding(m, bundle, cfg, release_exists=release_exists) for m in matches]
+    analysis = analyze_project(project_dir, parsed.dependencies) if project_dir else None   # reads the .py files, never runs them
+    if analysis:
+        parsed.warnings += analysis.warnings
+    findings = [
+        build_finding(m, bundle, cfg, release_exists=release_exists,
+                      exposure=analysis.exposure(m.dependency.name) if analysis and m.dependency.ecosystem == "PyPI" else None)
+        for m in matches
+    ]
+    if analysis and any(f["ecosystem"] != "PyPI" for f in findings):
+        parsed.warnings.append("exposure analysis covers Python (Django) packages only: findings for other ecosystems have no exposure factor")
     # Order: our own matches, then unconfirmed scanner claims, then likely false positives; by risk within each.
     # The risk SCORE is untouched. This only stops a contradicted claim from outranking a confirmed finding.
     tier = {"matched": 0, "unconfirmed": 1, "contradicted": 2}
@@ -259,6 +270,7 @@ def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | N
         "snapshots": bundle.snapshots,
         "findings": findings,
         "project": project,
+        "graph": analysis.render({f["package"] for f in findings if f["ecosystem"] == "PyPI"}) if analysis else None,
         "review_summary": apply_reviews(findings, review_store, project, now=_noon(today) if today else None),
         "package_actions": package_actions(findings),
     }

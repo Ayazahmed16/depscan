@@ -33,6 +33,19 @@ def review_line(x: dict) -> str:
     return f"Review: {REVIEW_LABEL[r['decision']]} by {r['reviewer']} on {r['at'][:10]}{until}: \"{r['note']}\".{lapsed}"
 
 
+EXPOSURE_LABEL = {"web": "reachable from a web request", "startup": "loaded at application start", "command": "only used by commands or background tasks",
+                  "test": "only used by tests", "none": "not reached from any entry point"}
+
+
+def exposure_line(x: dict) -> str:
+    """One plain sentence about how a finding's package is reached, or why that is unknown."""
+    e = x.get("exposure")
+    if not e:
+        return ""
+    path = f" Path: {' → '.join(e['path_labels'])}." if e.get("path_labels") else ""
+    return f"Exposure: {EXPOSURE_LABEL[e['level']]}.{path} {e['note'][0].upper() + e['note'][1:]}."
+
+
 def review_summary_line(result: dict) -> str:
     s = result.get("review_summary")
     if not s:
@@ -83,14 +96,18 @@ def render_markdown(result: dict) -> str:
             out += ["", f"Trust signals (start at {x['trust']['base']}, add the points, clamp to 0-100):", "",
                     "| signal | value | points | why |", "|---|---|---|---|"]
             out += [f"| {s['name']} | {s['value']} | {s['effect']:+.0f} | {s['note']} |" for s in x["trust"]["signals"]]
-            out += ["", f"**Recommendation:** {x['recommendation']}", "", f"**{review_line(x)}**", ""]
+            out += ["", f"**Recommendation:** {x['recommendation']}", ""]
+            if exposure_line(x):
+                out += [exposure_line(x), ""]
+            out += [f"**{review_line(x)}**", ""]
         decided = [x for x in f if x.get("review")]
         if decided:
             out += ["## Reviewer decisions", "", "| finding | decision | reviewer | decided | expires | reason |", "|---|---|---|---|---|---|"]
             out += [f"| {x['id']} · {x['package']} {x['version']} | {REVIEW_LABEL[x['review_status']] if x['review_status'] == 'expired' else REVIEW_LABEL[x['review']['decision']]} "
                     f"| {x['review']['reviewer']} | {x['review']['at'][:10]} | {x['review']['expires'] or '-'} | {x['review']['note']} |" for x in decided]
             out.append("")
-    out += ["## Limitations", ""] + [f"- {limit}" for limit in LIMITS] + ["", f"**{NOTICE}**", ""]
+    limits = [*LIMITS, result["graph"]["limitation"]] if result.get("graph") else LIMITS     # the graph's own caveat travels with it
+    out += ["## Limitations", ""] + [f"- {limit}" for limit in limits] + ["", f"**{NOTICE}**", ""]
     return "\n".join(out)
 
 
@@ -128,7 +145,8 @@ def render_html(result: dict) -> str:
             f"<table><tr><th>factor</th><th>value</th><th>weight</th><th>adds</th></tr>{factors}</table>{notes}"
             f"<p>Trust signals (start at {x['trust']['base']}, add the points, clamp to 0-100):</p>"
             f"<table><tr><th>signal</th><th>value</th><th>points</th><th>why</th></tr>{trust_rows}</table>"
-            f"<p><b>Recommendation:</b> {e(x['recommendation'])}</p><p><b>{e(review_line(x))}</b></p></section>")
+            f"<p><b>Recommendation:</b> {e(x['recommendation'])}</p>"
+            f"{f'<p>{e(exposure_line(x))}</p>' if exposure_line(x) else ''}<p><b>{e(review_line(x))}</b></p></section>")
     actions = "".join(
         f"<li><b>{e(a['package'])}</b> {e(str(a['version']))} → {e(a['target_version'])} clears {a['clears']} of {a['total']} findings</li>"
         if a["target_version"] else
@@ -149,4 +167,4 @@ table{{border-collapse:collapse;width:100%;margin:.5rem 0}}td,th{{border:1px sol
 <p class="meta">Scanned {e(result['scanned_at'])} · {result['dependencies_read']} dependencies read · {len(f)} findings · data snapshots: {snap}</p>
 {f'<p class="meta">{e(review_summary_line(result))}</p>' if review_summary_line(result) else ''}
 {f'<h2>Could not read or caveats</h2><ul>{warnings}</ul>' if warnings else ''}{body_find}
-<h2>Limitations</h2><ul>{''.join(f'<li>{e(limit)}</li>' for limit in LIMITS)}</ul><p class="notice">{NOTICE}</p></body></html>"""
+<h2>Limitations</h2><ul>{''.join(f'<li>{e(limit)}</li>' for limit in ([*LIMITS, result['graph']['limitation']] if result.get('graph') else LIMITS))}</ul><p class="notice">{NOTICE}</p></body></html>"""

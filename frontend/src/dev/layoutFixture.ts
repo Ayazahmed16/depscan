@@ -24,7 +24,7 @@ export const fixtureScan: ScanResult = {
       risk: { score: 82, factors: [{ name: 'cvss', value: '9.1', weight: 0.3, contribution: 27 }, { name: 'kev', value: 'listed', weight: 0.3, contribution: 30 }] },
       trust: { score: 88, signals: [{ name: 'independent sources', value: '2', effect: 25, note: 'two sources list this advisory' }, { name: 'fix exists', value: 'yes', effect: 15, note: 'patched release found' }] },
       action: 'fix_now', recommendation: 'Placeholder: upgrade example-web to 1.2.0 or later (minor bump).',
-      exposure: { exposed: true, path: ['urls.py', 'views.home', 'example-web'] },
+      exposure: { exposed: true, level: 'web', path: ['urls.py', 'views.home', 'example-web'], path_labels: ['urls.py', 'views.home', 'example-web'], imported_by: ['views.home'], note: 'placeholder: reachable from a web request' },
       history: [
         { date: '2025-01-01', risk: 30, epss: 0.02, event: 'advisory published', simulated: false },
         { date: '2025-06-01', risk: 55, epss: 0.2, event: 'EPSS rose', simulated: true },
@@ -41,7 +41,7 @@ export const fixtureScan: ScanResult = {
       risk: { score: 41, factors: [{ name: 'cvss', value: '7.5', weight: 0.3, contribution: 22 }] },
       trust: { score: 22, signals: [{ name: 'independent sources', value: '1', effect: 5, note: 'single source' }, { name: 'fix exists', value: 'no', effect: -10, note: 'no patched release found' }] },
       action: 'verify_first', recommendation: 'Placeholder: confirm the advisory before acting.',
-      exposure: { exposed: false, path: [] },
+      exposure: { exposed: false, level: 'none', path: [], path_labels: [], imported_by: [], note: 'placeholder: not reached from any entry point' },
       history: [{ date: '2025-03-01', risk: 41, epss: 0.01, event: 'advisory published', simulated: false }],
       watch: 'placeholder: EPSS trending up', review: null,
     },

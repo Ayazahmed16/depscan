@@ -1,6 +1,8 @@
 # Lint settings for depscan. Kept in the repo so results do not depend on anyone's global ruff config.
 line-length = 140
 target-version = "py311"
+# the fixture Django app is data for the exposure tests, not project code
+extend-exclude = ["tests/sample/django_app"]
 
 [lint]
 # E/F: pycodestyle errors and pyflakes (real bugs). I: import order. UP: modern syntax. B: likely bugs.

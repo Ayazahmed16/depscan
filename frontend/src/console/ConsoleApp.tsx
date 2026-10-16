@@ -10,7 +10,8 @@ import { TimelineView } from './TimelineView'
 
 // Layout fixture is dev-only. `import.meta.env.DEV` is false in a production build,
 // so the fixture module is dropped from the bundle.
-// ?fixture=1 loads placeholder data; ?fixture=real loads a REAL scan of the frozen known sample (see tests/sample).
+// ?fixture=1 loads placeholder data; ?fixture=real a REAL scan of the frozen known sample (see tests/sample);
+// ?fixture=django a REAL scan of the sample Django app, with its exposure graph.
 const fixtureMode = import.meta.env.DEV ? new URLSearchParams(window.location.search).get('fixture') : null
 const useFixture = fixtureMode !== null
 
@@ -32,7 +33,7 @@ export default function ConsoleApp() {
   const loadAll = useCallback(async () => {
     const [s, g, a] = await Promise.all([api.findings(), api.graph().catch(() => null), api.audit().catch(() => [])])
     setScan(s)
-    setGraph(g)
+    setGraph(s?.graph ?? g)   // a scan of a Django project carries its own graph
     setAudit(a)
   }, [])
 
@@ -41,8 +42,10 @@ export default function ConsoleApp() {
       import('../dev/layoutFixture').then(async (f) => {
         setHealth(f.fixtureHealth)
         setEngine('online')
-        setScan(fixtureMode === 'real' ? ((await import('../dev/sampleScan.json')).default as unknown as ScanResult) : f.fixtureScan)
-        setGraph(f.fixtureGraph)
+        const real = fixtureMode === 'django' ? (await import('../dev/sampleScanDjango.json')).default
+          : fixtureMode === 'real' ? (await import('../dev/sampleScan.json')).default : null
+        setScan(real ? (real as unknown as ScanResult) : f.fixtureScan)
+        setGraph(real ? ((real as unknown as ScanResult).graph ?? null) : f.fixtureGraph)
         setAudit(f.fixtureAudit)
       })
       return
@@ -113,7 +116,7 @@ export default function ConsoleApp() {
       />
       {useFixture && (
         <p className="border-b border-signal-warning bg-surface-container px-5 py-1.5 text-center font-mono text-[11px] uppercase tracking-wide text-signal-warning">
-          {fixtureMode === 'real' ? 'dev view: a real scan of the frozen known sample, not your project' : 'layout fixture: placeholder data, not a real scan'}
+          {fixtureMode === 'django' ? 'dev view: a real scan of the sample Django app (tests/sample/django_app), not your project' : fixtureMode === 'real' ? 'dev view: a real scan of the frozen known sample, not your project' : 'layout fixture: placeholder data, not a real scan'}
         </p>
       )}
       <main className="flex flex-1 flex-col overflow-y-auto">

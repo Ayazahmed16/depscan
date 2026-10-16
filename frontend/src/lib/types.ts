@@ -71,7 +71,15 @@ export interface Finding {
   /** matched = our data found it; unconfirmed = only a scan report claims it; contradicted = our data says not affected */
   claim_status?: 'matched' | 'unconfirmed' | 'contradicted'
   recommendation: string
-  exposure: { exposed: boolean; path: string[] } | null
+  /** How the package can be reached from the Django project (import-level). null = no project analysed, or it cannot be known. */
+  exposure: {
+    exposed: boolean              // true only when a web entry point (route, middleware, urlconf) reaches it
+    level: ExposureLevel
+    path: string[]                // graph node ids, entry point first
+    path_labels: string[]         // the same path in words
+    imported_by: string[]         // modules that import the package directly
+    note: string
+  } | null
   history: HistoryPoint[]
   watch: string | null
   review: ReviewRecord | null
@@ -83,6 +91,8 @@ export interface ScanResult {
   scanned_at: string
   findings: Finding[]
   project?: string
+  /** present when a Django project folder was analysed */
+  graph?: ExposureGraph | null
   review_summary?: Record<ReviewStatus | 'needs_review', number>
 }
 
@@ -97,13 +107,22 @@ export interface GraphNode {
   id: string
   label: string
   kind: 'entry' | 'module' | 'package' | 'vulnerable'
+  /** entry points only: how strongly this kind of entry point exposes what it reaches */
+  level?: ExposureLevel
 }
 export interface GraphLink { source: string; target: string }
 export interface ExposureGraph {
   nodes: GraphNode[]
   links: GraphLink[]
+  /** must be shown next to the graph: what this analysis can and cannot see */
   limitation: string
+  stats?: { modules: number; web_entry_points: number; unparsable_files: number; unmapped_imports: string[] }
 }
+
+/** Strongest first. none = imported somewhere, but no entry point reaches that code. */
+export type ExposureLevel = 'web' | 'startup' | 'command' | 'test' | 'none'
+
+export const EXPOSURE_CAVEAT = 'Import-level analysis only: it does not follow function calls, so an imported package may never be used.'
 
 export interface AuditEntry {
   id: number

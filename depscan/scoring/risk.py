@@ -54,9 +54,20 @@ def kev_for(match: Match, kev: dict[str, dict]) -> dict | None:
     return None
 
 
+# What each exposure level reads as in the factor table.
+EXPOSURE_TEXT = {
+    "web": "reachable from a web request", "startup": "loaded at application start, no route reaches it",
+    "command": "only used by commands / background tasks", "test": "only used by tests", "none": "not reached from any entry point",
+}
+
+
 def compute_risk(match: Match, *, nvd, kev, epss, fixed_version: str | None, major_bump: bool | None,
-                 cfg: dict, exposed: bool | None = None) -> dict:
-    """Returns {score, factors, cvss, epss, kev, notes}. `exposed=None` means no graph data: factor dropped."""
+                 cfg: dict, exposed: bool | str | None = None) -> dict:
+    """Returns {score, factors, cvss, epss, kev, notes}.
+
+    `exposed` is the exposure LEVEL from the project graph (web, startup, command, test, none). True and False still
+    mean web and none. None means no graph data: the exposure factor is dropped and the other weights renormalised.
+    """
     r = cfg["risk"]
     dep = match.dependency
     cvss, cvss_source, sev_factor, sev_known = severity(match, nvd, cfg)
@@ -71,6 +82,7 @@ def compute_risk(match: Match, *, nvd, kev, epss, fixed_version: str | None, maj
     else:
         fix_factor, fix_text = r["fix"]["available"], f"fix {fixed_version} available"
 
+    level = None if exposed is None else exposed if isinstance(exposed, str) else "web" if exposed else "none"
     # (name, display value, factor 0..1 or None when not applicable)
     raw = [
         ("severity", f"{cvss:.1f}" if cvss is not None else ("unknown" if not sev_known else cvss_source), sev_factor),
@@ -79,8 +91,7 @@ def compute_risk(match: Match, *, nvd, kev, epss, fixed_version: str | None, maj
          min(p / r["epss_cap"], 1.0) if p is not None else 0.0),
         ("criticality", f"{'direct' if dep.direct else 'transitive'}, {dep.scope}", crit),
         ("fix_availability", fix_text, fix_factor),
-        ("exposure", "n/a (no app graph)" if exposed is None else ("reachable from an entry point" if exposed else "not reachable"),
-         None if exposed is None else (1.0 if exposed else 0.0)),
+        ("exposure", EXPOSURE_TEXT[level] if level else "n/a (no app graph)", r["exposure_levels"][level] if level else None),
     ]
     active = [(n, v, f) for n, v, f in raw if f is not None]
     total_w = sum(r["weights"][n] for n, _, _ in active)  # renormalise when a factor is dropped
@@ -92,7 +103,7 @@ def compute_risk(match: Match, *, nvd, kev, epss, fixed_version: str | None, maj
         factors.append({"name": name, "value": value, "weight": round(w, 4), "contribution": round(contribution, 2)})
     notes = []
     if exposed is None:
-        notes.append("exposure factor dropped (no Django project was analysed); other weights renormalised")
+        notes.append("exposure factor dropped (no Django project was analysed, or exposure cannot be known); other weights renormalised")
     if not sev_known:
         notes.append("severity unknown: a neutral value was used")
     return {

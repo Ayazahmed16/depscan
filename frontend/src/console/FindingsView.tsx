@@ -1,13 +1,14 @@
 import { useMemo, useState } from 'react'
 import { Badge, Tag } from '../components/primitives/Badge'
 import { DataReadout } from '../components/primitives/DataReadout'
+import { ExposureBadge } from '../components/primitives/ExposureBadge'
 import { Gauge } from '../components/primitives/Gauge'
 import { Panel } from '../components/primitives/Panel'
 import { IconRisk, IconTrust, IconWarning } from '../lib/icons'
 import {
   ACTION_LABEL, ACTION_SIGNAL, riskSignal, SIGNAL_TEXT_CLASS, trustSignal, type Signal,
 } from '../lib/severity'
-import { REQUIRED_NOTICE, type Finding, type MatchConfidence, type ReviewDecision, type ReviewInput, type ReviewStatus } from '../lib/types'
+import { EXPOSURE_CAVEAT, REQUIRED_NOTICE, type Finding, type MatchConfidence, type ReviewDecision, type ReviewInput, type ReviewStatus } from '../lib/types'
 
 // Match confidence, strongest first. Colour says how far to rely on the match itself.
 const CONFIDENCE_SIGNAL: Record<MatchConfidence, Signal> = {
@@ -160,6 +161,18 @@ function Detail({ finding: f, onReview, onRevoke }: {
           Recommendation only. depscan never changes your dependency files; a person applies any fix.
         </p>
       </Panel>
+
+      {f.exposure && (
+        <Panel title="Exposure" aside={<ExposureBadge level={f.exposure.level} />} bodyClassName="flex flex-col gap-2 p-3">
+          <p className="font-sans text-[13px] leading-relaxed text-on-surface">{f.exposure.note}</p>
+          {f.exposure.path_labels.length > 0 && (
+            <p className="border border-outline-variant bg-surface-container-lowest p-2.5 font-mono text-[10px] leading-relaxed text-on-surface">
+              {f.exposure.path_labels.join('  →  ')}
+            </p>
+          )}
+          <p className="font-mono text-[9px] leading-relaxed text-on-surface-variant opacity-80">{EXPOSURE_CAVEAT} See the exposure view for the graph.</p>
+        </Panel>
+      )}
 
       <Panel title="Why it matched" aside={<Badge signal={CONFIDENCE_SIGNAL[f.match.confidence]}>{f.match.confidence}</Badge>} bodyClassName="p-3">
         <ul className="flex flex-col gap-1 border border-outline-variant bg-surface-container-lowest p-2.5 font-mono text-[10px] leading-relaxed text-on-surface">

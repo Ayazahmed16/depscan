@@ -32,6 +32,7 @@ class Dependency:
     resolution: str = "range"         # pin | lockfile | range: how `version` was learned
     newest: str | None = None         # newest registry release satisfying the range (step 2)
     registry_status: str | None = None  # resolved | failed | None (not attempted)
+    requires: list[str] | None = None   # packages this one depends on, when a lock file says (None = unknown)
 
     @property
     def exact(self) -> bool:

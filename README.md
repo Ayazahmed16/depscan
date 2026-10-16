@@ -43,6 +43,11 @@ A person decides. Findings can be marked `fix_now`, `accept_risk` or `false_posi
 two suppressions) an expiry date; every decision goes to a tamper-evident audit log, suppressed findings stay visible, and
 an expired suppression needs review again. See [docs/REVIEW.md](docs/REVIEW.md).
 
+For a Django project, point depscan at the project folder (a folder holding `manage.py` is picked up automatically, or use
+`--project-dir`) and it also works out which vulnerable packages a URL route, middleware, startup code or command can
+reach, draws the paths, and uses that in the risk score. This is import-level analysis only; it does not follow function
+calls. See [docs/EXPOSURE.md](docs/EXPOSURE.md) for how it works and what it can miss.
+
 Data downloads are integrity-checked (OSV md5, NVD sha256, KEV/EPSS format checks), a bad download never replaces a good
 snapshot, and a scan warns when its data is older than `data.stale_days` (default 14) or NVD is missing.
 
@@ -93,7 +98,8 @@ Remaining limits, honestly:
   sanity-checked on a small experiment (see docs/SCORING.md section 3).
 - Reviewer names are typed in, not authenticated, and the audit log's hash chain is tamper-*evident*, not tamper-proof
   (docs/REVIEW.md).
-- The exposure graph (Python/Django, import level only), timeline and the web
+- The exposure graph is Python/Django only and import-level only (docs/EXPOSURE.md), and transitive links need a `poetry.lock`.
+- The timeline and the web
   API are planned phases, not built yet. The frontend in `frontend/` is built against the planned API and
   has not been connected to a backend.
 - Benchmark numbers do not exist yet. When they do, they come from a real run on a small labelled set and
