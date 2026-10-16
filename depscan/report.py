@@ -9,11 +9,37 @@ ACTION = {"fix_now": "FIX NOW", "verify_first": "VERIFY FIRST", "monitor": "MONI
 
 LIMITS = [
     "Matches are only as good as the cached advisory snapshots, dated below.",
-    "A version range in a file (for example >=1.2) is tested at its lowest allowed version, and labelled probable.",
+    "An exact version (a lock file or == pin) gives a confirmed match. A version range (for example >=1.2) is resolved "
+    "against the package registry when it can be (likely or possible); if the registry cannot be used it is tested at its "
+    "lowest allowed version only (probable).",
     "Without a lock file or scan report, transitive dependencies are not known.",
-    "Risk scores are transparent heuristics (see docs/SCORING.md), not measurements of real-world exploitation.",
+    "Risk and trust scores are transparent heuristics (see docs/SCORING.md), not measurements of real-world exploitation.",
+    "Reviewer names are typed in, not authenticated.",
     "depscan only recommends. A person decides, and nothing is changed in your project.",
 ]
+
+# What each review status reads as. "expired" means a suppression's end date passed: it needs review again.
+REVIEW_LABEL = {"pending": "needs review", "expired": "EXPIRED, needs review", "fix_now": "fix confirmed",
+                "accept_risk": "risk accepted", "false_positive": "false positive"}
+
+
+def review_line(x: dict) -> str:
+    """One plain sentence about a finding's review state."""
+    r, status = x.get("review"), x.get("review_status", "pending")
+    if not r:
+        return "Review: needs review (no decision recorded)."
+    until = f" until {r['expires']}" if r.get("expires") else ""
+    lapsed = " That decision has EXPIRED, so this finding needs review again." if status == "expired" else ""
+    return f"Review: {REVIEW_LABEL[r['decision']]} by {r['reviewer']} on {r['at'][:10]}{until}: \"{r['note']}\".{lapsed}"
+
+
+def review_summary_line(result: dict) -> str:
+    s = result.get("review_summary")
+    if not s:
+        return ""
+    return (f"Review: {s['needs_review']} need review ({s['pending']} not yet reviewed, {s['expired']} expired) · "
+            f"{s['fix_now']} confirmed to fix · {s['accept_risk']} risk accepted · {s['false_positive']} false positive. "
+            f"Suppressed findings stay listed.")
 
 
 def render_markdown(result: dict) -> str:
@@ -27,6 +53,8 @@ def render_markdown(result: dict) -> str:
         f"Scanned {result['scanned_at']} · {result['dependencies_read']} dependencies read · {len(f)} findings · data snapshots: {snap}",
         "",
     ]
+    if review_summary_line(result):
+        out += [review_summary_line(result), ""]
     if result["warnings"]:
         out += ["## Could not read or caveats", ""] + [f"- {w}" for w in result["warnings"]] + [""]
     if not f:
@@ -39,9 +67,10 @@ def render_markdown(result: dict) -> str:
             else:
                 out.append(f"- **{a['package']}** {a['version']}: no fixed version listed for {a['total']} finding(s)")
         out += ["", "## Findings, highest risk first", "",
-                "| # | Advisory | Package | Risk | Trust | Next step | Match |", "|---|---|---|---|---|---|---|"]
+                "| # | Advisory | Package | Risk | Trust | Next step | Match | Review |", "|---|---|---|---|---|---|---|---|"]
         for i, x in enumerate(f, 1):
-            out.append(f"| {i} | {x['id']} | {x['package']} {x['version']} | {x['risk']['score']:.0f} | {x['trust']['score']:.0f} | {ACTION[x['action']]} | {x['match']['confidence']} |")
+            out.append(f"| {i} | {x['id']} | {x['package']} {x['version']} | {x['risk']['score']:.0f} | {x['trust']['score']:.0f} | "
+                       f"{ACTION[x['action']]} | {x['match']['confidence']} | {REVIEW_LABEL[x.get('review_status', 'pending')]} |")
         out.append("")
         for i, x in enumerate(f, 1):
             out += [f"### {i}. {x['id']} · {x['package']} {x['version']}", "", x["summary"], "",
@@ -54,7 +83,13 @@ def render_markdown(result: dict) -> str:
             out += ["", f"Trust signals (start at {x['trust']['base']}, add the points, clamp to 0-100):", "",
                     "| signal | value | points | why |", "|---|---|---|---|"]
             out += [f"| {s['name']} | {s['value']} | {s['effect']:+.0f} | {s['note']} |" for s in x["trust"]["signals"]]
-            out += ["", f"**Recommendation:** {x['recommendation']}", ""]
+            out += ["", f"**Recommendation:** {x['recommendation']}", "", f"**{review_line(x)}**", ""]
+        decided = [x for x in f if x.get("review")]
+        if decided:
+            out += ["## Reviewer decisions", "", "| finding | decision | reviewer | decided | expires | reason |", "|---|---|---|---|---|---|"]
+            out += [f"| {x['id']} · {x['package']} {x['version']} | {REVIEW_LABEL[x['review_status']] if x['review_status'] == 'expired' else REVIEW_LABEL[x['review']['decision']]} "
+                    f"| {x['review']['reviewer']} | {x['review']['at'][:10]} | {x['review']['expires'] or '-'} | {x['review']['note']} |" for x in decided]
+            out.append("")
     out += ["## Limitations", ""] + [f"- {limit}" for limit in LIMITS] + ["", f"**{NOTICE}**", ""]
     return "\n".join(out)
 
@@ -66,8 +101,17 @@ def render_html(result: dict) -> str:
     snap = ", ".join(f"{e(k)} {e(v or 'missing')}" for k, v in result["snapshots"].items())
     rows = "".join(
         f"<tr><td>{i}</td><td>{e(x['id'])}</td><td>{e(x['package'])} {e(str(x['version']))}</td>"
-        f"<td class='n'>{x['risk']['score']:.0f}</td><td class='n'>{x['trust']['score']:.0f}</td><td>{ACTION[x['action']]}</td><td>{e(x['match']['confidence'])}</td></tr>"
+        f"<td class='n'>{x['risk']['score']:.0f}</td><td class='n'>{x['trust']['score']:.0f}</td><td>{ACTION[x['action']]}</td><td>{e(x['match']['confidence'])}</td>"
+        f"<td>{e(REVIEW_LABEL[x.get('review_status', 'pending')])}</td></tr>"
         for i, x in enumerate(f, 1))
+    decided = [x for x in f if x.get("review")]
+    decisions = ("<h2>Reviewer decisions</h2><table><tr><th>finding</th><th>decision</th><th>reviewer</th><th>decided</th><th>expires</th><th>reason</th></tr>"
+                 + "".join(
+                     f"<tr><td>{e(x['id'])} · {e(x['package'])} {e(str(x['version']))}</td>"
+                     f"<td>{e(REVIEW_LABEL['expired'] if x['review_status'] == 'expired' else REVIEW_LABEL[x['review']['decision']])}</td>"
+                     f"<td>{e(x['review']['reviewer'])}</td><td>{e(x['review']['at'][:10])}</td><td>{e(x['review']['expires'] or '-')}</td>"
+                     f"<td>{e(x['review']['note'])}</td></tr>" for x in decided)
+                 + "</table>") if decided else ""
     cards = ""
     for i, x in enumerate(f, 1):
         factors = "".join(
@@ -84,7 +128,7 @@ def render_html(result: dict) -> str:
             f"<table><tr><th>factor</th><th>value</th><th>weight</th><th>adds</th></tr>{factors}</table>{notes}"
             f"<p>Trust signals (start at {x['trust']['base']}, add the points, clamp to 0-100):</p>"
             f"<table><tr><th>signal</th><th>value</th><th>points</th><th>why</th></tr>{trust_rows}</table>"
-            f"<p><b>Recommendation:</b> {e(x['recommendation'])}</p></section>")
+            f"<p><b>Recommendation:</b> {e(x['recommendation'])}</p><p><b>{e(review_line(x))}</b></p></section>")
     actions = "".join(
         f"<li><b>{e(a['package'])}</b> {e(str(a['version']))} → {e(a['target_version'])} clears {a['clears']} of {a['total']} findings</li>"
         if a["target_version"] else
@@ -92,7 +136,7 @@ def render_html(result: dict) -> str:
         for a in result["package_actions"])
     warnings = "".join(f"<li>{e(w)}</li>" for w in result["warnings"])
     body_find = (f"<h2>Recommended upgrades (suggestions only)</h2><ul>{actions}</ul>"
-                 f"<h2>Findings, highest risk first</h2><table><tr><th>#</th><th>Advisory</th><th>Package</th><th>Risk</th><th>Trust</th><th>Next step</th><th>Match</th></tr>{rows}</table>{cards}"
+                 f"<h2>Findings, highest risk first</h2><table><tr><th>#</th><th>Advisory</th><th>Package</th><th>Risk</th><th>Trust</th><th>Next step</th><th>Match</th><th>Review</th></tr>{rows}</table>{cards}{decisions}"
                  if f else f"<p>No findings matched the cached advisory data.</p><p><b>{NOTICE}</b></p>")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>depscan report</title><style>
@@ -103,5 +147,6 @@ table{{border-collapse:collapse;width:100%;margin:.5rem 0}}td,th{{border:1px sol
 </style></head><body><h1>depscan report: {e(result['source'])}</h1>
 <p class="notice">{NOTICE}</p>
 <p class="meta">Scanned {e(result['scanned_at'])} · {result['dependencies_read']} dependencies read · {len(f)} findings · data snapshots: {snap}</p>
+{f'<p class="meta">{e(review_summary_line(result))}</p>' if review_summary_line(result) else ''}
 {f'<h2>Could not read or caveats</h2><ul>{warnings}</ul>' if warnings else ''}{body_find}
 <h2>Limitations</h2><ul>{''.join(f'<li>{e(limit)}</li>' for limit in LIMITS)}</ul><p class="notice">{NOTICE}</p></body></html>"""

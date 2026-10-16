@@ -4,6 +4,16 @@
 export type Action = 'fix_now' | 'verify_first' | 'monitor' | 'no_action'
 export type MatchConfidence = 'confirmed' | 'likely' | 'possible' | 'probable' | 'uncertain'
 export type ReviewDecision = 'accept_risk' | 'false_positive' | 'fix_now'
+/** pending = nobody decided yet; expired = a suppression lapsed, so it needs review again */
+export type ReviewStatus = 'pending' | 'expired' | ReviewDecision
+
+export interface ReviewInput {
+  key: string
+  decision: ReviewDecision
+  note: string
+  reviewer: string
+  expires: string | null
+}
 
 /** One weighted factor behind the risk score (see docs/SCORING.md). */
 export interface RiskFactor {
@@ -39,6 +49,8 @@ export interface HistoryPoint {
 }
 
 export interface Finding {
+  /** stable identity: ecosystem|package|version|advisory. Reviewer decisions attach to it. */
+  key: string
   id: string
   aliases: string[]
   package: string
@@ -63,12 +75,15 @@ export interface Finding {
   history: HistoryPoint[]
   watch: string | null
   review: ReviewRecord | null
+  review_status: ReviewStatus
 }
 
 export interface ScanResult {
   source: string
   scanned_at: string
   findings: Finding[]
+  project?: string
+  review_summary?: Record<ReviewStatus | 'needs_review', number>
 }
 
 export interface Health {
@@ -91,9 +106,11 @@ export interface ExposureGraph {
 }
 
 export interface AuditEntry {
+  id: number
   at: string
-  finding_id: string
-  decision: ReviewDecision
+  key: string
+  /** a decision, or what happened to it: revoked by a person, expired by the system */
+  action: ReviewDecision | 'revoked' | 'expired'
   reviewer: string
   note: string
   expires: string | null

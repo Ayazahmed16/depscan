@@ -1,6 +1,6 @@
 {
  "source": "known-sample (frozen snapshot)",
- "scanned_at": "2026-10-16T21:09:57Z",
+ "scanned_at": "2026-10-16T21:18:45Z",
  "kind": "requirements.txt",
  "dependencies_read": 6,
  "warnings": [
@@ -150,7 +150,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|pyspark|3.2.1|CVE-2022-33891"
   },
   {
    "id": "CVE-2023-32007",
@@ -295,7 +297,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|pyspark|3.2.1|CVE-2023-32007"
   },
   {
    "id": "CVE-2020-14343",
@@ -439,7 +443,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|pyyaml|5.1.2|CVE-2020-14343"
   },
   {
    "id": "CVE-2020-1747",
@@ -583,7 +589,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|pyyaml|5.1.2|CVE-2020-1747"
   },
   {
    "id": "CVE-2019-20477",
@@ -727,7 +735,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|pyyaml|5.1.2|CVE-2019-20477"
   },
   {
    "id": "CVE-2023-22946",
@@ -872,7 +882,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|pyspark|3.2.1|CVE-2023-22946"
   },
   {
    "id": "CVE-2023-30861",
@@ -1016,7 +1028,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|flask|1.0|CVE-2023-30861"
   },
   {
    "id": "CVE-2025-55039",
@@ -1160,7 +1174,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|pyspark|3.2.1|CVE-2025-55039"
   },
   {
    "id": "CVE-2026-32773",
@@ -1305,7 +1321,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|pyspark|3.2.1|CVE-2026-32773"
   },
   {
    "id": "CVE-2024-35195",
@@ -1449,7 +1467,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|requests|2.31.0|CVE-2024-35195"
   },
   {
    "id": "CVE-2022-31777",
@@ -1594,7 +1614,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|pyspark|3.2.1|CVE-2022-31777"
   },
   {
    "id": "CVE-2024-47081",
@@ -1738,7 +1760,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|requests|2.31.0|CVE-2024-47081"
   },
   {
    "id": "PYSEC-2020-195",
@@ -1880,7 +1904,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|pyyaml|5.1.2|PYSEC-2020-195"
   },
   {
    "id": "CVE-2026-25645",
@@ -2024,7 +2050,9 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|requests|2.31.0|CVE-2026-25645"
   },
   {
    "id": "CVE-2026-27205",
@@ -2168,9 +2196,20 @@
    "exposure": null,
    "history": [],
    "watch": null,
-   "review": null
+   "review": null,
+   "review_status": "pending",
+   "key": "PyPI|flask|1.0|CVE-2026-27205"
   }
  ],
+ "project": "default",
+ "review_summary": {
+  "pending": 15,
+  "expired": 0,
+  "fix_now": 0,
+  "accept_risk": 0,
+  "false_positive": 0,
+  "needs_review": 15
+ },
  "package_actions": [
   {
    "package": "pyspark",

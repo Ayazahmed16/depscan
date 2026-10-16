@@ -7,7 +7,7 @@ import { IconRisk, IconTrust, IconWarning } from '../lib/icons'
 import {
   ACTION_LABEL, ACTION_SIGNAL, riskSignal, SIGNAL_TEXT_CLASS, trustSignal, type Signal,
 } from '../lib/severity'
-import { REQUIRED_NOTICE, type Finding, type MatchConfidence, type ReviewDecision } from '../lib/types'
+import { REQUIRED_NOTICE, type Finding, type MatchConfidence, type ReviewDecision, type ReviewInput, type ReviewStatus } from '../lib/types'
 
 // Match confidence, strongest first. Colour says how far to rely on the match itself.
 const CONFIDENCE_SIGNAL: Record<MatchConfidence, Signal> = {
@@ -24,15 +24,16 @@ const DECISIONS: { id: ReviewDecision; label: string }[] = [
   { id: 'false_positive', label: 'false positive' },
 ]
 
-export function FindingsView({ findings, selectedId, onSelect, onReview }: {
+export function FindingsView({ findings, selectedId, onSelect, onReview, onRevoke }: {
   findings: Finding[]
   selectedId: string | null
   onSelect: (id: string) => void
-  onReview: (input: { finding_id: string; decision: ReviewDecision; note: string; reviewer: string; expires: string | null }) => Promise<void>
+  onReview: (input: ReviewInput) => Promise<void>
+  onRevoke: (input: { key: string; note: string; reviewer: string }) => Promise<void>
 }) {
   // Highest risk first. The backend already orders them; this keeps the table stable if it ever does not.
   const sorted = useMemo(() => [...findings].sort((a, b) => b.risk.score - a.risk.score), [findings])
-  const selected = sorted.find((f) => f.id + f.package === selectedId) ?? sorted[0] ?? null
+  const selected = sorted.find((f) => f.key === selectedId) ?? sorted[0] ?? null
 
   if (findings.length === 0) {
     return (
@@ -64,8 +65,8 @@ export function FindingsView({ findings, selectedId, onSelect, onReview }: {
           </thead>
           <tbody>
             {sorted.map((f) => {
-              const key = f.id + f.package
-              const active = selected && key === selected.id + selected.package
+              const key = f.key
+              const active = selected && key === selected.key
               return (
                 <tr
                   key={key}
@@ -89,7 +90,7 @@ export function FindingsView({ findings, selectedId, onSelect, onReview }: {
                   <td className="px-3 py-2">
                     <span className="flex flex-wrap items-center gap-1.5">
                       <Badge signal={ACTION_SIGNAL[f.action]}>{ACTION_LABEL[f.action]}</Badge>
-                      {f.review && <Tag>{f.review.decision.replace('_', ' ')}</Tag>}
+                      {f.review_status !== 'pending' && <StatusTag status={f.review_status} />}
                     </span>
                   </td>
                 </tr>
@@ -103,15 +104,16 @@ export function FindingsView({ findings, selectedId, onSelect, onReview }: {
       </Panel>
 
       <div className="flex flex-col gap-3 lg:col-span-5">
-        {selected && <Detail key={selected.id + selected.package} finding={selected} onReview={onReview} />}
+        {selected && <Detail key={selected.key} finding={selected} onReview={onReview} onRevoke={onRevoke} />}
       </div>
     </div>
   )
 }
 
-function Detail({ finding: f, onReview }: {
+function Detail({ finding: f, onReview, onRevoke }: {
   finding: Finding
-  onReview: (input: { finding_id: string; decision: ReviewDecision; note: string; reviewer: string; expires: string | null }) => Promise<void>
+  onReview: (input: ReviewInput) => Promise<void>
+  onRevoke: (input: { key: string; note: string; reviewer: string }) => Promise<void>
 }) {
   return (
     <>
@@ -183,9 +185,18 @@ function Detail({ finding: f, onReview }: {
         </p>
       </Panel>
 
-      <ReviewPanel finding={f} onReview={onReview} />
+      <ReviewPanel finding={f} onReview={onReview} onRevoke={onRevoke} />
     </>
   )
+}
+
+const STATUS_LABEL: Record<ReviewStatus, string> = {
+  pending: 'needs review', expired: 'expired: review again', fix_now: 'fix confirmed', accept_risk: 'risk accepted', false_positive: 'false positive',
+}
+
+// An expired suppression is a warning (it needs a person again); everything else is neutral.
+function StatusTag({ status }: { status: ReviewStatus }) {
+  return status === 'expired' ? <Badge signal="warning">{STATUS_LABEL[status]}</Badge> : <Tag>{STATUS_LABEL[status]}</Tag>
 }
 
 function Cell({ label, value, danger = false }: { label: string; value: string; danger?: boolean }) {
@@ -219,9 +230,10 @@ function FactorTable({ head, rows, notes }: { head: string[]; rows: string[][]; 
   )
 }
 
-function ReviewPanel({ finding: f, onReview }: {
+function ReviewPanel({ finding: f, onReview, onRevoke }: {
   finding: Finding
-  onReview: (input: { finding_id: string; decision: ReviewDecision; note: string; reviewer: string; expires: string | null }) => Promise<void>
+  onReview: (input: ReviewInput) => Promise<void>
+  onRevoke: (input: { key: string; note: string; reviewer: string }) => Promise<void>
 }) {
   const [decision, setDecision] = useState<ReviewDecision>('fix_now')
   const [note, setNote] = useState('')
@@ -234,27 +246,32 @@ function ReviewPanel({ finding: f, onReview }: {
   const needsExpiry = decision !== 'fix_now'
   const valid = note.trim().length > 0 && reviewer.trim().length > 0 && (!needsExpiry || expires !== '')
 
-  async function submit() {
+  // The server enforces the rules (reason length, expiry limits) and its message is shown as it is.
+  async function run(action: () => Promise<void>, after?: () => void) {
     setSaving(true)
     setError(null)
     try {
-      await onReview({ finding_id: f.id, decision, note: note.trim(), reviewer: reviewer.trim(), expires: needsExpiry ? expires : null })
-      setNote('')
+      await action()
+      after?.()
     } catch (e) {
       setError(e instanceof Error ? e.message : 'could not save')
     } finally {
       setSaving(false)
     }
   }
+  const submit = () => run(() => onReview({ key: f.key, decision, note: note.trim(), reviewer: reviewer.trim(), expires: needsExpiry ? expires : null }), () => setNote(''))
+  const revoke = () => run(() => onRevoke({ key: f.key, note: note.trim(), reviewer: reviewer.trim() }), () => setNote(''))
+  const canRevoke = note.trim().length > 0 && reviewer.trim().length > 0
 
   const field = 'w-full border border-outline-variant bg-surface-container-lowest px-2 py-1.5 font-mono text-[11px] text-on-surface placeholder:text-outline focus:border-primary focus:outline-none'
 
   return (
-    <Panel title="Human review" aside={f.review ? <Tag>{f.review.decision.replace('_', ' ')}</Tag> : <Tag>pending</Tag>} bodyClassName="flex flex-col gap-2.5 p-3">
+    <Panel title="Human review" aside={<StatusTag status={f.review_status} />} bodyClassName="flex flex-col gap-2.5 p-3">
       {f.review && (
         <p className="border border-outline-variant bg-surface-container-lowest p-2 font-mono text-[10px] leading-relaxed text-on-surface-variant">
           Last decision by <span className="text-on-surface">{f.review.reviewer}</span> on <span className="text-on-surface">{f.review.at}</span>
-          {f.review.expires && <> (expires <span className="text-on-surface">{f.review.expires}</span>)</>}: {f.review.note}
+          {f.review.expires && <> ({f.review_status === 'expired' ? 'expired' : 'expires'} <span className="text-on-surface">{f.review.expires}</span>)</>}: {f.review.note}
+          {f.review_status === 'expired' && <span className="mt-1 block text-signal-warning">This suppression has lapsed, so the finding needs a decision again.</span>}
         </p>
       )}
       <div className="flex flex-wrap gap-1" role="radiogroup" aria-label="Decision">
@@ -281,6 +298,9 @@ function ReviewPanel({ finding: f, onReview }: {
           <input type="date" className={`${field} w-auto`} value={expires} onChange={(e) => setExpires(e.target.value)} />
         </label>
       )}
+      <p className="font-mono text-[9px] leading-relaxed text-on-surface-variant opacity-80">
+        Accept risk and false positive hide nothing: the finding stays listed, but they must expire, and the server limits how long. Every decision is logged. Reviewer names are typed in, not verified.
+      </p>
       {error && <p className="font-mono text-[10px] text-signal-critical">{error}</p>}
       <button
         type="button"
@@ -290,6 +310,17 @@ function ReviewPanel({ finding: f, onReview }: {
       >
         {saving ? 'saving_' : 'record decision'}
       </button>
+      {f.review && (
+        <button
+          type="button"
+          disabled={!canRevoke || saving}
+          onClick={revoke}
+          title="Takes the decision back: the finding needs review again. Needs your name and a reason."
+          className="select-none self-start border border-outline-variant px-3 py-1.5 font-mono text-[11px] uppercase tracking-wide text-on-surface-variant transition-colors enabled:hover:text-signal-critical disabled:opacity-40"
+        >
+          revoke decision
+        </button>
+      )}
     </Panel>
   )
 }

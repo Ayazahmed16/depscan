@@ -16,6 +16,7 @@ export const fixtureScan: ScanResult = {
   scanned_at: 'fixture',
   findings: [
     {
+      key: 'PyPI|example-web|1.0.0|FIXTURE-0001', review_status: 'pending',
       id: 'FIXTURE-0001', aliases: ['FIXTURE-A'], package: 'example-web', version: '1.0.0', ecosystem: 'PyPI',
       direct: true, scope: 'runtime', summary: 'Placeholder advisory used only to check the layout.',
       cvss: 9.1, epss: 0.42, kev: true, fixed_version: '1.2.0', major_bump: false,
@@ -32,6 +33,7 @@ export const fixtureScan: ScanResult = {
       watch: null, review: null,
     },
     {
+      key: 'PyPI|example-parser|2.3.1|FIXTURE-0002', review_status: 'pending',
       id: 'FIXTURE-0002', aliases: [], package: 'example-parser', version: '2.3.1', ecosystem: 'PyPI',
       direct: false, scope: 'dev', summary: 'Second placeholder advisory with low trust.',
       cvss: 7.5, epss: 0.01, kev: false, fixed_version: null, major_bump: null,

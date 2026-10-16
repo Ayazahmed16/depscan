@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Footer, type Engine } from '../components/layout/Footer'
 import { Header, type Mode } from '../components/layout/Header'
 import { api } from '../lib/api'
-import type { AuditEntry, ExposureGraph, Health, ReviewDecision, ScanResult } from '../lib/types'
+import type { AuditEntry, ExposureGraph, Health, ReviewInput, ScanResult } from '../lib/types'
 import { ExposureView } from './ExposureView'
 import { FindingsView } from './FindingsView'
 import { ReviewLogView } from './ReviewLogView'
@@ -75,21 +75,27 @@ export default function ConsoleApp() {
     setError(null)
   }
 
-  async function onReview(input: { finding_id: string; decision: ReviewDecision; note: string; reviewer: string; expires: string | null }) {
+  async function onReview(input: ReviewInput) {
     await api.review(input)
     await loadAll() // re-read so the table, detail panel and audit log all show the stored record
+  }
+
+  async function onRevoke(input: { key: string; note: string; reviewer: string }) {
+    await api.revoke(input)
+    await loadAll()
   }
 
   const findings = scan?.findings ?? []
   // Every view shares one selection. Until the user picks, it is the highest-risk finding,
   // which is also what the findings table shows as selected.
   const topFinding = [...findings].sort((a, b) => b.risk.score - a.risk.score)[0]
-  const activeId = selectedId ?? (topFinding ? topFinding.id + topFinding.package : null)
+  const activeId = selectedId ?? (topFinding ? topFinding.key : null)
   const meta = scan
     ? [
         { label: 'source', value: scan.source },
         { label: 'findings', value: String(findings.length) },
-        { label: 'needs review', value: String(findings.filter((f) => !f.review).length) },
+        // pending or expired: a lapsed suppression needs a person again
+        { label: 'needs review', value: String(findings.filter((f) => f.review_status === 'pending' || f.review_status === 'expired').length) },
       ]
     : []
 
@@ -117,7 +123,7 @@ export default function ConsoleApp() {
           ) : !scan ? (
             <EmptyState>Drop a requirements.txt, package.json or scan report in the bar above to begin. Files are only read, never changed.</EmptyState>
           ) : mode === 'findings' ? (
-            <FindingsView findings={findings} selectedId={activeId} onSelect={setSelectedId} onReview={onReview} />
+            <FindingsView findings={findings} selectedId={activeId} onSelect={setSelectedId} onReview={onReview} onRevoke={onRevoke} />
           ) : mode === 'exposure' ? (
             <ExposureView graph={graph} findings={findings} selectedId={activeId} />
           ) : mode === 'timeline' ? (

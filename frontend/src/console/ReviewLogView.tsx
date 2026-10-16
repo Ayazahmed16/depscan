@@ -1,4 +1,4 @@
-import { Tag } from '../components/primitives/Badge'
+import { Badge, Tag } from '../components/primitives/Badge'
 import { DataReadout } from '../components/primitives/DataReadout'
 import { Panel } from '../components/primitives/Panel'
 import { IconAudit } from '../lib/icons'
@@ -22,15 +22,17 @@ export function ReviewLogView({ entries }: { entries: AuditEntry[] }) {
       <table className="w-full min-w-[40rem] border-collapse text-left font-mono text-[11px]">
         <thead>
           <tr className="border-b border-outline-variant/60 text-[9px] uppercase tracking-wide text-on-surface-variant">
-            {['when', 'finding', 'decision', 'reviewer', 'expires', 'note'].map((h) => <th key={h} className="px-3 py-2 font-medium">{h}</th>)}
+            {['#', 'when', 'finding', 'action', 'reviewer', 'expires', 'note'].map((h) => <th key={h} className="px-3 py-2 font-medium">{h}</th>)}
           </tr>
         </thead>
         <tbody>
-          {entries.map((e, i) => (
-            <tr key={i} className="border-b border-outline-variant/40 align-top">
+          {entries.map((e) => (
+            <tr key={e.id} className="border-b border-outline-variant/40 align-top">
+              <td className="px-3 py-2"><DataReadout dim>{e.id}</DataReadout></td>
               <td className="px-3 py-2"><DataReadout dim>{e.at}</DataReadout></td>
-              <td className="px-3 py-2 text-on-surface">{e.finding_id}</td>
-              <td className="px-3 py-2"><Tag>{e.decision.replace('_', ' ')}</Tag></td>
+              <td className="px-3 py-2 text-on-surface">{e.key.split('|').slice(1).join(' ')}</td>
+              {/* expired = the system noticed a suppression lapse; revoked = a person took a decision back */}
+              <td className="px-3 py-2">{e.action === 'expired' ? <Badge signal="warning">expired</Badge> : <Tag>{e.action.replace('_', ' ')}</Tag>}</td>
               <td className="px-3 py-2 text-on-surface-variant">{e.reviewer}</td>
               <td className="px-3 py-2"><DataReadout dim>{e.expires ?? '-'}</DataReadout></td>
               <td className="px-3 py-2 font-sans text-[12px] text-on-surface">{e.note}</td>

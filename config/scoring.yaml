@@ -105,3 +105,10 @@ actions:
   # Next step from risk AND trust. High risk with low trust reads "verify first", not "fix now".
   fix_now_min_trust: 50       # risk in the critical tier needs at least this much trust to read "fix now"
   verify_below_trust: 35      # risk in the high tier but trust below this reads "verify first"
+
+review:
+  # Human review rules. depscan only recommends; a person records a decision, and every decision is logged.
+  min_note_chars: 10          # a reason is required, and "ok" is not a reason
+  # accept_risk and false_positive are suppressions: they must expire, so a forgotten decision cannot hide a finding forever.
+  max_suppression_days: 180
+  max_suppression_days_critical: 30   # for findings whose risk is in the critical tier

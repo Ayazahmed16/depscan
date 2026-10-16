@@ -36,7 +36,7 @@ export function ExposureView({ graph, findings, selectedId }: {
     return () => ro.disconnect()
   }, [graph])
 
-  const selected = findings.find((f) => f.id + f.package === selectedId) ?? null
+  const selected = findings.find((f) => f.key === selectedId) ?? null
   const path = useMemo(() => new Set(selected?.exposure?.path ?? []), [selected])
   const pathEdges = useMemo(() => {
     const p = selected?.exposure?.path ?? []

@@ -17,7 +17,7 @@ export function TimelineView({ findings, selectedId, onSelect }: {
   selectedId: string | null
   onSelect: (id: string) => void
 }) {
-  const selected = findings.find((f) => f.id + f.package === selectedId) ?? findings[0] ?? null
+  const selected = findings.find((f) => f.key === selectedId) ?? findings[0] ?? null
   const watch = findings.filter((f) => f.watch)
 
   if (!selected) {
@@ -111,8 +111,8 @@ export function TimelineView({ findings, selectedId, onSelect }: {
         <Panel title="Findings" bodyClassName="max-h-60 overflow-y-auto p-0">
           <ul className="divide-y divide-outline-variant/40 font-mono text-[11px]">
             {findings.map((f) => {
-              const key = f.id + f.package
-              const active = key === selected.id + selected.package
+              const key = f.key
+              const active = key === selected.key
               return (
                 <li key={key}>
                   <button
@@ -134,7 +134,7 @@ export function TimelineView({ findings, selectedId, onSelect }: {
           ) : (
             <ul className="divide-y divide-outline-variant/40">
               {watch.map((f) => (
-                <li key={f.id + f.package} className="flex flex-col gap-0.5 px-3 py-2">
+                <li key={f.key} className="flex flex-col gap-0.5 px-3 py-2">
                   <span className="font-mono text-[11px] text-on-surface">{f.id} <span className="text-on-surface-variant">{f.package}</span></span>
                   <span className="font-mono text-[10px] leading-snug text-on-surface-variant">{f.watch}</span>
                 </li>

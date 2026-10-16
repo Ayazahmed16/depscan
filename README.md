@@ -39,6 +39,10 @@ automatically. Supported inputs: `requirements.txt`, `package.json`, `package-lo
 Known test sample: `tests/sample/` (real, frozen advisory records) with expected results in `tests/test_known_sample.py`
 and labels in `tests/sample/labels.yaml` (**unverified, needs the owner's check**).
 
+A person decides. Findings can be marked `fix_now`, `accept_risk` or `false_positive` with a name, a reason and (for the
+two suppressions) an expiry date; every decision goes to a tamper-evident audit log, suppressed findings stay visible, and
+an expired suppression needs review again. See [docs/REVIEW.md](docs/REVIEW.md).
+
 Data downloads are integrity-checked (OSV md5, NVD sha256, KEV/EPSS format checks), a bad download never replaces a good
 snapshot, and a scan warns when its data is older than `data.stale_days` (default 14) or NVD is missing.
 
@@ -87,7 +91,9 @@ Remaining limits, honestly:
 - The trust score is a **heuristic about the advisory data** (sources, agreement, status, freshness, fix, match confidence),
   not a measure of whether the vulnerable code is reachable in your app. Its points are reasoned and have only been
   sanity-checked on a small experiment (see docs/SCORING.md section 3).
-- Reviewer actions, exposure graph (Python/Django, import level only), timeline and the web
+- Reviewer names are typed in, not authenticated, and the audit log's hash chain is tamper-*evident*, not tamper-proof
+  (docs/REVIEW.md).
+- The exposure graph (Python/Django, import level only), timeline and the web
   API are planned phases, not built yet. The frontend in `frontend/` is built against the planned API and
   has not been connected to a backend.
 - Benchmark numbers do not exist yet. When they do, they come from a real run on a small labelled set and

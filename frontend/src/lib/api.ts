@@ -1,4 +1,4 @@
-import type { AuditEntry, ExposureGraph, Health, ReviewDecision, ReviewRecord, ScanResult } from './types'
+import type { AuditEntry, ExposureGraph, Health, ReviewInput, ReviewRecord, ScanResult } from './types'
 
 // Thin wrapper over the backend. Every call throws a readable Error on failure,
 // so the UI can show "backend unreachable" instead of silently showing nothing.
@@ -27,8 +27,14 @@ export const api = {
   reset: () => request<{ ok: true }>('/reset', { method: 'POST' }),
   graph: () => request<ExposureGraph | null>('/graph'),
   audit: () => request<AuditEntry[]>('/audit'),
-  review: (input: { finding_id: string; decision: ReviewDecision; note: string; reviewer: string; expires: string | null }) =>
+  review: (input: ReviewInput) =>
     request<ReviewRecord>('/review', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input),
+    }),
+  revoke: (input: { key: string; note: string; reviewer: string }) =>
+    request<{ ok: true }>('/review/revoke', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(input),

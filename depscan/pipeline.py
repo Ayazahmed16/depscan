@@ -12,12 +12,14 @@ from .models import Match
 from .osv_api import OsvApiIndex
 from .parsers import parse_files
 from .registry import Registry, resolve_ranges
+from .review import ReviewStore, finding_key
 from .scoring.config import load_config
 from .scoring.recommend import decide_action, minimum_fix, recommendation_text
 from .scoring.risk import compute_risk
 from .scoring.trust import compute_trust
 
 DEFAULT_DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+DEFAULT_REVIEW_DB = Path(__file__).resolve().parent.parent / "state" / "review.sqlite"
 
 
 class DataBundle:
@@ -109,7 +111,7 @@ def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposed: bool | N
     fix_yanked = bool(fixed and release_exists and release_exists(dep.ecosystem, dep.name, fixed) == "yanked")
     trust = compute_trust(match, nvd=bundle.nvd, kev=bundle.kev, fixed_version=fixed, as_of=bundle.as_of, cfg=cfg, release_exists=release_exists)
     action = decide_action(risk["score"], trust["score"], cfg, uncertain=match.confidence == "uncertain")
-    return {
+    finding = {
         "id": match.id,
         "aliases": match.aliases,
         "package": dep.name,
@@ -133,8 +135,11 @@ def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposed: bool | N
         "exposure": None,
         "history": [],
         "watch": None,
-        "review": None,
+        "review": None,             # filled in by apply_reviews when a person has decided
+        "review_status": "pending",  # pending | fix_now | accept_risk | false_positive | expired
     }
+    finding["key"] = finding_key(finding)  # stable identity that reviewer decisions attach to
+    return finding
 
 
 def package_actions(findings: list[dict]) -> list[dict]:
@@ -186,11 +191,42 @@ def collect_files(paths: list[Path]) -> list[tuple[str, bytes]]:
     return [(p.name, p.read_bytes()) for p in chosen]
 
 
+def _noon(day: dt.date) -> dt.datetime:
+    return dt.datetime.combine(day, dt.time(12), tzinfo=dt.UTC)
+
+
+REVIEW_STATUSES = ("pending", "expired", "fix_now", "accept_risk", "false_positive")
+
+
+def apply_reviews(findings: list[dict], store: ReviewStore | None, project: str, now=None) -> dict:
+    """Attach each finding's current reviewer decision, and return the counts.
+
+    Nothing is hidden or re-scored: a finding with a decision is still listed, with the decision beside it.
+    A suppression whose expiry passed is `expired` and counts as needing review again (and is logged once).
+    """
+    current = {}
+    if store is not None:
+        store.sweep_expired(project, now=now)
+        current = store.current(project, now=now)
+    counts = dict.fromkeys(REVIEW_STATUSES, 0)
+    for f in findings:
+        rec = current.get(f["key"])
+        if rec:
+            f["review"] = {k: rec[k] for k in ("decision", "note", "reviewer", "at", "expires")}
+            f["review_status"] = rec["status"]
+        else:
+            f["review"], f["review_status"] = None, "pending"
+        counts[f["review_status"]] += 1
+    counts["needs_review"] = counts["pending"] + counts["expired"]
+    return counts
+
+
 def scan_bytes(name: str, content: bytes, bundle: DataBundle, cfg: dict | None = None) -> dict:
     return scan_files([(name, content)], bundle, cfg)
 
 
-def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | None = None, today: dt.date | None = None) -> dict:
+def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | None = None, today: dt.date | None = None,
+               review_store: ReviewStore | None = None, project: str = "default") -> dict:
     cfg = cfg or load_config()
     name = ", ".join(n for n, _ in files)
     parsed = parse_files(files)
@@ -222,5 +258,7 @@ def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | N
         "warnings": parsed.warnings,
         "snapshots": bundle.snapshots,
         "findings": findings,
+        "project": project,
+        "review_summary": apply_reviews(findings, review_store, project, now=_noon(today) if today else None),
         "package_actions": package_actions(findings),
     }

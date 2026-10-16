@@ -67,3 +67,33 @@ def test_field_types_that_the_ui_formats_are_numbers_or_null(result):
 def test_the_parser_itself_works():
     fields = interface_fields("Finding")
     assert fields["trust"] and fields["id"] and fields["claim_status"] is False   # claim_status is optional in types.ts
+
+
+def test_audit_entries_match_the_audit_entry_interface(tmp_path):
+    import datetime as dt
+
+    from depscan.review import ReviewStore
+    from depscan.scoring.config import load_config
+    cfg, now = load_config(), dt.datetime(2030, 3, 1, 12, tzinfo=dt.UTC)
+    store = ReviewStore(tmp_path / "r.sqlite")
+    store.record("p", "k1", "accept_risk", "a perfectly good reason", "Ana", "2030-03-20", cfg=cfg, now=now)
+    store.record("p", "k2", "fix_now", "scheduling the upgrade now", "Ana", None, cfg=cfg, now=now)
+    store.revoke("p", "k2", "plans changed, review again", "Ben", cfg=cfg, now=now)
+    store.sweep_expired("p", now=dt.datetime(2030, 4, 1, tzinfo=dt.UTC))
+    entries = store.audit("p")
+    assert {e["action"] for e in entries} == {"accept_risk", "fix_now", "revoked", "expired"}
+    audit_block = re.search(r"export interface AuditEntry \{(.*?)\n\}", TYPES, re.S).group(1)       # not Finding's own `action`
+    known = set(re.search(r"action: (.*)", audit_block).group(1).replace("ReviewDecision", "fix_now|accept_risk|false_positive").replace("'", "").replace(" ", "").split("|"))
+    assert known == {"fix_now", "accept_risk", "false_positive", "revoked", "expired"}
+    for e in entries:
+        check(e, "AuditEntry", f"audit entry {e['id']}")
+        assert e["action"] in known
+
+
+def test_findings_carry_the_review_fields_the_frontend_needs(result):
+    for f in result["findings"]:
+        assert f["key"].count("|") == 3 and f["review_status"] == "pending" and f["review"] is None
+    status = set(re.search(r"export type ReviewStatus = (.*)", TYPES).group(1).replace("ReviewDecision", "fix_now|accept_risk|false_positive").replace("'", "").replace(" ", "").split("|"))
+    from depscan.pipeline import REVIEW_STATUSES
+    assert set(REVIEW_STATUSES) == status                                  # backend and frontend agree on every status
+    assert set(result["review_summary"]) == status | {"needs_review"}
