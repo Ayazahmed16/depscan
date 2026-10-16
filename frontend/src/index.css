@@ -1,0 +1,75 @@
+@import "tailwindcss";
+@import "@fontsource/geist-sans/400.css";
+@import "@fontsource/geist-sans/500.css";
+@import "@fontsource/geist-sans/600.css";
+@import "@fontsource/geist-sans/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+@import "@fontsource/jetbrains-mono/600.css";
+@import "@fontsource/jetbrains-mono/700.css";
+
+/* Design tokens. Names are roles (what a colour means), not raw colours.
+   Components only use these names, never a hex. */
+@theme {
+  /* Surfaces: white console, stepped zinc containers */
+  --color-background: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-container-lowest: #ffffff;   /* page, header, footer */
+  --color-surface-container-low: #fafafa;      /* panels */
+  --color-surface-container: #f4f4f5;          /* inputs, active tab, buttons */
+  --color-surface-container-high: #e4e4e7;
+  --color-surface-container-highest: #d4d4d8;
+
+  /* Text and lines */
+  --color-on-surface: #09090b;
+  --color-on-surface-variant: #71717a;         /* secondary text, 4.8:1 on white */
+  --color-outline: #a1a1aa;
+  --color-outline-variant: #d4d4d8;            /* the hairline border colour */
+
+  /* Black is the single accent */
+  --color-primary: #09090b;
+  --color-on-primary: #ffffff;
+
+  /* Signals: darkened so they pass 4.5:1 as text on white */
+  --color-signal-info: #047857;
+  --color-signal-warning: #b45309;
+  --color-signal-critical: #b42318;
+  --color-data: #0e7490;                       /* chart / series colour */
+
+  --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;  /* chrome, headings, prose */
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;           /* values, IDs, labels, status */
+}
+
+html { color-scheme: light; }
+
+body {
+  margin: 0;
+  background: var(--color-surface-container-lowest);
+  color: var(--color-on-surface);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+#root { min-height: 100svh; }
+
+/* thin square scrollbars */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--color-surface-container-lowest); }
+::-webkit-scrollbar-thumb { background: var(--color-outline-variant); }
+
+/* The one pulse: only for a live-danger element */
+@keyframes tactical-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+.pulse-danger { animation: tactical-pulse 1.4s infinite ease-in-out; }
+
+/* Visible keyboard focus on every interactive element in the console */
+.console :is(button, a, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
