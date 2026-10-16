@@ -114,17 +114,26 @@ def test_two_records_for_same_cve_merge_into_one_finding():
     assert len(m.verdicts) == 2 and m.confidence == "exact"
 
 
-def test_disagreeing_sources_make_the_match_uncertain():
+def test_disagreeing_sources_are_recorded_but_do_not_demote_the_match():
     yes = adv("GHSA-aaaa", ["CVE-2020-1"], fixed="1.4")
     no = adv("PYSEC-1", ["CVE-2020-1"], fixed="1.1")  # this record thinks 1.2 is already fixed
     [m] = match_dependency(dep(), [yes, no])
-    assert m.confidence == "uncertain"
+    assert m.confidence == "exact"  # one source clearly affirms; the trust score will carry the doubt
     assert any("sources disagree" in e for e in m.evidence)
+    assert sorted((v.advisory_id, v.affected) for v in m.verdicts) == [("GHSA-aaaa", True), ("PYSEC-1", False)]
 
 
 def test_withdrawn_advisory_is_uncertain():
     [m] = match_dependency(dep(), [adv("GHSA-x", withdrawn="2023-05-05T00:00:00Z")])
     assert m.confidence == "uncertain" and any("withdrawn on 2023-05-05" in e for e in m.evidence)
+
+
+def test_withdrawn_duplicate_next_to_a_live_record_does_not_demote_the_match():
+    live = adv("GHSA-live", ["CVE-2020-1"])
+    dupe = adv("PYSEC-old", ["CVE-2020-1", "GHSA-live"], withdrawn="2023-05-05T00:00:00Z")
+    [m] = match_dependency(dep(), [live, dupe])
+    assert m.confidence == "exact"
+    assert any("PYSEC-old was withdrawn" in e for e in m.evidence)  # still disclosed
 
 
 def test_scanner_claim_not_in_osv_is_kept_as_uncertain():

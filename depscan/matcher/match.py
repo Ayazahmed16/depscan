@@ -71,12 +71,16 @@ def match_dependency(dep: Dependency, advisories: list[dict]) -> list[Match]:
                 f"the file declares '{dep.spec}', not an exact version; {version} is the lowest version it allows, "
                 f"so the installed version may differ (a lock file or scan report would settle it)"
             )
-        withdrawn = [r for r in records if r.get("withdrawn")]
-        if withdrawn:
+        # A withdrawn record is noted. The match only becomes uncertain if EVERY record that
+        # affirms it has been withdrawn; a withdrawn duplicate next to live records changes nothing.
+        withdrawn = {r["id"]: r["withdrawn"] for r in records if r.get("withdrawn")}
+        for rid, when in withdrawn.items():
+            evidence.append(f"{rid} was withdrawn on {when[:10]}: that record has been retracted")
+        if all(v.advisory_id in withdrawn for v in hits):
             confidence = "uncertain"
-            evidence.append(f"{withdrawn[0]['id']} was withdrawn on {withdrawn[0]['withdrawn'][:10]}: the advisory has been retracted")
         for m in misses:
-            confidence = "uncertain"
+            # Disagreement is recorded as evidence and as per-source verdicts. It lowers the TRUST score
+            # (phase 5), not the match confidence, so a real hit is not demoted twice.
             evidence.append(f"sources disagree: {m.advisory_id} says this version is not affected ({m.reason})")
 
         matches.append(Match(

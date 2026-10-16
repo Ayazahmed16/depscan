@@ -1,0 +1,46 @@
+# depscan scoring configuration. Every number that affects ranking lives here.
+# The formulas are explained in docs/SCORING.md. Change a weight, rerun, see the ranking change.
+
+risk:
+  # Weights for the risk score (0-100). They should sum to 1.
+  # A factor that cannot be computed (e.g. exposure when no Django project was scanned)
+  # is dropped and the remaining weights are renormalised. The report says when this happened.
+  weights:
+    severity: 0.30        # how bad the vulnerability is (CVSS)
+    known_exploited: 0.20 # listed in CISA KEV
+    exploit_likelihood: 0.20  # EPSS probability
+    criticality: 0.15     # direct vs transitive, runtime vs dev-only
+    fix_availability: 0.05    # a fix you can apply makes it more actionable
+    exposure: 0.10        # reachable from an app entry point (phase 7)
+
+  # EPSS probabilities are heavily skewed toward zero. Anything at or above this counts as "1.0".
+  epss_cap: 0.5
+
+  # GitHub advisories carry a label but no number. Used only when no CVSS number is available.
+  label_severity:
+    LOW: 0.25
+    MODERATE: 0.50
+    MEDIUM: 0.50
+    HIGH: 0.75
+    CRITICAL: 0.95
+  unknown_severity: 0.50  # used when nothing at all is known, and flagged as unknown
+
+  criticality:
+    direct: 1.0
+    transitive: 0.6
+    runtime: 1.0
+    dev: 0.3              # criticality = direct/transitive value x runtime/dev value
+
+  fix:
+    available: 1.0
+    major_bump: 0.6       # a fix exists but needs a major version upgrade
+    none: 0.0
+
+  # Risk tiers (also drawn on the gauge in the UI).
+  tiers:
+    critical: 60
+    high: 30
+
+trust:
+  # Filled in with the trust layer (phase 5).
+  fresh_days: 365
