@@ -1,0 +1,25 @@
+{
+  "_note": "HAND-WRITTEN sample following the documented Dependency-Check report model. Not produced by a real scan. Replace with a real report to confirm the layout.",
+  "reportSchema": "1.1",
+  "projectInfo": {"name": "sample"},
+  "dependencies": [
+    {
+      "fileName": "django 3.0",
+      "packages": [{"id": "pkg:pypi/django@3.0", "confidence": "HIGHEST"}],
+      "vulnerabilities": [
+        {"source": "NVD", "name": "CVE-2020-7471", "severity": "CRITICAL", "cvssv3": {"baseScore": 9.8, "baseSeverity": "CRITICAL"}},
+        {"source": "NVD", "name": "CVE-2999-0001", "severity": "HIGH", "cvssv3": {"baseScore": 8.1, "baseSeverity": "HIGH"}}
+      ]
+    },
+    {
+      "fileName": "requests 2.31.0",
+      "packages": [{"id": "pkg:pypi/requests@2.31.0", "confidence": "HIGH"}],
+      "vulnerabilities": []
+    },
+    {
+      "fileName": "somelib.jar",
+      "packages": [{"id": "pkg:maven/org.example/somelib@1.0", "confidence": "HIGH"}],
+      "vulnerabilities": [{"source": "NVD", "name": "CVE-2999-0002", "severity": "HIGH"}]
+    }
+  ]
+}
