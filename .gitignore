@@ -3,8 +3,8 @@ __pycache__/
 *.pyc
 .pytest_cache/
 # Downloaded snapshots are large and reproducible: run scripts/fetch_data.py
-data/
+/data/
 # Reviewer decisions are local to a machine
-state/
+/state/
 .coverage
 htmlcov/
