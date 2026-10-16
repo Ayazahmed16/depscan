@@ -13,8 +13,9 @@ from .osv_api import OsvApiIndex
 from .parsers import parse_files
 from .registry import Registry, resolve_ranges
 from .scoring.config import load_config
-from .scoring.recommend import action_from_risk, minimum_fix, recommendation_text
+from .scoring.recommend import decide_action, minimum_fix, recommendation_text
 from .scoring.risk import compute_risk
+from .scoring.trust import compute_trust
 
 DEFAULT_DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
@@ -32,6 +33,11 @@ class DataBundle:
         self.epss_date, self.epss = load_epss(data_dir)
         self.nvd = load_nvd(data_dir)          # may be empty if the NVD step was not run
         self.snapshots = snapshot_dates(data_dir)
+        # Trust (freshness) is measured at the data snapshot date, so a scan is reproducible from its snapshot.
+        try:
+            self.as_of = dt.date.fromisoformat(self.snapshots["osv"] or "")
+        except ValueError:
+            self.as_of = dt.date.today()
 
     def osv(self, ecosystem: str) -> dict[str, list[dict]]:
         """Local bulk index if there is one (fully offline), else the OSV.dev API (cached), else an error."""
@@ -46,21 +52,63 @@ class DataBundle:
         return self._osv[ecosystem]
 
 
+def _tidy(text: str) -> str:
+    """The index cuts a missing summary out of `details` at exactly 200 characters, often mid-word. End it cleanly."""
+    if len(text) == 200:
+        text = text[:text.rfind(" ")].rstrip(" ,;:") + "…"
+    return text
+
+
 def _summary(match: Match) -> str:
     for adv in match.advisories:
         if adv.get("summary"):
-            return adv["summary"]
+            return _tidy(adv["summary"])
     claim = next((c for c in match.dependency.claims if c.cve == match.id), None)
     return f"{match.id} (reported by the {claim.source})" if claim else match.id
 
 
-def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposed: bool | None = None) -> dict:
+def make_release_check(registry: Registry | None):
+    """Does this version really exist on the package registry? True / False / "yanked" / None (could not check)."""
+    cache: dict[tuple[str, str], tuple[list[str], list[str]] | None] = {}
+
+    def check(eco: str, name: str, version: str) -> bool | str | None:
+        if registry is None:
+            return None
+        if (eco, name) not in cache:
+            cache[(eco, name)] = registry.releases(eco, name)
+        releases = cache[(eco, name)]
+        if releases is None:
+            return None
+        try:
+            target = parse_version(eco, version)
+        except UnparsableVersion:
+            return None
+        released, yanked = releases
+        if any(parse_version(eco, v) == target for v in released if _parsable(eco, v)):
+            return True
+        if any(parse_version(eco, v) == target for v in yanked if _parsable(eco, v)):
+            return "yanked"
+        return False
+
+    return check
+
+
+def _parsable(eco: str, v: str) -> bool:
+    try:
+        parse_version(eco, v)
+        return True
+    except UnparsableVersion:
+        return False
+
+
+def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposed: bool | None = None, release_exists=None) -> dict:
     dep = match.dependency
     fixed, major = minimum_fix(match)
     risk = compute_risk(match, nvd=bundle.nvd, kev=bundle.kev, epss=bundle.epss,
                         fixed_version=fixed, major_bump=major, cfg=cfg, exposed=exposed)
-    uncertain = match.confidence == "uncertain"
-    action = action_from_risk(risk["score"], cfg, uncertain=uncertain)
+    fix_yanked = bool(fixed and release_exists and release_exists(dep.ecosystem, dep.name, fixed) == "yanked")
+    trust = compute_trust(match, nvd=bundle.nvd, kev=bundle.kev, fixed_version=fixed, as_of=bundle.as_of, cfg=cfg, release_exists=release_exists)
+    action = decide_action(risk["score"], trust["score"], cfg, uncertain=match.confidence == "uncertain")
     return {
         "id": match.id,
         "aliases": match.aliases,
@@ -77,15 +125,15 @@ def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposed: bool | N
         "major_bump": major,
         "match": {"confidence": match.confidence, "evidence": match.evidence},
         "risk": {"score": risk["score"], "factors": risk["factors"], "notes": risk["notes"]},
+        "trust": trust,
         "action": action,
         # matched = found by our advisory data; unconfirmed = only a scan report claims it; contradicted = advisory data says it is NOT affected
         "claim_status": "contradicted" if match.contradicted else "unconfirmed" if match.scanner_only else "matched",
-        "recommendation": recommendation_text(match, fixed, major, action),
+        "recommendation": recommendation_text(match, fixed, major, action, fix_yanked=fix_yanked),
         "exposure": None,
         "history": [],
         "watch": None,
         "review": None,
-        # Trust (phase 5) is added by the trust layer. Not present yet, on purpose: no placeholder numbers.
     }
 
 
@@ -160,7 +208,8 @@ def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | N
             parsed.warnings.append(
                 f"{len(idx.failed)} {e} package(s) could NOT be checked: OSV.dev was unreachable and nothing was cached. "
                 f"Their absence from the findings is not a clean result.")
-    findings = [build_finding(m, bundle, cfg) for m in matches]
+    release_exists = make_release_check(bundle.registry)
+    findings = [build_finding(m, bundle, cfg, release_exists=release_exists) for m in matches]
     # Order: our own matches, then unconfirmed scanner claims, then likely false positives; by risk within each.
     # The risk SCORE is untouched. This only stops a contradicted claim from outranking a confirmed finding.
     tier = {"matched": 0, "unconfirmed": 1, "contradicted": 2}

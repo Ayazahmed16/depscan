@@ -10,7 +10,9 @@ import { TimelineView } from './TimelineView'
 
 // Layout fixture is dev-only. `import.meta.env.DEV` is false in a production build,
 // so the fixture module is dropped from the bundle.
-const useFixture = import.meta.env.DEV && new URLSearchParams(window.location.search).has('fixture')
+// ?fixture=1 loads placeholder data; ?fixture=real loads a REAL scan of the frozen known sample (see tests/sample).
+const fixtureMode = import.meta.env.DEV ? new URLSearchParams(window.location.search).get('fixture') : null
+const useFixture = fixtureMode !== null
 
 function EmptyState({ children }: { children: string }) {
   return <div className="flex flex-1 items-center justify-center text-center font-mono text-[13px] text-on-surface-variant">{children}</div>
@@ -36,10 +38,10 @@ export default function ConsoleApp() {
 
   useEffect(() => {
     if (useFixture) {
-      import('../dev/layoutFixture').then((f) => {
+      import('../dev/layoutFixture').then(async (f) => {
         setHealth(f.fixtureHealth)
         setEngine('online')
-        setScan(f.fixtureScan)
+        setScan(fixtureMode === 'real' ? ((await import('../dev/sampleScan.json')).default as unknown as ScanResult) : f.fixtureScan)
         setGraph(f.fixtureGraph)
         setAudit(f.fixtureAudit)
       })
@@ -105,7 +107,7 @@ export default function ConsoleApp() {
       />
       {useFixture && (
         <p className="border-b border-signal-warning bg-surface-container px-5 py-1.5 text-center font-mono text-[11px] uppercase tracking-wide text-signal-warning">
-          layout fixture: placeholder data, not a real scan
+          {fixtureMode === 'real' ? 'dev view: a real scan of the frozen known sample, not your project' : 'layout fixture: placeholder data, not a real scan'}
         </p>
       )}
       <main className="flex flex-1 flex-col overflow-y-auto">

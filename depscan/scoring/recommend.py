@@ -34,7 +34,25 @@ def action_from_risk(score: float, cfg: dict, *, uncertain: bool = False) -> str
     return "no_action"
 
 
-def recommendation_text(match: Match, fixed: str | None, major: bool | None, action: str) -> str:
+def decide_action(risk_score: float, trust_score: float, cfg: dict, *, uncertain: bool = False) -> str:
+    """Next step from risk AND trust. High risk with low trust reads "verify first", not "fix now".
+
+    uncertain match (withdrawn, unconfirmed or contradicted claim) -> verify_first
+    risk in the critical tier -> fix_now if trust is high enough, else verify_first
+    risk in the high tier     -> verify_first if trust is low, else monitor
+    otherwise                 -> no_action
+    """
+    tiers, a = cfg["risk"]["tiers"], cfg["actions"]
+    if uncertain:
+        return "verify_first"
+    if risk_score >= tiers["critical"]:
+        return "fix_now" if trust_score >= a["fix_now_min_trust"] else "verify_first"
+    if risk_score >= tiers["high"]:
+        return "verify_first" if trust_score < a["verify_below_trust"] else "monitor"
+    return "no_action"
+
+
+def recommendation_text(match: Match, fixed: str | None, major: bool | None, action: str, fix_yanked: bool = False) -> str:
     dep = match.dependency
     name, version = dep.name, match.version or dep.candidate
     if match.scanner_only and match.contradicted:
@@ -51,6 +69,9 @@ def recommendation_text(match: Match, fixed: str | None, major: bool | None, act
     else:
         parts.append(f"No fixed version is listed for {name} {version}. Consider a mitigation, an alternative package, "
                      f"or monitor the advisory for a patch.")
+    if fixed and fix_yanked:
+        parts.append(f"Note: {fixed} was yanked from the package registry, so it cannot be installed by default. "
+                     f"Choose a later release and check the changelog.")
     if dep.scope == "dev":
         parts.append("It is a dev-only dependency, so it is not part of the production runtime.")
     if not dep.direct:

@@ -147,11 +147,14 @@ def test_registry_failure_falls_back_to_lowest_and_is_probable(data_dir, tmp_pat
     assert any("could not be resolved against the registry" in w for w in r["warnings"])
 
 
-def test_exact_pin_never_touches_the_registry(data_dir, tmp_path):
-    net = FakeNet({})
+def test_exact_pin_is_never_resolved_through_the_registry(data_dir, tmp_path):
+    """A pin needs no range resolution. The registry is only asked, once, whether the FIXED version really exists."""
+    net = FakeNet({"https://pypi.org/pypi/alpha/json": pypi_body("1.0", "1.4", "1.5")})
     registry = Registry(tmp_path / "cache", get=net)
     r = scan_files([("requirements.txt", b"alpha==1.0\n")], DataBundle(data_dir, registry))
-    assert conf(r, "CVE-2030-0001") == "confirmed" and net.calls == []
+    assert conf(r, "CVE-2030-0001") == "confirmed"
+    assert net.calls == ["https://pypi.org/pypi/alpha/json"]                      # one lookup, for the trust check only
+    assert any(s["name"] == "fix" and "found on the package registry" in s["note"] for s in r["findings"][0]["trust"]["signals"])
 
 
 def test_registry_is_off_by_default_in_the_bundle(data_dir):
@@ -169,3 +172,37 @@ def test_resolve_ranges_reports_how_many_failed(tmp_path):
 def test_open_ended_and_compatible_release_specs(tmp_path, spec, expected):
     r = reg(tmp_path, {"https://pypi.org/pypi/pkg/json": pypi_body("1.0", "2.0")})
     assert r.newest_satisfying("PyPI", "pkg", spec) == expected
+
+
+# ---------------------------------------------------------------- yanked releases (real case: requests 2.32.0 was yanked from PyPI)
+def test_yanked_versions_are_kept_apart_from_installable_ones(tmp_path):
+    r = reg(tmp_path, {"https://pypi.org/pypi/pkg/json": pypi_body("1.0", "1.1", "1.2", yanked={"1.1"})})
+    versions, yanked = r.releases("PyPI", "pkg")
+    assert versions == ["1.0", "1.2"] and yanked == ["1.1"]
+    assert r.versions("PyPI", "pkg") == ["1.0", "1.2"]                      # callers that only want installable versions are unaffected
+
+
+def test_a_version_with_no_files_is_neither_installable_nor_yanked(tmp_path):
+    body = json.dumps({"releases": {"1.0": [{"yanked": False}], "1.1": []}}).encode()
+    assert reg(tmp_path, {"https://pypi.org/pypi/pkg/json": body}).releases("PyPI", "pkg") == (["1.0"], [])
+
+
+def test_a_cache_written_before_yanked_tracking_is_refetched(tmp_path):
+    cache = tmp_path / "registry" / "PyPI"
+    cache.mkdir(parents=True)
+    (cache / "pkg.json").write_text(json.dumps({"fetched_at": 4_000_000_000, "versions": ["1.0"]}))   # old format, "fresh"
+    net = FakeNet({"https://pypi.org/pypi/pkg/json": pypi_body("1.0", "1.1", yanked={"1.1"})})
+    assert Registry(tmp_path, get=net).releases("PyPI", "pkg") == (["1.0"], ["1.1"])
+    assert len(net.calls) == 1                                                                        # it did not trust the old cache
+
+
+def test_a_yanked_fixed_version_is_called_out_end_to_end(data_dir, tmp_path):
+    """alpha is fixed in 1.5, but 1.5 was yanked: say so in trust and in the recommendation, do not call it 'missing'."""
+    pages = {"https://pypi.org/pypi/alpha/json": pypi_body("1.0", "1.4", "1.5", "1.6", yanked={"1.5"})}
+    r = scan(data_dir, tmp_path, ("alpha==1.0" + chr(10)).encode(), pages)
+    f = r["findings"][0]
+    fix = next(s for s in f["trust"]["signals"] if s["name"] == "fix")
+    assert fix["value"] == "1.5 yanked" and "yanked from the package registry" in fix["note"] and "no such release" not in fix["note"]
+    assert "was yanked from the package registry" in f["recommendation"] and "later release" in f["recommendation"]
+    ok = scan(data_dir, tmp_path / "b", ("alpha==1.0" + chr(10)).encode(), {"https://pypi.org/pypi/alpha/json": pypi_body("1.0", "1.5")})
+    assert "yanked" not in ok["findings"][0]["recommendation"]

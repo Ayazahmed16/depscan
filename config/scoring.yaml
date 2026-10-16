@@ -46,5 +46,62 @@ data:
   stale_days: 14
 
 trust:
-  # Filled in with the trust layer (phase 5).
+  # Trust (0-100) answers "should we believe this advisory?" It starts at `base` and every signal adds or
+  # subtracts points. Each signal is shown with its points in the UI and the report; nothing is hidden.
+  # The result is clamped to 0-100. See docs/SCORING.md.
+  # base 40, not 50: the best case adds up to 58 points, so 40 keeps even a fully corroborated advisory just under the
+  # ceiling (98). With 50, most well-supported findings clamped to exactly 100 and could not be told apart.
+  base: 40
+
+  # How many independent databases list the vulnerability (GitHub, PyPA, Go, Bitnami, ... and NVD).
+  # Withdrawn records do not count. The key is the number of databases; 4 means "4 or more".
+  sources: {0: -25, 1: -8, 2: 7, 3: 14, 4: 20}
+
+  # Do the sources agree on which versions are affected?
+  ranges_agree: 10            # 2+ sources gave a version range and all say this version is affected
+  ranges_disagree: -20        # at least one source says this version is NOT affected
+  fix_versions_disagree: -5   # sources name different fixed versions
+
+  # Status. A withdrawn record is retracted by its publisher.
+  withdrawn_some: -8          # a duplicate was withdrawn, live records remain
+  withdrawn_all: -45          # every record was withdrawn
+  nvd_rejected: -45           # NVD vulnStatus is Rejected
+  disputed: -25               # NVD "disputed" tag, or "** DISPUTED **" in the advisory text
+  unsupported_when_assigned: -10  # NVD tag: the affected product was already unsupported
+  nvd_analysed: 5             # NVD status Analyzed or Modified
+  nvd_pending: -3             # Awaiting Analysis, Undergoing Analysis, Received, Deferred
+
+  # Independent proof the vulnerability is real: CISA lists it as exploited in the wild (KEV).
+  # (KEV also feeds the RISK score; the two answer different questions: how bad vs is it real.)
+  kev_listed: 12
+
+  # Time since the advisory (or its NVD record) was last modified, measured at the data snapshot date.
   fresh_days: 365
+  stale_days: 1095
+  fresh: 4
+  stale: -4
+
+  # Does a fix actually exist?
+  fix_release_exists: 10      # a fixed version is listed (and found on the package registry when it was checked)
+  fix_commit_only: 4          # a fix commit is referenced but no fixed version is listed
+  no_fix: -10                 # neither
+  fix_not_on_registry: -8     # a fixed version is listed but the registry has no such release
+  fix_yanked: -4              # the release exists but was yanked, so it cannot be installed by default (a later one is needed)
+
+  # How sure we are the match itself is real (match confidence, see section 2 of SCORING.md).
+  confidence: {confirmed: 6, likely: 3, possible: -3, probable: -6, uncertain: -15}
+  claim: {unconfirmed: -20, contradicted: -35}  # scan-report claims our advisory data does not back
+
+  # Do independent severity scores agree (NVD vs the OSV CVSS vector)?
+  severity_unknown: -6
+  severity_agree: 3
+  severity_differ: -5
+  severity_tolerance: 1.0
+
+  # Bands drawn on the gauge.
+  thresholds: {high: 60, low: 30}
+
+actions:
+  # Next step from risk AND trust. High risk with low trust reads "verify first", not "fix now".
+  fix_now_min_trust: 50       # risk in the critical tier needs at least this much trust to read "fix now"
+  verify_below_trust: 35      # risk in the high tier but trust below this reads "verify first"

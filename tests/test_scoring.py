@@ -146,3 +146,9 @@ def test_prerelease_fix_version_is_flagged_in_the_recommendation():
     txt = recommendation_text(make(), "1.5b1", False, "fix_now")
     assert "pre-release" in txt and "first stable release" in txt
     assert "pre-release" not in recommendation_text(make(), "1.5", False, "fix_now")
+
+
+def test_yanked_fix_is_mentioned_in_the_recommendation():
+    txt = recommendation_text(make(), "1.5", False, "fix_now", fix_yanked=True)
+    assert "1.5 was yanked" in txt and "Choose a later release" in txt
+    assert "yanked" not in recommendation_text(make(), "1.5", False, "fix_now")

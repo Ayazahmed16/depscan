@@ -40,18 +40,23 @@ def default_get(url: str, timeout: float) -> bytes:
         return resp.read()
 
 
-def _pypi_versions(body: bytes) -> list[str]:
+def _pypi_versions(body: bytes) -> tuple[list[str], list[str]]:
+    """(installable versions, yanked versions). A version is yanked when all of its files are."""
     releases = json.loads(body).get("releases", {})
-    # keep a version only if at least one of its files has not been yanked
-    return [v for v, files in releases.items() if any(not f.get("yanked") for f in files)]
+    versions, yanked = [], []
+    for v, files in releases.items():
+        if not files:
+            continue  # a version with no uploaded files was never really released
+        (versions if any(not f.get("yanked") for f in files) else yanked).append(v)
+    return versions, yanked
 
 
-def _npm_versions(body: bytes) -> list[str]:
-    return list(json.loads(body).get("versions", {}))
+def _npm_versions(body: bytes) -> tuple[list[str], list[str]]:
+    return list(json.loads(body).get("versions", {})), []  # npm unpublishes instead of yanking
 
 
-# ecosystem -> (URL for a package name, parser of the response body)
-SOURCES: dict[str, tuple[Callable[[str], str], Callable[[bytes], list[str]]]] = {
+# ecosystem -> (URL for a package name, parser of the response body -> (versions, yanked))
+SOURCES: dict[str, tuple[Callable[[str], str], Callable[[bytes], tuple[list[str], list[str]]]]] = {
     "PyPI": (lambda n: f"https://pypi.org/pypi/{urllib.parse.quote(n)}/json", _pypi_versions),
     "npm": (lambda n: "https://registry.npmjs.org/" + n.replace("/", "%2F"), _npm_versions),  # @scope%2Fname
 }
@@ -70,26 +75,31 @@ class Registry:
         safe = name.replace("/", "__").replace("@", "_at_")
         return self.cache_dir / eco / f"{safe}.json"
 
-    def _read_cache(self, eco: str, name: str) -> tuple[list[str], float] | None:
+    def _read_cache(self, eco: str, name: str) -> tuple[list[str], list[str], float] | None:
         p = self._path(eco, name)
         try:
             doc = json.loads(p.read_text("utf-8"))
-            return doc["versions"], float(doc["fetched_at"])
+            return doc["versions"], doc["yanked"], float(doc["fetched_at"])  # a cache without "yanked" is the old format: refetch
         except (OSError, ValueError, KeyError):
             return None
 
     def versions(self, eco: str, name: str) -> list[str] | None:
-        """Released versions, or None if unknown (unsupported ecosystem, offline with no cache, error)."""
+        """Installable released versions (yanked ones excluded), or None if unknown."""
+        r = self.releases(eco, name)
+        return r[0] if r else None
+
+    def releases(self, eco: str, name: str) -> tuple[list[str], list[str]] | None:
+        """(installable versions, yanked versions), or None if unknown (unsupported ecosystem, offline with no cache, error)."""
         if eco not in SOURCES:
             return None
         cached = self._read_cache(eco, name)
-        if cached and time.time() - cached[1] < TTL_SECONDS:
-            return cached[0]
+        if cached and time.time() - cached[2] < TTL_SECONDS:
+            return cached[0], cached[1]
         if not self.down:
             url_for, parse = SOURCES[eco]
             try:
                 self.network_calls += 1
-                versions = parse(self.get(url_for(name), self.timeout))
+                versions, yanked = parse(self.get(url_for(name), self.timeout))
             except urllib.error.HTTPError as e:
                 if e.code == 404:           # package does not exist on the registry: not an outage
                     return None
@@ -101,9 +111,9 @@ class Registry:
             else:
                 p = self._path(eco, name)
                 p.parent.mkdir(parents=True, exist_ok=True)
-                p.write_text(json.dumps({"fetched_at": time.time(), "versions": versions}), "utf-8")
-                return versions
-        return cached[0] if cached else None  # stale cache beats nothing when the network is down
+                p.write_text(json.dumps({"fetched_at": time.time(), "versions": versions, "yanked": yanked}), "utf-8")
+                return versions, yanked
+        return (cached[0], cached[1]) if cached else None  # stale cache beats nothing when the network is down
 
     # ---- selection
     def newest_satisfying(self, eco: str, name: str, spec: str) -> str | None:

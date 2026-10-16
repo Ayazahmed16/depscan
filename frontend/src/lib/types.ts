@@ -54,7 +54,7 @@ export interface Finding {
   major_bump: boolean | null
   match: { confidence: MatchConfidence; evidence: string[] }
   risk: { score: number; factors: RiskFactor[] }
-  trust: { score: number; signals: TrustSignal[] }
+  trust: { score: number; signals: TrustSignal[]; level?: 'high' | 'medium' | 'low'; base?: number }
   action: Action
   /** matched = our data found it; unconfirmed = only a scan report claims it; contradicted = our data says not affected */
   claim_status?: 'matched' | 'unconfirmed' | 'contradicted'

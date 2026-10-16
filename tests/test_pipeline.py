@@ -27,8 +27,11 @@ def test_known_sample_ranking_and_fields(data_dir):
     assert r["snapshots"]["kev"] == "2030-03-01"
 
 
-def test_findings_never_contain_fabricated_trust_yet(data_dir):
-    assert "trust" not in scan(data_dir)["findings"][0]  # added by phase 5, no placeholder numbers
+def test_every_finding_carries_a_trust_score_with_its_signals(data_dir):
+    for f in scan(data_dir)["findings"]:
+        t = f["trust"]
+        assert 0 <= t["score"] <= 100 and t["level"] in ("high", "medium", "low")
+        assert {"name", "value", "effect", "note"} <= set(t["signals"][0])
 
 
 def test_range_spec_is_probable_and_says_so(data_dir):
@@ -76,3 +79,10 @@ def test_cli_reports_missing_data_clearly(tmp_path, capsys):
     f.write_text("alpha==1.0\n")
     assert main(["scan", str(f), "--data-dir", str(tmp_path / "nope")]) == 2
     assert "fetch_data.py" in capsys.readouterr().err
+
+
+def test_truncated_summaries_end_cleanly():
+    from depscan.pipeline import _tidy
+    cut = ("word " * 40)[:200]                      # exactly what the index produces when it cuts details at 200 characters
+    assert len(cut) == 200 and _tidy(cut).endswith("…") and not _tidy(cut).endswith(" …")
+    assert _tidy("A short summary.") == "A short summary."

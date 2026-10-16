@@ -248,3 +248,57 @@ def test_reports_render_for_the_sample(reqs):
     for text in (md, page):
         assert NOTICE in text and "CVE-2022-33891" in text and "PYSEC-2020-195" in text
     assert md.count("### ") == 15   # one section per finding
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Trust (phase 5). Trust = 40 + the points of each signal, clamped to 0-100 (config/scoring.yaml).
+#
+#   typical well-supported finding, e.g. pyspark CVE-2023-32007:
+#       40 base +14 three databases (GitHub, PyPA, Bitnami) +10 both ranges agree +4 modified within a year
+#          +10 a fixed version is listed +6 confirmed match  = 84
+#   pyspark CVE-2022-33891 is the same plus +12 because CISA lists it as exploited in the wild (KEV) = 96
+#   with only two databases (+7 instead of +14), e.g. the requests / flask / most pyyaml findings: 77
+#   pyyaml CVE-2019-20477: 77 - 9 more: the two sources name different fixes (5.2 vs 5.2b1), and its record is
+#       older than a year (+0 instead of +4): 40 +7 +10 -5 +0 +10 +6 = 68
+#   pyspark CVE-2023-22946: three databases but GitHub says fixed 3.3.2 and PyPA says 3.4.0: 84 - 5 = 79
+#   the withdrawn pyyaml advisory: 40 -25 (no live source) -45 (all withdrawn) -4 (3+ years old) +10 -15 (uncertain)
+#       -6 (no severity published) = -45, clamped to 0
+EXPECTED_TRUST = {
+    "CVE-2022-33891": 96,
+    "CVE-2023-32007": 84, "CVE-2026-32773": 84, "CVE-2022-31777": 84,
+    "CVE-2023-22946": 79,
+    "CVE-2020-14343": 77, "CVE-2020-1747": 77, "CVE-2023-30861": 77, "CVE-2025-55039": 77, "CVE-2024-35195": 77,
+    "CVE-2024-47081": 77, "CVE-2026-25645": 77, "CVE-2026-27205": 77,
+    "CVE-2019-20477": 68,
+    "PYSEC-2020-195": 0,
+}
+
+
+def test_expected_trust_scores(reqs):
+    assert {f["id"]: f["trust"]["score"] for f in reqs["findings"]} == EXPECTED_TRUST
+
+
+def test_trust_is_separate_from_risk(reqs):
+    """Findings with the same trust (84) span a wide risk range: the two scores answer different questions."""
+    risks = [f["risk"]["score"] for f in reqs["findings"] if f["trust"]["score"] == 84]
+    assert len(risks) == 3 and max(risks) > 70 and min(risks) < 45
+    kev = reqs["findings"][0]
+    assert kev["trust"]["score"] == 96 and any(s["name"] == "known exploited" and s["effect"] == 12 for s in kev["trust"]["signals"])
+
+
+def test_the_source_disagreement_on_fix_versions_is_visible_in_the_signals(reqs):
+    f = next(x for x in reqs["findings"] if x["id"] == "CVE-2023-22946")
+    s = next(s for s in f["trust"]["signals"] if s["name"] == "fixed versions")
+    assert s["effect"] == -5 and "3.3.2" in s["note"] and "3.4.0" in s["note"]
+
+
+def test_withdrawn_unconfirmed_and_contradicted_findings_have_low_trust(reqs, report):
+    low = {f["id"] for f in [*reqs["findings"], *report["findings"]] if f["trust"]["level"] == "low"}
+    assert low == {"PYSEC-2020-195", "CVE-2999-0001", "CVE-2019-1010083", "CVE-2025-27516"}
+    assert all(f["action"] == "verify_first" for f in [*reqs["findings"], *report["findings"]] if f["id"] in low)
+    assert all(f["trust"]["level"] == "high" for f in [*reqs["findings"], *report["findings"]] if f["id"] not in low)
+
+
+def test_sample_actions_unchanged_by_trust(reqs):
+    """In this sample every high-risk finding is also well supported, so trust confirms rather than changes the actions."""
+    assert [f["id"] for f in reqs["findings"] if f["action"] == "fix_now"] == ["CVE-2022-33891", "CVE-2023-32007"]

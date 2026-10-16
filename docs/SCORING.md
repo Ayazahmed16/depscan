@@ -7,7 +7,14 @@ depscan uses **evidence-based prioritisation with uncertainty**. There is no mac
 score is a weighted sum of named factors, and the UI and report show each factor with its value,
 weight and contribution.
 
-This document covers the **risk score** (phase 3). The trust score is added in phase 5.
+Two scores sit side by side, and they answer different questions:
+
+| Score | Question | Section |
+|---|---|---|
+| **Risk** (0-100) | How bad is this if the advisory is real? | 1 |
+| **Trust** (0-100) | Should we believe the advisory is real, and that it applies here? | 3 |
+
+Match confidence (section 2) feeds trust. The next step uses risk and trust together (end of section 1).
 
 ## 1. Risk score (0 to 100)
 
@@ -60,16 +67,19 @@ so a score without exposure is never silently compared as if it had it.
 
 Tiers are the same cut-offs drawn on the gauge: **critical ≥ 60**, **high ≥ 30**, else low.
 
-Provisional next step (phase 3, from risk alone):
+**Next step** comes from risk and trust together (`actions:` in `config/scoring.yaml`):
 
 | Condition | Next step |
 |---|---|
-| match confidence is `uncertain` | `verify_first` |
-| risk ≥ 60 | `fix_now` |
+| match confidence is `uncertain` (withdrawn, unconfirmed or contradicted claim) | `verify_first` |
+| risk ≥ 60 and trust ≥ 50 | `fix_now` |
+| risk ≥ 60 and trust < 50 | `verify_first` |
+| risk ≥ 30 and trust < 35 | `verify_first` |
 | risk ≥ 30 | `monitor` |
 | otherwise | `no_action` |
 
-Phase 5 refines this with trust: **high risk with low trust reads `verify_first`, not `fix_now`.**
+**High risk with low trust reads `verify_first`, not `fix_now`.** Trust never changes the risk number; the two
+scores stay separate so the UI can show both.
 
 ## 2. Match confidence (separate from risk and trust)
 
@@ -96,13 +106,12 @@ stop after the first network failure. `--offline` never uses the network. With a
 is given offline.
 
 **Does confidence change the risk score?** No. The risk formula and weights are unchanged: confidence says
-how sure we are the match is real, risk says how bad it is if it is. The trust score (phase 5) will read
-`CONFIDENCE_ORDER` as one of its signals. Today the only direct effect is that `uncertain` makes the provisional
-next step `verify_first`. There is no trust score yet to feed.
+how sure we are the match is real, risk says how bad it is if it is. Confidence feeds the **trust** score as
+the `match confidence` signal (section 3), and `uncertain` forces the next step to `verify_first`.
 
 Records from different sources are merged by alias (GHSA, CVE, PYSEC). If one source says a version is
 affected and another says it is not, the match stays as strong as its best evidence. The disagreement is
-written into the evidence and counted by the **trust** score in phase 5. It is not counted twice.
+written into the evidence and counted by the **trust** score (section 3). It is not counted twice.
 A withdrawn record next to live records is noted but does not weaken the match.
 
 ### List order
@@ -118,7 +127,65 @@ This is why a contradicted claim does not outrank a confirmed finding even when 
 The risk **score** itself is not changed by the tier. Each finding carries `claim_status`
 (`matched` / `unconfirmed` / `contradicted`).
 
-## 3. Recommendations
+## 3. Trust score (0 to 100)
+
+> Should we believe this advisory? Is the vulnerability real, and does it apply to the version we found?
+
+```
+trust = clamp( base + Σ points of each signal , 0, 100 )        base = 40
+```
+
+There is no hidden term. The UI and the report list **every** signal with its value, its points and a plain
+sentence, including signals worth 0 points, so the total can always be recomputed by hand. All numbers are in
+`config/scoring.yaml` under `trust:`. It is a heuristic about the *data*, not a measurement.
+
+| Signal | Points | What it looks at |
+|---|---|---|
+| independent sources | 0 databases −25, 1: −8, 2: +7, 3: +14, 4 or more: +20 | Distinct databases that list it (GitHub, PyPA, Go, Bitnami, ...) plus NVD. Withdrawn records and a Rejected NVD record do not count. |
+| version ranges | agree +10, disagree −20, one source 0 | With 2+ live sources: do they all say this version is affected? |
+| fixed versions | differ −5 | Sources name different fixed versions (for example 3.3.2 vs 3.4.0). |
+| withdrawn | some −8, all −45 | A withdrawn duplicate with live records left, or every record withdrawn. |
+| NVD status | Analyzed/Modified +5, pending −3, Rejected −45 | NVD's own `vulnStatus`. No NVD record is 0 (normal without a CVE id). |
+| disputed | −25 | NVD `disputed` tag, or "** DISPUTED **" in the advisory text. |
+| unsupported product | −10 | NVD `unsupported-when-assigned` tag (shown only when present). |
+| known exploited | CISA KEV +12 | CISA lists it as exploited in the wild: independent proof it is real. |
+| last modified | within 365 days +4, 3+ years −4, between 0 | Age of the newest advisory or NVD modification, **measured at the data snapshot date**, so a scan is reproducible. |
+| fix | release exists +10, commit only +4, none −10, not on registry −8 | A fixed version listed; when the registry is available, that the release really exists there. |
+| match confidence | confirmed +6, likely +3, possible −3, probable −6, uncertain −15 | How sure we are the installed version is affected (section 2). |
+| scan-report claim | unconfirmed −20, contradicted −35 | A scan report claims it, but our advisory data does not back it or says the version is not affected. |
+| severity | agree +3, differ −5, unknown −6 | NVD score vs the advisory's own CVSS vector (within 1.0), or nothing published. |
+
+**Bands** (the gauge): high ≥ 60, medium ≥ 30, low below.
+
+### Why these signals
+
+- **Several independent databases and agreeing ranges** are the closest thing to a second opinion. One database
+  can be wrong or a copy of another, which is why one source costs points and agreement earns them.
+- **Withdrawn, Rejected and disputed** are statements by the publishers themselves that the advisory should not be
+  relied on. They are the heaviest penalties.
+- **KEV** is observed exploitation. It also feeds the *risk* score; both uses are intended, because "how bad" and
+  "is it real" are different questions that the same fact answers.
+- **Freshness** is deliberately mild. A recently modified advisory is being looked after, an untouched one may be out
+  of date. Neither proves anything.
+- **A fix that exists** means the advisory is resolvable and checkable. When the registry is reachable we confirm the
+  fixed version is a real release, because advisories sometimes name versions that were never published.
+- **Match confidence and unbacked scan-report claims** are in trust so that "the advisory is real" and "it applies to
+  us" are judged together; these are what push false positives to near 0.
+
+### Calibration, honestly
+
+- **Base 40, not 50.** The best case adds up to 58 points. With a base of 50 most well-supported findings clamped to
+  exactly 100 on real data and could not be told apart; 40 keeps even a fully corroborated advisory just under 100.
+- The points are reasoned, not fitted to a dataset. As a sanity check, depscan was run on old pinned versions that
+  `npm audit` and `pip-audit` were also run on (10 PyPI pins, 8 npm pins with their lockfile). The 5 advisories depscan
+  reported that those tools did **not** (withdrawn, duplicate, rejected or disputed records) all scored exactly **0**.
+  The ones the tools did report scored 37 to 100 (median 92) on PyPI and 64 to 80 (median 75) on npm; the lowest PyPI
+  score, 37, is a CVE that is genuinely disputed. That is one small experiment with 5 unreported cases, a sanity check,
+  not a validation.
+- Trust says nothing about whether the vulnerable code is reachable in your application. The exposure graph (a later
+  phase) addresses that, and feeds risk, not trust.
+
+## 4. Recommendations
 
 Recommendations are text. depscan never edits a manifest or installs anything.
 
@@ -131,7 +198,7 @@ Recommendations are text. depscan never edits a manifest or installs anything.
 - **No fix listed:** the recommendation says so and suggests mitigation, an alternative, or monitoring. We never
   guess a version.
 
-## 4. What these scores are not
+## 5. What these scores are not
 
 - Not a measurement of real-world exploitation of your application.
 - Not tuned or validated on a large dataset. The default weights are reasoned, documented starting points.

@@ -39,18 +39,21 @@ def render_markdown(result: dict) -> str:
             else:
                 out.append(f"- **{a['package']}** {a['version']}: no fixed version listed for {a['total']} finding(s)")
         out += ["", "## Findings, highest risk first", "",
-                "| # | Advisory | Package | Risk | Next step | Match |", "|---|---|---|---|---|---|"]
+                "| # | Advisory | Package | Risk | Trust | Next step | Match |", "|---|---|---|---|---|---|---|"]
         for i, x in enumerate(f, 1):
-            out.append(f"| {i} | {x['id']} | {x['package']} {x['version']} | {x['risk']['score']:.0f} | {ACTION[x['action']]} | {x['match']['confidence']} |")
+            out.append(f"| {i} | {x['id']} | {x['package']} {x['version']} | {x['risk']['score']:.0f} | {x['trust']['score']:.0f} | {ACTION[x['action']]} | {x['match']['confidence']} |")
         out.append("")
         for i, x in enumerate(f, 1):
             out += [f"### {i}. {x['id']} · {x['package']} {x['version']}", "", x["summary"], "",
-                    f"**Risk {x['risk']['score']:.0f}/100** · {ACTION[x['action']]} · match: {x['match']['confidence']}", "",
+                    f"**Risk {x['risk']['score']:.0f}/100** · **Trust {x['trust']['score']:.0f}/100 ({x['trust']['level']})** · {ACTION[x['action']]} · match: {x['match']['confidence']}", "",
                     "Evidence:"] + [f"- {e}" for e in x["match"]["evidence"]]
             out += ["", "Risk factors:", "", "| factor | value | weight | adds |", "|---|---|---|---|"]
             out += [f"| {r['name']} | {r['value']} | {r['weight']:.2f} | {r['contribution']:.1f} |" for r in x["risk"]["factors"]]
             for n in x["risk"]["notes"]:
                 out.append(f"\n_Note: {n}_")
+            out += ["", f"Trust signals (start at {x['trust']['base']}, add the points, clamp to 0-100):", "",
+                    "| signal | value | points | why |", "|---|---|---|---|"]
+            out += [f"| {s['name']} | {s['value']} | {s['effect']:+.0f} | {s['note']} |" for s in x["trust"]["signals"]]
             out += ["", f"**Recommendation:** {x['recommendation']}", ""]
     out += ["## Limitations", ""] + [f"- {limit}" for limit in LIMITS] + ["", f"**{NOTICE}**", ""]
     return "\n".join(out)
@@ -63,7 +66,7 @@ def render_html(result: dict) -> str:
     snap = ", ".join(f"{e(k)} {e(v or 'missing')}" for k, v in result["snapshots"].items())
     rows = "".join(
         f"<tr><td>{i}</td><td>{e(x['id'])}</td><td>{e(x['package'])} {e(str(x['version']))}</td>"
-        f"<td class='n'>{x['risk']['score']:.0f}</td><td>{ACTION[x['action']]}</td><td>{e(x['match']['confidence'])}</td></tr>"
+        f"<td class='n'>{x['risk']['score']:.0f}</td><td class='n'>{x['trust']['score']:.0f}</td><td>{ACTION[x['action']]}</td><td>{e(x['match']['confidence'])}</td></tr>"
         for i, x in enumerate(f, 1))
     cards = ""
     for i, x in enumerate(f, 1):
@@ -71,11 +74,16 @@ def render_html(result: dict) -> str:
             f"<tr><td>{e(r['name'])}</td><td>{e(str(r['value']))}</td><td class='n'>{r['weight']:.2f}</td><td class='n'>{r['contribution']:.1f}</td></tr>"
             for r in x["risk"]["factors"])
         notes = "".join(f"<p class='note'>Note: {e(n)}</p>" for n in x["risk"]["notes"])
+        trust_rows = "".join(
+            f"<tr><td>{e(s['name'])}</td><td>{e(str(s['value']))}</td><td class='n'>{s['effect']:+.0f}</td><td>{e(s['note'])}</td></tr>"
+            for s in x["trust"]["signals"])
         cards += (
             f"<section><h3>{i}. {e(x['id'])} · {e(x['package'])} {e(str(x['version']))}</h3><p>{e(x['summary'])}</p>"
-            f"<p><b>Risk {x['risk']['score']:.0f}/100</b> · {ACTION[x['action']]} · match: {e(x['match']['confidence'])}</p>"
+            f"<p><b>Risk {x['risk']['score']:.0f}/100</b> · <b>Trust {x['trust']['score']:.0f}/100 ({e(x['trust']['level'])})</b> · {ACTION[x['action']]} · match: {e(x['match']['confidence'])}</p>"
             f"<p>Evidence:</p><ul>{''.join(f'<li>{e(v)}</li>' for v in x['match']['evidence'])}</ul>"
             f"<table><tr><th>factor</th><th>value</th><th>weight</th><th>adds</th></tr>{factors}</table>{notes}"
+            f"<p>Trust signals (start at {x['trust']['base']}, add the points, clamp to 0-100):</p>"
+            f"<table><tr><th>signal</th><th>value</th><th>points</th><th>why</th></tr>{trust_rows}</table>"
             f"<p><b>Recommendation:</b> {e(x['recommendation'])}</p></section>")
     actions = "".join(
         f"<li><b>{e(a['package'])}</b> {e(str(a['version']))} → {e(a['target_version'])} clears {a['clears']} of {a['total']} findings</li>"
@@ -84,7 +92,7 @@ def render_html(result: dict) -> str:
         for a in result["package_actions"])
     warnings = "".join(f"<li>{e(w)}</li>" for w in result["warnings"])
     body_find = (f"<h2>Recommended upgrades (suggestions only)</h2><ul>{actions}</ul>"
-                 f"<h2>Findings, highest risk first</h2><table><tr><th>#</th><th>Advisory</th><th>Package</th><th>Risk</th><th>Next step</th><th>Match</th></tr>{rows}</table>{cards}"
+                 f"<h2>Findings, highest risk first</h2><table><tr><th>#</th><th>Advisory</th><th>Package</th><th>Risk</th><th>Trust</th><th>Next step</th><th>Match</th></tr>{rows}</table>{cards}"
                  if f else f"<p>No findings matched the cached advisory data.</p><p><b>{NOTICE}</b></p>")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>depscan report</title><style>

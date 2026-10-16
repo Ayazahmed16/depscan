@@ -1,0 +1,2212 @@
+{
+ "source": "known-sample (frozen snapshot)",
+ "scanned_at": "2026-10-16T21:09:57Z",
+ "kind": "requirements.txt",
+ "dependencies_read": 6,
+ "warnings": [
+  "NVD snapshot missing: severity comes from OSV CVSS vectors and labels instead of NVD scores, and NVD rejected/disputed status is not checked."
+ ],
+ "findings": [
+  {
+   "id": "CVE-2022-33891",
+   "aliases": [
+    "BIT-spark-2022-33891",
+    "GHSA-4x9r-j582-cgr8",
+    "PYSEC-2022-236"
+   ],
+   "package": "pyspark",
+   "version": "3.2.1",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Apache Spark UI can allow impersonation if ACLs enabled",
+   "cvss": 8.8,
+   "epss": 0.93244,
+   "kev": true,
+   "fixed_version": "3.2.2",
+   "major_bump": false,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "pyspark 3.2.1: GHSA-4x9r-j582-cgr8: 3.2.1 is listed explicitly in the advisory's affected versions",
+     "pyspark 3.2.1: PYSEC-2022-236: 3.2.1 is listed explicitly in the advisory's affected versions",
+     "installed version 3.2.1 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 96.0,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "8.8",
+      "weight": 0.3333,
+      "contribution": 29.33
+     },
+     {
+      "name": "known_exploited",
+      "value": "KEV, added 2023-03-07",
+      "weight": 0.2222,
+      "contribution": 22.22
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 93.2%",
+      "weight": 0.2222,
+      "contribution": 22.22
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 3.2.2 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 96.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "3",
+      "effect": 14,
+      "note": "Bitnami, GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 3.2.1 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "consistent",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "CISA KEV, added 2023-03-07",
+      "effect": 12,
+      "note": "CISA lists it as exploited in the wild: independent confirmation that the vulnerability is real"
+     },
+     {
+      "name": "last modified",
+      "value": "129 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "3.2.2",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "fix_now",
+   "claim_status": "matched",
+   "recommendation": "Upgrade pyspark from 3.2.1 to 3.2.2 or later (same major version).",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2023-32007",
+   "aliases": [
+    "BIT-spark-2023-32007",
+    "GHSA-59hw-j9g6-mfg3",
+    "PYSEC-2023-72"
+   ],
+   "package": "pyspark",
+   "version": "3.2.1",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Apache Spark UI vulnerable to Command Injection",
+   "cvss": 8.8,
+   "epss": 0.75955,
+   "kev": false,
+   "fixed_version": "3.2.2",
+   "major_bump": false,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "pyspark 3.2.1: GHSA-59hw-j9g6-mfg3: 3.2.1 is listed explicitly in the advisory's affected versions",
+     "pyspark 3.2.1: PYSEC-2023-72: 3.2.1 is listed explicitly in the advisory's affected versions",
+     "installed version 3.2.1 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 73.8,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "8.8",
+      "weight": 0.3333,
+      "contribution": 29.33
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 76.0%",
+      "weight": 0.2222,
+      "contribution": 22.22
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 3.2.2 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 84.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "3",
+      "effect": 14,
+      "note": "Bitnami, GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 3.2.1 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "consistent",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "128 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "3.2.2",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "fix_now",
+   "claim_status": "matched",
+   "recommendation": "Upgrade pyspark from 3.2.1 to 3.2.2 or later (same major version).",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2020-14343",
+   "aliases": [
+    "GHSA-8q59-q68h-6hv4",
+    "PYSEC-2021-142"
+   ],
+   "package": "pyyaml",
+   "version": "5.1.2",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Improper Input Validation in PyYAML",
+   "cvss": 9.8,
+   "epss": 0.05984,
+   "kev": false,
+   "fixed_version": "5.4",
+   "major_bump": false,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "pyyaml 5.1.2: GHSA-8q59-q68h-6hv4: 5.1.2 is listed explicitly in the advisory's affected versions",
+     "pyyaml 5.1.2: PYSEC-2021-142: 5.1.2 is listed explicitly in the advisory's affected versions",
+     "installed version 5.1.2 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 57.5,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "9.8",
+      "weight": 0.3333,
+      "contribution": 32.67
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 6.0%",
+      "weight": 0.2222,
+      "contribution": 2.66
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 5.4 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 77.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "2",
+      "effect": 7,
+      "note": "GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 5.1.2 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "consistent",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "254 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "5.4",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "monitor",
+   "claim_status": "matched",
+   "recommendation": "Upgrade pyyaml from 5.1.2 to 5.4 or later (same major version).",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2020-1747",
+   "aliases": [
+    "GHSA-6757-jp84-gxfx",
+    "PYSEC-2020-96"
+   ],
+   "package": "pyyaml",
+   "version": "5.1.2",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Improper Input Validation in PyYAML",
+   "cvss": 9.8,
+   "epss": 0.05442,
+   "kev": false,
+   "fixed_version": "5.3.1",
+   "major_bump": false,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "pyyaml 5.1.2: GHSA-6757-jp84-gxfx: 5.1.2 is listed explicitly in the advisory's affected versions",
+     "pyyaml 5.1.2: PYSEC-2020-96: 5.1.2 is listed explicitly in the advisory's affected versions",
+     "installed version 5.1.2 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 57.3,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "9.8",
+      "weight": 0.3333,
+      "contribution": 32.67
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 5.4%",
+      "weight": 0.2222,
+      "contribution": 2.42
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 5.3.1 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 77.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "2",
+      "effect": 7,
+      "note": "GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 5.1.2 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "consistent",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "165 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "5.3.1",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "monitor",
+   "claim_status": "matched",
+   "recommendation": "Upgrade pyyaml from 5.1.2 to 5.3.1 or later (same major version).",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2019-20477",
+   "aliases": [
+    "GHSA-3pqx-4fqf-j49f",
+    "PYSEC-2020-176"
+   ],
+   "package": "pyyaml",
+   "version": "5.1.2",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Deserialization of Untrusted Data in PyYAML",
+   "cvss": 9.8,
+   "epss": 0.05114,
+   "kev": false,
+   "fixed_version": "5.2b1",
+   "major_bump": false,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "pyyaml 5.1.2: GHSA-3pqx-4fqf-j49f: 5.1.2 is listed explicitly in the advisory's affected versions",
+     "pyyaml 5.1.2: PYSEC-2020-176: 5.1.2 is listed explicitly in the advisory's affected versions",
+     "installed version 5.1.2 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 57.2,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "9.8",
+      "weight": 0.3333,
+      "contribution": 32.67
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 5.1%",
+      "weight": 0.2222,
+      "contribution": 2.27
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 5.2b1 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 68.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "2",
+      "effect": 7,
+      "note": "GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 5.1.2 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "differ",
+      "effect": -5,
+      "note": "sources name different fixes: GHSA-3pqx-4fqf-j49f says 5.2; PYSEC-2020-176 says 5.2b1"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "721 days ago",
+      "effect": 0,
+      "note": "neither recent nor stale"
+     },
+     {
+      "name": "fix",
+      "value": "5.2b1",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "monitor",
+   "claim_status": "matched",
+   "recommendation": "Upgrade pyyaml from 5.1.2 to 5.2b1 or later (same major version). 5.2b1 is a pre-release: use the first stable release after it.",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2023-22946",
+   "aliases": [
+    "BIT-spark-2023-22946",
+    "GHSA-329j-jfvr-rhr6",
+    "PYSEC-2023-44"
+   ],
+   "package": "pyspark",
+   "version": "3.2.1",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Apache Spark vulnerable to Improper Privilege Management",
+   "cvss": 9.9,
+   "epss": 0.01109,
+   "kev": false,
+   "fixed_version": "3.3.2",
+   "major_bump": false,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "pyspark 3.2.1: GHSA-329j-jfvr-rhr6: 3.2.1 is listed explicitly in the advisory's affected versions",
+     "pyspark 3.2.1: PYSEC-2023-44: 3.2.1 is listed explicitly in the advisory's affected versions",
+     "installed version 3.2.1 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 55.7,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "9.9",
+      "weight": 0.3333,
+      "contribution": 33.0
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 1.1%",
+      "weight": 0.2222,
+      "contribution": 0.49
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 3.3.2 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 79.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "3",
+      "effect": 14,
+      "note": "Bitnami, GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 3.2.1 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "differ",
+      "effect": -5,
+      "note": "sources name different fixes: GHSA-329j-jfvr-rhr6 says 3.3.2; PYSEC-2023-44 says 3.4.0"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "128 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "3.3.2",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "monitor",
+   "claim_status": "matched",
+   "recommendation": "Upgrade pyspark from 3.2.1 to 3.3.2 or later (same major version).",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2023-30861",
+   "aliases": [
+    "GHSA-m2qf-hxjv-5gpq",
+    "PYSEC-2023-62"
+   ],
+   "package": "flask",
+   "version": "1.0",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Flask vulnerable to possible disclosure of permanent session cookie due to missing Vary: Cookie header",
+   "cvss": 7.5,
+   "epss": 0.01261,
+   "kev": false,
+   "fixed_version": "2.2.5",
+   "major_bump": true,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "flask 1.0: GHSA-m2qf-hxjv-5gpq: 1.0 is listed explicitly in the advisory's affected versions",
+     "flask 1.0: PYSEC-2023-62: 1.0 is listed explicitly in the advisory's affected versions",
+     "installed version 1.0 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 45.6,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "7.5",
+      "weight": 0.3333,
+      "contribution": 25.0
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 1.3%",
+      "weight": 0.2222,
+      "contribution": 0.56
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 2.2.5 needs a major version bump",
+      "weight": 0.0556,
+      "contribution": 3.33
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 77.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "2",
+      "effect": 7,
+      "note": "GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 1.0 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "consistent",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "36 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "2.2.5",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "monitor",
+   "claim_status": "matched",
+   "recommendation": "Upgrade flask from 1.0 to 2.2.5 or later (major version bump: check the changelog for breaking changes).",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2025-55039",
+   "aliases": [
+    "GHSA-6p6v-m64v-jx8q",
+    "PYSEC-2025-184"
+   ],
+   "package": "pyspark",
+   "version": "3.2.1",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Apache Spark has Inadequate Encryption Strength",
+   "cvss": 6.5,
+   "epss": 0.00236,
+   "kev": false,
+   "fixed_version": "3.4.4",
+   "major_bump": false,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "pyspark 3.2.1: GHSA-6p6v-m64v-jx8q: 3.2.1 is listed explicitly in the advisory's affected versions",
+     "pyspark 3.2.1: PYSEC-2025-184: 3.2.1 is listed explicitly in the advisory's affected versions",
+     "installed version 3.2.1 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 44.0,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "6.5",
+      "weight": 0.3333,
+      "contribution": 21.67
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 0.2%",
+      "weight": 0.2222,
+      "contribution": 0.1
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 3.4.4 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 77.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "2",
+      "effect": 7,
+      "note": "GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 3.2.1 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "consistent",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "128 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "3.4.4",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "monitor",
+   "claim_status": "matched",
+   "recommendation": "Upgrade pyspark from 3.2.1 to 3.4.4 or later (same major version).",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2026-32773",
+   "aliases": [
+    "BIT-spark-2026-32773",
+    "GHSA-9437-39hj-3c93",
+    "PYSEC-2026-3966"
+   ],
+   "package": "pyspark",
+   "version": "3.2.1",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Apache Spark History Server allows stored cross-site scripting through unescaped application names",
+   "cvss": 6.1,
+   "epss": 0.00414,
+   "kev": false,
+   "fixed_version": "3.5.8",
+   "major_bump": false,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "pyspark 3.2.1: GHSA-9437-39hj-3c93: 3.2.1 is listed explicitly in the advisory's affected versions",
+     "pyspark 3.2.1: PYSEC-2026-3966: 3.2.1 is listed explicitly in the advisory's affected versions",
+     "installed version 3.2.1 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 42.7,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "6.1",
+      "weight": 0.3333,
+      "contribution": 20.33
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 0.4%",
+      "weight": 0.2222,
+      "contribution": 0.18
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 3.5.8 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 84.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "3",
+      "effect": 14,
+      "note": "Bitnami, GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 3.2.1 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "consistent",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "1 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "3.5.8",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "monitor",
+   "claim_status": "matched",
+   "recommendation": "Upgrade pyspark from 3.2.1 to 3.5.8 or later (same major version).",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2024-35195",
+   "aliases": [
+    "GHSA-9wx4-h78v-vm56",
+    "PYSEC-2026-1873"
+   ],
+   "package": "requests",
+   "version": "2.31.0",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Requests `Session` object does not verify requests after making first request with verify=False",
+   "cvss": 5.6,
+   "epss": 0.0034,
+   "kev": false,
+   "fixed_version": "2.32.0",
+   "major_bump": false,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "requests 2.31.0: GHSA-9wx4-h78v-vm56: 2.31.0 is listed explicitly in the advisory's affected versions",
+     "requests 2.31.0: PYSEC-2026-1873: 2.31.0 is listed explicitly in the advisory's affected versions",
+     "installed version 2.31.0 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 41.0,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "5.6",
+      "weight": 0.3333,
+      "contribution": 18.67
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 0.3%",
+      "weight": 0.2222,
+      "contribution": 0.15
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 2.32.0 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 63.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "2",
+      "effect": 7,
+      "note": "GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 2.31.0 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "consistent",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "36 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "2.32.0 yanked",
+      "effect": -4,
+      "note": "2.32.0 was yanked from the package registry, so it is not installable by default: a later release is needed"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "monitor",
+   "claim_status": "matched",
+   "recommendation": "Upgrade requests from 2.31.0 to 2.32.0 or later (same major version). Note: 2.32.0 was yanked from the package registry, so it cannot be installed by default. Choose a later release and check the changelog.",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2022-31777",
+   "aliases": [
+    "BIT-spark-2022-31777",
+    "GHSA-43xg-8wmj-cw8h",
+    "PYSEC-2022-42976"
+   ],
+   "package": "pyspark",
+   "version": "3.2.1",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Apache Spark vulnerable to Log Injection",
+   "cvss": 5.4,
+   "epss": 0.01615,
+   "kev": false,
+   "fixed_version": "3.2.2",
+   "major_bump": false,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "pyspark 3.2.1: GHSA-43xg-8wmj-cw8h: 3.2.1 is listed explicitly in the advisory's affected versions",
+     "pyspark 3.2.1: PYSEC-2022-42976: 3.2.1 is listed explicitly in the advisory's affected versions",
+     "installed version 3.2.1 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 40.9,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "5.4",
+      "weight": 0.3333,
+      "contribution": 18.0
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 1.6%",
+      "weight": 0.2222,
+      "contribution": 0.72
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 3.2.2 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 84.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "3",
+      "effect": 14,
+      "note": "Bitnami, GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 3.2.1 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "consistent",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "128 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "3.2.2",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "monitor",
+   "claim_status": "matched",
+   "recommendation": "Upgrade pyspark from 3.2.1 to 3.2.2 or later (same major version).",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2024-47081",
+   "aliases": [
+    "GHSA-9hjg-9r4m-mvj7",
+    "PYSEC-2026-1872"
+   ],
+   "package": "requests",
+   "version": "2.31.0",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Requests vulnerable to .netrc credentials leak via malicious URLs",
+   "cvss": 5.3,
+   "epss": 0.0098,
+   "kev": false,
+   "fixed_version": "2.32.4",
+   "major_bump": false,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "requests 2.31.0: GHSA-9hjg-9r4m-mvj7: 2.31.0 is listed explicitly in the advisory's affected versions",
+     "requests 2.31.0: PYSEC-2026-1872: 2.31.0 is listed explicitly in the advisory's affected versions",
+     "installed version 2.31.0 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 40.3,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "5.3",
+      "weight": 0.3333,
+      "contribution": 17.67
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 1.0%",
+      "weight": 0.2222,
+      "contribution": 0.44
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 2.32.4 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 77.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "2",
+      "effect": 7,
+      "note": "GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 2.31.0 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "consistent",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "36 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "2.32.4",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "monitor",
+   "claim_status": "matched",
+   "recommendation": "Upgrade requests from 2.31.0 to 2.32.4 or later (same major version).",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "PYSEC-2020-195",
+   "aliases": [],
+   "package": "pyyaml",
+   "version": "5.1.2",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "PyYAML 5.1 through 5.1.2 has insufficient restrictions on the load and load_all functions because of a class deserialization issue, e.g., Popen is a class in the subprocess module. NOTE: this issue\u2026",
+   "cvss": null,
+   "epss": null,
+   "kev": false,
+   "fixed_version": "5.2b1",
+   "major_bump": false,
+   "match": {
+    "confidence": "uncertain",
+    "evidence": [
+     "pyyaml 5.1.2: PYSEC-2020-195: 5.1.2 is listed explicitly in the advisory's affected versions",
+     "PYSEC-2020-195 was withdrawn on 2023-03-14: that record has been retracted",
+     "installed version 5.1.2 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 38.9,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "unknown",
+      "weight": 0.3333,
+      "contribution": 16.67
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "no EPSS (no CVE id)",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 5.2b1 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised",
+     "severity unknown: a neutral value was used"
+    ]
+   },
+   "trust": {
+    "score": 0.0,
+    "level": "low",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "0",
+      "effect": -25,
+      "note": "no live advisory record lists it"
+     },
+     {
+      "name": "version ranges",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gave a version range, so there is nothing to compare"
+     },
+     {
+      "name": "fixed versions",
+      "value": "n/a",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "all records",
+      "effect": -45,
+      "note": "every record for this advisory was withdrawn by its publisher"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "3 years ago",
+      "effect": -4,
+      "note": "not revised for years: may be outdated"
+     },
+     {
+      "name": "fix",
+      "value": "5.2b1",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "uncertain",
+      "effect": -15,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "unknown",
+      "effect": -6,
+      "note": "no severity score or label is published"
+     }
+    ]
+   },
+   "action": "verify_first",
+   "claim_status": "matched",
+   "recommendation": "Upgrade pyyaml from 5.1.2 to 5.2b1 or later (same major version). 5.2b1 is a pre-release: use the first stable release after it. The match itself is uncertain (see evidence). Verify it before changing anything.",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2026-25645",
+   "aliases": [
+    "GHSA-gc5v-m9x4-r6x2",
+    "PYSEC-2026-2275"
+   ],
+   "package": "requests",
+   "version": "2.31.0",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function",
+   "cvss": 4.4,
+   "epss": 0.00185,
+   "kev": false,
+   "fixed_version": "2.33.0",
+   "major_bump": false,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "requests 2.31.0: GHSA-gc5v-m9x4-r6x2: 2.31.0 is listed explicitly in the advisory's affected versions",
+     "requests 2.31.0: PYSEC-2026-2275: 2.31.0 is listed explicitly in the advisory's affected versions",
+     "installed version 2.31.0 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 37.0,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "4.4",
+      "weight": 0.3333,
+      "contribution": 14.67
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 0.2%",
+      "weight": 0.2222,
+      "contribution": 0.08
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 2.33.0 available",
+      "weight": 0.0556,
+      "contribution": 5.56
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 77.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "2",
+      "effect": 7,
+      "note": "GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 2.31.0 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "consistent",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "36 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "2.33.0",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "monitor",
+   "claim_status": "matched",
+   "recommendation": "Upgrade requests from 2.31.0 to 2.33.0 or later (same major version).",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  },
+  {
+   "id": "CVE-2026-27205",
+   "aliases": [
+    "GHSA-68rp-wp8r-4726",
+    "PYSEC-2026-2151"
+   ],
+   "package": "flask",
+   "version": "1.0",
+   "ecosystem": "PyPI",
+   "direct": true,
+   "scope": "runtime",
+   "summary": "Flask session does not add `Vary: Cookie` header when accessed in some ways",
+   "cvss": 4.3,
+   "epss": 0.00432,
+   "kev": false,
+   "fixed_version": "3.1.3",
+   "major_bump": true,
+   "match": {
+    "confidence": "confirmed",
+    "evidence": [
+     "flask 1.0: GHSA-68rp-wp8r-4726: 1.0 is listed explicitly in the advisory's affected versions",
+     "flask 1.0: PYSEC-2026-2151: 1.0 is listed explicitly in the advisory's affected versions",
+     "installed version 1.0 is known exactly: pinned exactly in requirements.txt"
+    ]
+   },
+   "risk": {
+    "score": 34.5,
+    "factors": [
+     {
+      "name": "severity",
+      "value": "4.3",
+      "weight": 0.3333,
+      "contribution": 14.33
+     },
+     {
+      "name": "known_exploited",
+      "value": "not in KEV",
+      "weight": 0.2222,
+      "contribution": 0.0
+     },
+     {
+      "name": "exploit_likelihood",
+      "value": "EPSS 0.4%",
+      "weight": 0.2222,
+      "contribution": 0.19
+     },
+     {
+      "name": "criticality",
+      "value": "direct, runtime",
+      "weight": 0.1667,
+      "contribution": 16.67
+     },
+     {
+      "name": "fix_availability",
+      "value": "fix 3.1.3 needs a major version bump",
+      "weight": 0.0556,
+      "contribution": 3.33
+     }
+    ],
+    "notes": [
+     "exposure factor dropped (no Django project was analysed); other weights renormalised"
+    ]
+   },
+   "trust": {
+    "score": 77.0,
+    "level": "high",
+    "base": 40,
+    "signals": [
+     {
+      "name": "independent sources",
+      "value": "2",
+      "effect": 7,
+      "note": "GitHub Advisory Database, PyPA advisory database"
+     },
+     {
+      "name": "version ranges",
+      "value": "agree",
+      "effect": 10,
+      "note": "2 sources all say 1.0 is affected"
+     },
+     {
+      "name": "fixed versions",
+      "value": "consistent",
+      "effect": 0,
+      "note": "no conflicting fixed versions"
+     },
+     {
+      "name": "withdrawn",
+      "value": "no",
+      "effect": 0,
+      "note": "no record was withdrawn"
+     },
+     {
+      "name": "NVD status",
+      "value": "not in NVD",
+      "effect": 0,
+      "note": "no NVD record (normal for advisories without a CVE id)"
+     },
+     {
+      "name": "disputed",
+      "value": "no",
+      "effect": 0,
+      "note": "not marked as disputed"
+     },
+     {
+      "name": "known exploited",
+      "value": "not in KEV",
+      "effect": 0,
+      "note": "not on the CISA known-exploited list (most vulnerabilities are not)"
+     },
+     {
+      "name": "last modified",
+      "value": "36 days ago",
+      "effect": 4,
+      "note": "recently reviewed or updated"
+     },
+     {
+      "name": "fix",
+      "value": "3.1.3",
+      "effect": 10,
+      "note": "a patched release exists: found on the package registry"
+     },
+     {
+      "name": "match confidence",
+      "value": "confirmed",
+      "effect": 6,
+      "note": "how sure we are the installed version is affected (SCORING.md section 2)"
+     },
+     {
+      "name": "severity",
+      "value": "one source",
+      "effect": 0,
+      "note": "only one source gives a severity, so nothing to compare"
+     }
+    ]
+   },
+   "action": "monitor",
+   "claim_status": "matched",
+   "recommendation": "Upgrade flask from 1.0 to 3.1.3 or later (major version bump: check the changelog for breaking changes).",
+   "exposure": null,
+   "history": [],
+   "watch": null,
+   "review": null
+  }
+ ],
+ "package_actions": [
+  {
+   "package": "pyspark",
+   "ecosystem": "PyPI",
+   "version": "3.2.1",
+   "target_version": "3.5.8",
+   "clears": 6,
+   "total": 6,
+   "top_risk": 96.0
+  },
+  {
+   "package": "pyyaml",
+   "ecosystem": "PyPI",
+   "version": "5.1.2",
+   "target_version": "5.4",
+   "clears": 4,
+   "total": 4,
+   "top_risk": 57.5
+  },
+  {
+   "package": "flask",
+   "ecosystem": "PyPI",
+   "version": "1.0",
+   "target_version": "3.1.3",
+   "clears": 2,
+   "total": 2,
+   "top_risk": 45.6
+  },
+  {
+   "package": "requests",
+   "ecosystem": "PyPI",
+   "version": "2.31.0",
+   "target_version": "2.33.0",
+   "clears": 3,
+   "total": 3,
+   "top_risk": 41.0
+  }
+ ]
+}

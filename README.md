@@ -45,6 +45,9 @@ snapshot, and a scan warns when its data is older than `data.stale_days` (defaul
 Development: `pytest`, `ruff check depscan scripts tests` (settings in `ruff.toml`),
 `coverage run -m pytest` then `coverage report`.
 
+Each finding shows a **risk** score (how bad if real) and a **trust** score (should we believe it), with every signal
+behind both listed. High risk with low trust reads "verify first", not "fix now".
+
 Scoring: [docs/SCORING.md](docs/SCORING.md), weights in [config/scoring.yaml](config/scoring.yaml).
 Plan and data sources: [docs/PLAN.md](docs/PLAN.md). Tests: `pytest`.
 
@@ -81,7 +84,10 @@ Remaining limits, honestly:
 - **Go: the standard library and toolchain version are not scanned**, and `replace` directives are only flagged.
 - **yarn.lock and Pipfile.lock do not say which packages are direct.** Give depscan the manifest too for that.
 - **The Dependency-Check JSON layout is unverified** against a real report (see `depscan/parsers/depcheck.py`).
-- The trust score, reviewer actions, exposure graph (Python/Django, import level only), timeline and the web
+- The trust score is a **heuristic about the advisory data** (sources, agreement, status, freshness, fix, match confidence),
+  not a measure of whether the vulnerable code is reachable in your app. Its points are reasoned and have only been
+  sanity-checked on a small experiment (see docs/SCORING.md section 3).
+- Reviewer actions, exposure graph (Python/Django, import level only), timeline and the web
   API are planned phases, not built yet. The frontend in `frontend/` is built against the planned API and
   has not been connected to a backend.
 - Benchmark numbers do not exist yet. When they do, they come from a real run on a small labelled set and
