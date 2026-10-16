@@ -1,6 +1,7 @@
 """Command line.
 
     python -m depscan scan requirements.txt [more files or a folder] [--out report.html|report.md|result.json]
+    python -m depscan scan requirements.txt --fail-on fix_now        (CI: exit status 1 if a finding needs fixing now)
     python -m depscan review result.json --list
     python -m depscan review result.json KEY accept_risk --reviewer "Ana" --note "why" --expires 2030-01-31
     python -m depscan audit [--verify]
@@ -16,6 +17,7 @@ import json
 import sys
 from pathlib import Path
 
+from .gate import LEVELS, summary
 from .pipeline import DEFAULT_DATA_DIR, DEFAULT_REVIEW_DB, DataBundle, collect_files, scan_files
 from .registry import Registry
 from .report import REVIEW_LABEL, render_html, render_markdown
@@ -39,13 +41,17 @@ def cmd_scan(args) -> int:
     result = scan_files(collect_files(args.files), bundle, review_store=store, project=args.project or "default", project_dir=project_dir)
     if args.out is None:
         print(render_markdown(result))
-        return 0
-    text = {".html": render_html, ".md": render_markdown, ".json": lambda r: json.dumps(r, indent=2)}.get(args.out.suffix)
-    if text is None:
-        print("error: --out must end in .html, .md or .json", file=sys.stderr)
-        return 2
-    args.out.write_text(text(result), "utf-8")
-    print(f"wrote {args.out} ({len(result['findings'])} findings)")
+    else:
+        text = {".html": render_html, ".md": render_markdown, ".json": lambda r: json.dumps(r, indent=2)}.get(args.out.suffix)
+        if text is None:
+            print("error: --out must end in .html, .md or .json", file=sys.stderr)
+            return 2
+        args.out.write_text(text(result), "utf-8")
+        print(f"wrote {args.out} ({len(result['findings'])} findings)")
+    if args.fail_on:
+        passed, message = summary(result["findings"], args.fail_on)
+        print(message, file=sys.stderr)            # stderr, so a report printed to stdout stays clean
+        return 0 if passed else 1
     return 0
 
 
@@ -106,6 +112,9 @@ def cmd_serve(args) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    for stream in (sys.stdout, sys.stderr):        # reports contain arrows and similar: a redirected Windows stream defaults to cp1252 and would crash
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
     ap = argparse.ArgumentParser(prog="depscan")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
@@ -114,6 +123,9 @@ def main(argv: list[str] | None = None) -> int:
     scan.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
     scan.add_argument("--offline", action="store_true", help="never use the network: version ranges use cached registry data or fall back to the lowest allowed version")
     scan.add_argument("--out", type=Path, help=".html, .md or .json; default prints Markdown")
+    scan.add_argument("--fail-on", choices=LEVELS, help="CI gate: exit with status 1 if any finding needs attention at this level or worse "
+                      "(fix_now, verify_first, monitor, or any). Accepted-risk and false-positive decisions that have not expired, and "
+                      "likely false positives from a scan report, do not count. Exit status 2 still means the scan itself failed.")
     scan.add_argument("--project-dir", type=Path, help="a Django project folder: finds which vulnerable packages its URL routes can reach (a folder given above that holds manage.py is used automatically)")
     _store_arg(scan)
 

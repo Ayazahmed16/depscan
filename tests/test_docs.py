@@ -7,7 +7,7 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 NOTICE = "No findings does not prove a project is secure."
 DOCS = ["README.md", "docs/ARCHITECTURE.md", "docs/DEMO.md", "docs/BENCHMARK.md", "docs/SCORING.md", "docs/CONTRACT.md",
-        "docs/EXPOSURE.md", "docs/REVIEW.md", "vscode-extension/README.md"]
+        "docs/EXPOSURE.md", "docs/REVIEW.md", "docs/CI.md", "vscode-extension/README.md"]
 
 
 @pytest.mark.parametrize("name", ["README.md", "docs/ARCHITECTURE.md", "docs/DEMO.md", "docs/SCORING.md", "vscode-extension/README.md"])
@@ -48,3 +48,15 @@ def test_the_benchmark_doc_says_the_labels_are_unverified():
 def test_the_readme_does_not_claim_features_that_are_not_built():
     text = (ROOT / "README.md").read_text("utf-8")
     assert "planned phases" not in text and "not built yet" not in text and "phase 11" not in text
+
+
+def test_the_ci_doc_matches_the_workflows_and_exit_codes():
+    import yaml
+    doc = (ROOT / "docs" / "CI.md").read_text("utf-8")
+    assert "--fail-on" in doc and NOTICE in doc and "have not been run on GitHub" in doc
+    ci = yaml.safe_load((ROOT / ".github" / "workflows" / "ci.yml").read_text("utf-8"))
+    assert {"python", "gate", "frontend"} <= set(ci["jobs"])
+    for fixture in ("py-web-old", "clean-current"):                       # the fixtures the gate job scans must exist
+        assert (ROOT / "benchmark" / "fixtures" / fixture).is_dir() and fixture in doc
+    example = yaml.safe_load((ROOT / "docs" / "ci" / "depscan-github-workflow.yml").read_text("utf-8"))
+    assert "depscan" in example["jobs"]

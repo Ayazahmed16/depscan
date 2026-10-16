@@ -1,0 +1,71 @@
+# Example: gate a pull request on depscan. Copy this file to .github/workflows/depscan.yml in YOUR repository.
+# It is not run from this repository (it lives under docs/). See docs/CI.md for what each step does and its limits.
+name: depscan
+
+on:
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"            # weekly: new vulnerabilities appear even when your code did not change
+
+permissions:
+  contents: read
+
+jobs:
+  depscan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: get depscan
+        uses: actions/checkout@v4
+        with:
+          repository: Ayazahmed16/depscan
+          path: .depscan
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r .depscan/requirements.txt
+
+      # The advisory snapshots are about 400 MB and take roughly 10 minutes to download the first time, so cache them.
+      # The key changes weekly, which is also how often the data is refreshed.
+      - name: week number for the cache key
+        id: week
+        run: echo "week=$(date +%G-%V)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        id: data
+        with:
+          path: .depscan/data
+          key: depscan-data-${{ steps.week.outputs.week }}
+
+      - name: download the snapshots (cache miss only)
+        if: steps.data.outputs.cache-hit != 'true'
+        run: python .depscan/scripts/fetch_data.py --ecosystems PyPI npm Go
+
+      - name: scan (the exit status is kept for the last step so the report is always published first)
+        id: scan
+        env:
+          PYTHONPATH: .depscan
+        run: |
+          set +e
+          python -m depscan scan . --offline --fail-on fix_now --out depscan-report.md
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+
+      - name: report in the job summary
+        if: always()
+        run: test -f depscan-report.md && cat depscan-report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: depscan-report
+          path: depscan-report.md
+          if-no-files-found: ignore
+
+      - name: fail the build if the gate failed
+        if: steps.scan.outputs.code != '0'
+        run: |
+          echo "depscan exit status ${{ steps.scan.outputs.code }} (1 = findings need attention, 2 = the scan itself failed)"
+          exit 1

@@ -20,6 +20,9 @@ shown, the lowest fixed version and whether reaching it needs a major upgrade, a
 first, monitor, no action), the history of the finding, and any decision a reviewer has recorded. Results come as a web
 console, a Markdown or HTML report, JSON, or squiggles in VS Code.
 
+In CI, `scan --fail-on fix_now` exits with status 1 when a finding needs attention, so a build can fail on it. Accepted
+risks that have not expired do not count. See `docs/CI.md`.
+
 ## How it decides
 
 **Risk** is a weighted sum of severity (CVSS), whether the vulnerability is known to be exploited (CISA KEV), exploit
@@ -55,6 +58,7 @@ The formulas and the reasoning behind each number are in `docs/SCORING.md`.
 | `tests/` | the test suite and a frozen known sample |
 | `benchmark/` | benchmark fixtures, frozen data, draft labels and results |
 | `mock/` | ready-made inputs for trying the tool |
+| `.github/workflows/` | continuous integration, including a demonstration of the CI gate |
 
 ## Evidence
 
@@ -80,5 +84,5 @@ numbers describe these fixtures and do not predict performance on real projects.
 ## Documentation
 
 [Architecture](docs/ARCHITECTURE.md) | [Scoring](docs/SCORING.md) | [Exposure](docs/EXPOSURE.md) | [Review](docs/REVIEW.md) |
-[API contract](docs/CONTRACT.md) | [Benchmark](docs/BENCHMARK.md) | [Demo script](docs/DEMO.md) | [Plan](docs/PLAN.md) |
+[API contract](docs/CONTRACT.md) | [CI](docs/CI.md) | [Benchmark](docs/BENCHMARK.md) | [Demo script](docs/DEMO.md) | [Plan](docs/PLAN.md) |
 [VS Code extension](vscode-extension/README.md)

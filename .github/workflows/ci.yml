@@ -1,0 +1,83 @@
+# Continuous integration for depscan itself, and a live demonstration of the CI gate (`--fail-on`) on the benchmark
+# fixtures, which act as small test repositories. Everything here runs offline from frozen snapshots in the repo.
+name: ci
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: ruff check .
+      - run: pytest -q
+      - name: benchmark results are current
+        run: python scripts/benchmark.py --check
+
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: a vulnerable project must fail the gate (exit status exactly 1)
+        run: |
+          set +e
+          python -m depscan scan benchmark/fixtures/py-web-old --data-dir benchmark/snapshot --offline \
+            --review-db "$RUNNER_TEMP/none.sqlite" --fail-on fix_now --out vulnerable.md
+          code=$?
+          set -e
+          echo "exit status: $code"
+          test "$code" -eq 1
+      - name: a project with current pins must pass the gate
+        run: |
+          python -m depscan scan benchmark/fixtures/clean-current --data-dir benchmark/snapshot --offline \
+            --review-db "$RUNNER_TEMP/none.sqlite" --fail-on fix_now --out clean.md
+      - name: show the vulnerable report in the job summary
+        if: always()
+        run: |
+          echo "### depscan report for the vulnerable test project" >> "$GITHUB_STEP_SUMMARY"
+          test -f vulnerable.md && cat vulnerable.md >> "$GITHUB_STEP_SUMMARY" || echo "no report was written" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: depscan-reports
+          path: "*.md"
+          if-no-files-found: ignore
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            frontend/package-lock.json
+            vscode-extension/package-lock.json
+      - name: console builds and type-checks
+        working-directory: frontend
+        run: |
+          npm ci
+          npx tsc -b
+          npm run build
+      - name: VS Code extension logic tests
+        working-directory: vscode-extension
+        run: |
+          npm ci
+          npm test
