@@ -6,3 +6,5 @@ __pycache__/
 data/
 # Reviewer decisions are local to a machine
 state/
+.coverage
+htmlcov/
