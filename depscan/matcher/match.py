@@ -43,14 +43,9 @@ def primary_id(records: list[dict]) -> str:
     return records[0]["id"]
 
 
-def match_dependency(dep: Dependency, advisories: list[dict]) -> list[Match]:
-    """All matches for one dependency. `advisories` are the OSV records for dep.name."""
-    version = dep.candidate
-    matches: list[Match] = []
-    seen_ids: set[str] = set()
-    if version is None:
-        return matches
-
+def _matches_at(dep: Dependency, version: str, advisories: list[dict]) -> dict[str, Match]:
+    """Matches for ONE specific version, keyed by primary id. Confidence is set by the caller."""
+    found: dict[str, Match] = {}
     for records in _group(advisories):
         verdicts: list[SourceVerdict] = []
         for rec in records:
@@ -62,18 +57,9 @@ def match_dependency(dep: Dependency, advisories: list[dict]) -> list[Match]:
         misses = [v for v in verdicts if v.affected is False]
         if not hits:
             continue
-        seen_ids.update([pid, *all_ids])  # only matched ids count as "confirmed" for scanner claims
 
         evidence = [f"{dep.name} {version}: {v.advisory_id}: {v.reason}" for v in hits]
-        confidence = "confirmed" if dep.exact else "probable"
-        if dep.exact:
-            how = f"locked in {dep.source}" if dep.resolution == "lockfile" else f"pinned exactly in {dep.source or 'the manifest'}"
-            evidence.append(f"installed version {version} is known exactly: {how}")
-        else:
-            evidence.append(
-                f"the file declares '{dep.spec}', not an exact version; {version} is the lowest version it allows, "
-                f"so the installed version may differ (a lock file or scan report would settle it)"
-            )
+        confidence = "base"  # replaced by the caller; 'uncertain' below overrides it
         # A withdrawn record is noted. The match only becomes uncertain if EVERY record that
         # affirms it has been withdrawn; a withdrawn duplicate next to live records changes nothing.
         withdrawn = {r["id"]: r["withdrawn"] for r in records if r.get("withdrawn")}
@@ -86,13 +72,70 @@ def match_dependency(dep: Dependency, advisories: list[dict]) -> list[Match]:
             # (phase 5), not the match confidence, so a real hit is not demoted twice.
             evidence.append(f"sources disagree: {m.advisory_id} says this version is not affected ({m.reason})")
 
-        matches.append(Match(
+        found[pid] = Match(
             id=pid, aliases=all_ids, dependency=dep, confidence=confidence, evidence=evidence,
             verdicts=verdicts, advisories=records, version=version,
             fixed_versions=sorted({h.fixed_in for h in hits if h.fixed_in}),
-        ))
+        )
+    return found
+
+
+def _range_evidence(dep: Dependency, low: Match | None, new: Match | None) -> tuple[str, list[str]]:
+    """Confidence and explanation for a dependency declared as a range (not exact).
+
+    confirmed > likely > possible > probable:
+      likely    newest satisfying release AND lowest allowed version are both affected
+      possible  only one of the two is affected
+      probable  registry unavailable: only the lowest allowed version could be tested
+    """
+    spec = dep.spec
+    if dep.newest is None:  # registry did not resolve: old behaviour
+        why = {"failed": "the package registry could not be reached, so the newest release was not looked up",
+               None: "registry resolution was not attempted"}.get(dep.registry_status, "the registry returned no usable release")
+        return "probable", [
+            f"the file declares '{spec}', not an exact version; {dep.lower_bound} is the lowest version it allows "
+            f"and the only one tested ({why}), so the installed version may differ (a lock file would settle it)"]
+    if low and new:
+        return "likely", [
+            f"the file declares '{spec}'. The newest release that satisfies it is {dep.newest} (from the {dep.ecosystem} registry) "
+            f"and the lowest version it allows ({dep.lower_bound}) is affected too: any install within the range gets an affected version"]
+    if new:
+        low_txt = f"the lowest allowed version {dep.lower_bound} is not affected" if dep.lower_bound else "no lower bound is declared"
+        return "possible", [
+            f"the file declares '{spec}'. The newest satisfying release {dep.newest} is affected, but {low_txt}: "
+            f"whether it applies depends on which version gets installed"]
+    return "possible", [
+        f"the file declares '{spec}'. The lowest allowed version {dep.lower_bound} is affected, but the newest satisfying release "
+        f"{dep.newest} is not: a fresh install resolves to the patched release, an older install may not"]
+
+
+def match_dependency(dep: Dependency, advisories: list[dict]) -> list[Match]:
+    """All matches for one dependency. `advisories` are the OSV records for dep.name."""
+    matches: list[Match] = []
+    if dep.exact:
+        version = dep.version
+        for m in _matches_at(dep, version, advisories).values():
+            how = f"locked in {dep.source}" if dep.resolution == "lockfile" else f"pinned exactly in {dep.source or 'the manifest'}"
+            m.evidence.append(f"installed version {version} is known exactly: {how}")
+            m.confidence = "uncertain" if m.confidence == "uncertain" else "confirmed"
+            matches.append(m)
+    else:
+        version = dep.newest or dep.lower_bound
+        if version is None:
+            return matches
+        low = _matches_at(dep, dep.lower_bound, advisories) if dep.lower_bound else {}
+        new = _matches_at(dep, dep.newest, advisories) if dep.newest else {}
+        for pid in list(dict.fromkeys([*new, *low])):
+            m = new.get(pid) or low[pid]        # report the affected version; prefer the newest
+            confidence, notes = _range_evidence(dep, low.get(pid), new.get(pid))
+            m.confidence = "uncertain" if m.confidence == "uncertain" else confidence
+            m.evidence = m.evidence + notes
+            matches.append(m)
+
+    seen_ids = {i for m in matches for i in [m.id, *m.aliases]}
 
     # Scanner claims that our advisory data did not confirm: keep them, flagged, never silently dropped.
+    version = dep.version or dep.newest or dep.lower_bound
     for claim in dep.claims:
         if claim.cve in seen_ids:
             for m in matches:

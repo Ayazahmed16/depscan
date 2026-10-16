@@ -10,6 +10,7 @@ import sys
 from pathlib import Path
 
 from .pipeline import DEFAULT_DATA_DIR, DataBundle, collect_files, scan_files
+from .registry import Registry
 from .report import render_html, render_markdown
 
 
@@ -19,11 +20,12 @@ def main(argv: list[str] | None = None) -> int:
     scan = sub.add_parser("scan", help="scan a dependency file or scan report (read-only)")
     scan.add_argument("files", type=Path, nargs="+", help="dependency files or folders; lock files beside a manifest are found automatically")
     scan.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
+    scan.add_argument("--offline", action="store_true", help="never use the network: version ranges use cached registry data or fall back to the lowest allowed version")
     scan.add_argument("--out", type=Path, help=".html, .md or .json; default prints Markdown")
     args = ap.parse_args(argv)
 
     try:
-        bundle = DataBundle(args.data_dir)
+        bundle = DataBundle(args.data_dir, Registry(args.data_dir, offline=args.offline))
     except FileNotFoundError as e:
         print(f"error: {e}", file=sys.stderr)
         return 2
