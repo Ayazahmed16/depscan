@@ -1,0 +1,10 @@
+# Each pin equals the `fixed` version of one advisory (the median fixed version of that package). That advisory must NOT be
+# reported (the pinned version is the fix); the later ones may be.
+pyyaml==5.3.1
+requests==2.31.0
+flask==2.3.2
+jinja2==2.11.3
+urllib3==1.26.18
+werkzeug==3.0.1
+pillow==8.2.0
+django==2.2.27

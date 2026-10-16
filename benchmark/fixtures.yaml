@@ -1,0 +1,59 @@
+# The benchmark fixtures. Inputs are small, hand-picked dependency files; the data behind them is frozen
+# (tests/sample/snapshot for the first three, benchmark/snapshot for the rest) so results do not move.
+# Labels (which advisory truly affects which pinned version) are a DRAFT that needs the owner's manual verification.
+fixtures:
+  - name: known-sample
+    description: "The known test sample: 6 packages, real advisories, one KEV-listed, one withdrawn record, one name-only false positive, one clean package."
+    snapshot: tests/sample/snapshot
+    inputs: [tests/sample/requirements.txt]
+    labels: {hand: tests/sample/labels.yaml, section: requirements.txt}
+
+  - name: known-sample-report
+    description: "A Dependency-Check-style scan report with true, false-positive (boundary version) and unconfirmed claims."
+    snapshot: tests/sample/snapshot
+    inputs: [tests/sample/scan-report.json]
+    labels: {hand: tests/sample/labels.yaml, section: scan-report.json}
+
+  - name: django-app
+    description: "The hand-written Django app: the same pins as known-sample plus django, with a URL-route-to-package structure whose exposure is known by construction."
+    snapshot: tests/sample/snapshot
+    inputs: [tests/sample/django_app/requirements.txt]
+    project_dir: tests/sample/django_app
+    reachable: {pyyaml: web, requests: web, jinja2: web, pyspark: command, six: startup, flask: none}
+    labels: {draft: true}
+
+  - name: py-web-old
+    description: "A Python web app pinned around 2018-2020 (django, flask, requests, urllib3, jinja2, werkzeug, pyyaml, sqlalchemy, gunicorn, pillow)."
+    snapshot: benchmark/snapshot
+    inputs: [benchmark/fixtures/py-web-old/requirements.txt]
+    labels: {draft: true}
+
+  - name: py-kev-mix
+    description: "A platform stack containing every PyPI application dependency in the cache that has a KEV-listed advisory, next to ordinary companions."
+    snapshot: benchmark/snapshot
+    inputs: [benchmark/fixtures/py-kev-mix/requirements.txt]
+    labels: {draft: true}
+
+  - name: npm-old
+    description: "An npm project with 12 old exact pins (lodash, minimist, express, axios, jquery, moment, handlebars, node-fetch, ws, serialize-javascript, mongo-express, electron)."
+    snapshot: benchmark/snapshot
+    inputs: [benchmark/fixtures/npm-old/package.json]
+    labels: {draft: true}
+
+  - name: go-old
+    description: "A Go module with 6 old requirements (gin, yaml.v2, jwt-go, websocket, echo, x/net)."
+    snapshot: benchmark/snapshot
+    inputs: [benchmark/fixtures/go-old/go.mod]
+    labels: {draft: true}
+
+  - name: clean-current
+    description: "Packages pinned to the highest fixed version named by any advisory: a scanner should report (almost) nothing."
+    snapshot: benchmark/snapshot
+    inputs: [benchmark/fixtures/clean-current/requirements.txt]
+    labels: {draft: true}
+
+  - name: boundary
+    description: "Each pin equals the fixed version of one advisory: that advisory must not be reported."
+    snapshot: benchmark/snapshot
+    inputs: [benchmark/fixtures/boundary/requirements.txt]
+    labels: {draft: true}

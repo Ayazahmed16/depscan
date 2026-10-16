@@ -1,0 +1,18 @@
+{
+ "note": "Extract of the live cache for the packages named by benchmark/fixtures. No NVD data (severity comes from OSV CVSS vectors).",
+ "osv:Go": {
+  "snapshot_date": "2026-10-16"
+ },
+ "osv:PyPI": {
+  "snapshot_date": "2026-10-16"
+ },
+ "osv:npm": {
+  "snapshot_date": "2026-10-16"
+ },
+ "kev": {
+  "snapshot_date": "2026-10-16"
+ },
+ "epss": {
+  "snapshot_date": "2026-10-16"
+ }
+}

@@ -1,0 +1,13 @@
+# A platform / data-engineering stack. Selection rule (disclosed in docs/BENCHMARK.md): this fixture deliberately includes
+# every PyPI package from the live cache that is both a real application dependency and has a KEV-listed advisory
+# (apache-airflow, apache-superset, salt, pillow, ray), pinned to an old version, next to ordinary companions.
+apache-airflow==1.10.10
+apache-superset==2.0.0
+salt==3000
+pillow==9.0.0
+ray==2.0.0
+flask==1.1.2
+sqlalchemy==1.3.0
+jinja2==2.11.2
+werkzeug==1.0.1
+pyyaml==5.3

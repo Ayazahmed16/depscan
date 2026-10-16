@@ -1,0 +1,594 @@
+{
+ "fixtures": [
+  {
+   "dependencies": 6,
+   "depscan": {
+    "false_positives": 0,
+    "held": 1,
+    "held_truly_affected": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "reported": 14,
+    "true_positives": 14
+   },
+   "description": "The known test sample: 6 packages, real advisories, one KEV-listed, one withdrawn record, one name-only false positive, one clean package.",
+   "disagreements": {
+    "labelled_affected_but_not_reported": [],
+    "reported_but_not_labelled_affected": []
+   },
+   "known_exploited_affected": 1,
+   "label_source": "hand-written draft (tests/sample/labels.yaml)",
+   "labelled_affected": 14,
+   "naive": {
+    "false_positives": 28,
+    "precision": 0.333,
+    "recall": 1.0,
+    "reported": 42,
+    "true_positives": 14
+   },
+   "name": "known-sample",
+   "ranking": {
+    "cvss_only": {
+     "first_rank": 5,
+     "hits": 0,
+     "possible": 1,
+     "share": 0.0
+    },
+    "depscan": {
+     "first_rank": 1,
+     "hits": 1,
+     "possible": 1,
+     "share": 1.0
+    },
+    "depscan_without_kev_weight": {
+     "first_rank": 1,
+     "hits": 1,
+     "possible": 1,
+     "share": 1.0
+    }
+   },
+   "reachability": null
+  },
+  {
+   "dependencies": 4,
+   "depscan": {
+    "false_positives": 0,
+    "held": 3,
+    "held_truly_affected": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "reported": 5,
+    "true_positives": 5
+   },
+   "description": "A Dependency-Check-style scan report with true, false-positive (boundary version) and unconfirmed claims.",
+   "disagreements": {
+    "labelled_affected_but_not_reported": [],
+    "reported_but_not_labelled_affected": []
+   },
+   "known_exploited_affected": 0,
+   "label_source": "hand-written draft (tests/sample/labels.yaml)",
+   "labelled_affected": 5,
+   "naive": {
+    "false_positives": 3,
+    "precision": 0.25,
+    "recall": 0.2,
+    "reported": 4,
+    "true_positives": 1
+   },
+   "name": "known-sample-report",
+   "ranking": {
+    "cvss_only": {
+     "first_rank": null,
+     "hits": 0,
+     "possible": 0,
+     "share": null
+    },
+    "depscan": {
+     "first_rank": null,
+     "hits": 0,
+     "possible": 0,
+     "share": null
+    },
+    "depscan_without_kev_weight": {
+     "first_rank": null,
+     "hits": 0,
+     "possible": 0,
+     "share": null
+    }
+   },
+   "reachability": null
+  },
+  {
+   "dependencies": 7,
+   "depscan": {
+    "false_positives": 0,
+    "held": 1,
+    "held_truly_affected": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "reported": 14,
+    "true_positives": 14
+   },
+   "description": "The hand-written Django app: the same pins as known-sample plus django, with a URL-route-to-package structure whose exposure is known by construction.",
+   "disagreements": {
+    "labelled_affected_but_not_reported": [],
+    "reported_but_not_labelled_affected": []
+   },
+   "known_exploited_affected": 1,
+   "label_source": "draft derived by `oracle_affected` (benchmark/labels.yaml)",
+   "labelled_affected": 14,
+   "naive": {
+    "false_positives": 28,
+    "precision": 0.333,
+    "recall": 1.0,
+    "reported": 42,
+    "true_positives": 14
+   },
+   "name": "django-app",
+   "ranking": {
+    "cvss_only": {
+     "first_rank": 5,
+     "hits": 0,
+     "possible": 1,
+     "share": 0.0
+    },
+    "depscan": {
+     "first_rank": 1,
+     "hits": 1,
+     "possible": 1,
+     "share": 1.0
+    },
+    "depscan_without_kev_weight": {
+     "first_rank": 1,
+     "hits": 1,
+     "possible": 1,
+     "share": 1.0
+    }
+   },
+   "reachability": {
+    "cvss_only": {
+     "first_rank": 2,
+     "hits": 2,
+     "possible": 3,
+     "share": 0.667
+    },
+    "depscan_no_project": {
+     "first_rank": 3,
+     "hits": 1,
+     "possible": 3,
+     "share": 0.333
+    },
+    "depscan_with_project": {
+     "first_rank": 3,
+     "hits": 1,
+     "possible": 3,
+     "share": 0.333
+    },
+    "exposure_matches_design": true,
+    "top3_with_project": [
+     {
+      "exposure": "command",
+      "id": "CVE-2022-33891",
+      "package": "pyspark"
+     },
+     {
+      "exposure": "command",
+      "id": "CVE-2023-32007",
+      "package": "pyspark"
+     },
+     {
+      "exposure": "web",
+      "id": "CVE-2020-14343",
+      "package": "pyyaml"
+     }
+    ],
+    "web_reachable_affected": 6
+   }
+  },
+  {
+   "dependencies": 10,
+   "depscan": {
+    "false_positives": 0,
+    "held": 7,
+    "held_truly_affected": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "reported": 134,
+    "true_positives": 134
+   },
+   "description": "A Python web app pinned around 2018-2020 (django, flask, requests, urllib3, jinja2, werkzeug, pyyaml, sqlalchemy, gunicorn, pillow).",
+   "disagreements": {
+    "labelled_affected_but_not_reported": [],
+    "reported_but_not_labelled_affected": []
+   },
+   "known_exploited_affected": 1,
+   "label_source": "draft derived by `oracle_affected` (benchmark/labels.yaml)",
+   "labelled_affected": 134,
+   "naive": {
+    "false_positives": 197,
+    "precision": 0.405,
+    "recall": 1.0,
+    "reported": 331,
+    "true_positives": 134
+   },
+   "name": "py-web-old",
+   "ranking": {
+    "cvss_only": {
+     "first_rank": 20,
+     "hits": 0,
+     "possible": 1,
+     "share": 0.0
+    },
+    "depscan": {
+     "first_rank": 1,
+     "hits": 1,
+     "possible": 1,
+     "share": 1.0
+    },
+    "depscan_without_kev_weight": {
+     "first_rank": 1,
+     "hits": 1,
+     "possible": 1,
+     "share": 1.0
+    }
+   },
+   "reachability": null
+  },
+  {
+   "dependencies": 10,
+   "depscan": {
+    "false_positives": 0,
+    "held": 4,
+    "held_truly_affected": 0,
+    "precision": 1.0,
+    "recall": 0.988,
+    "reported": 237,
+    "true_positives": 237
+   },
+   "description": "A platform stack containing every PyPI application dependency in the cache that has a KEV-listed advisory, next to ordinary companions.",
+   "disagreements": {
+    "labelled_affected_but_not_reported": [
+     {
+      "id": "CVE-2024-32077",
+      "package": "apache-airflow",
+      "status": "not found"
+     },
+     {
+      "id": "CVE-2024-45498",
+      "package": "apache-airflow",
+      "status": "not found"
+     },
+     {
+      "id": "CVE-2025-54831",
+      "package": "apache-airflow",
+      "status": "not found"
+     }
+    ],
+    "reported_but_not_labelled_affected": []
+   },
+   "known_exploited_affected": 8,
+   "label_source": "draft derived by `oracle_affected` (benchmark/labels.yaml)",
+   "labelled_affected": 240,
+   "naive": {
+    "false_positives": 195,
+    "precision": 0.552,
+    "recall": 1.0,
+    "reported": 435,
+    "true_positives": 240
+   },
+   "name": "py-kev-mix",
+   "ranking": {
+    "cvss_only": {
+     "first_rank": 3,
+     "hits": 1,
+     "possible": 3,
+     "share": 0.333
+    },
+    "depscan": {
+     "first_rank": 1,
+     "hits": 3,
+     "possible": 3,
+     "share": 1.0
+    },
+    "depscan_without_kev_weight": {
+     "first_rank": 1,
+     "hits": 3,
+     "possible": 3,
+     "share": 1.0
+    }
+   },
+   "reachability": null
+  },
+  {
+   "dependencies": 12,
+   "depscan": {
+    "false_positives": 0,
+    "held": 4,
+    "held_truly_affected": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "reported": 123,
+    "true_positives": 123
+   },
+   "description": "An npm project with 12 old exact pins (lodash, minimist, express, axios, jquery, moment, handlebars, node-fetch, ws, serialize-javascript, mongo-express, electron).",
+   "disagreements": {
+    "labelled_affected_but_not_reported": [],
+    "reported_but_not_labelled_affected": []
+   },
+   "known_exploited_affected": 3,
+   "label_source": "draft derived by `oracle_affected` (benchmark/labels.yaml)",
+   "labelled_affected": 123,
+   "naive": {
+    "false_positives": 92,
+    "precision": 0.572,
+    "recall": 1.0,
+    "reported": 215,
+    "true_positives": 123
+   },
+   "name": "npm-old",
+   "ranking": {
+    "cvss_only": {
+     "first_rank": 1,
+     "hits": 1,
+     "possible": 3,
+     "share": 0.333
+    },
+    "depscan": {
+     "first_rank": 1,
+     "hits": 3,
+     "possible": 3,
+     "share": 1.0
+    },
+    "depscan_without_kev_weight": {
+     "first_rank": 1,
+     "hits": 2,
+     "possible": 3,
+     "share": 0.667
+    }
+   },
+   "reachability": null
+  },
+  {
+   "dependencies": 6,
+   "depscan": {
+    "false_positives": 0,
+    "held": 0,
+    "held_truly_affected": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "reported": 31,
+    "true_positives": 31
+   },
+   "description": "A Go module with 6 old requirements (gin, yaml.v2, jwt-go, websocket, echo, x/net).",
+   "disagreements": {
+    "labelled_affected_but_not_reported": [],
+    "reported_but_not_labelled_affected": []
+   },
+   "known_exploited_affected": 1,
+   "label_source": "draft derived by `oracle_affected` (benchmark/labels.yaml)",
+   "labelled_affected": 31,
+   "naive": {
+    "false_positives": 18,
+    "precision": 0.633,
+    "recall": 1.0,
+    "reported": 49,
+    "true_positives": 31
+   },
+   "name": "go-old",
+   "ranking": {
+    "cvss_only": {
+     "first_rank": 11,
+     "hits": 0,
+     "possible": 1,
+     "share": 0.0
+    },
+    "depscan": {
+     "first_rank": 1,
+     "hits": 1,
+     "possible": 1,
+     "share": 1.0
+    },
+    "depscan_without_kev_weight": {
+     "first_rank": 1,
+     "hits": 1,
+     "possible": 1,
+     "share": 1.0
+    }
+   },
+   "reachability": null
+  },
+  {
+   "dependencies": 11,
+   "depscan": {
+    "false_positives": 0,
+    "held": 0,
+    "held_truly_affected": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "reported": 1,
+    "true_positives": 1
+   },
+   "description": "Packages pinned to the highest fixed version named by any advisory: a scanner should report (almost) nothing.",
+   "disagreements": {
+    "labelled_affected_but_not_reported": [],
+    "reported_but_not_labelled_affected": []
+   },
+   "known_exploited_affected": 0,
+   "label_source": "draft derived by `oracle_affected` (benchmark/labels.yaml)",
+   "labelled_affected": 1,
+   "naive": {
+    "false_positives": 342,
+    "precision": 0.003,
+    "recall": 1.0,
+    "reported": 343,
+    "true_positives": 1
+   },
+   "name": "clean-current",
+   "ranking": {
+    "cvss_only": {
+     "first_rank": null,
+     "hits": 0,
+     "possible": 0,
+     "share": null
+    },
+    "depscan": {
+     "first_rank": null,
+     "hits": 0,
+     "possible": 0,
+     "share": null
+    },
+    "depscan_without_kev_weight": {
+     "first_rank": null,
+     "hits": 0,
+     "possible": 0,
+     "share": null
+    }
+   },
+   "reachability": null
+  },
+  {
+   "dependencies": 8,
+   "depscan": {
+    "false_positives": 0,
+    "held": 1,
+    "held_truly_affected": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "reported": 68,
+    "true_positives": 68
+   },
+   "description": "Each pin equals the fixed version of one advisory: that advisory must not be reported.",
+   "disagreements": {
+    "labelled_affected_but_not_reported": [],
+    "reported_but_not_labelled_affected": []
+   },
+   "known_exploited_affected": 1,
+   "label_source": "draft derived by `oracle_affected` (benchmark/labels.yaml)",
+   "labelled_affected": 68,
+   "naive": {
+    "false_positives": 255,
+    "precision": 0.211,
+    "recall": 1.0,
+    "reported": 323,
+    "true_positives": 68
+   },
+   "name": "boundary",
+   "ranking": {
+    "cvss_only": {
+     "first_rank": 10,
+     "hits": 0,
+     "possible": 1,
+     "share": 0.0
+    },
+    "depscan": {
+     "first_rank": 1,
+     "hits": 1,
+     "possible": 1,
+     "share": 1.0
+    },
+    "depscan_without_kev_weight": {
+     "first_rank": 1,
+     "hits": 1,
+     "possible": 1,
+     "share": 1.0
+    }
+   },
+   "reachability": null
+  }
+ ],
+ "hand_labels_vs_oracle": {
+  "agree": 19,
+  "detail": [
+   {
+    "agree": 14,
+    "fixture": "known-sample",
+    "only_hand": [],
+    "only_oracle": []
+   },
+   {
+    "agree": 5,
+    "fixture": "known-sample-report",
+    "only_hand": [],
+    "only_oracle": []
+   }
+  ],
+  "only_hand_labelled": 0,
+  "only_oracle": 0
+ },
+ "labels_verified_by_owner": false,
+ "snapshots": {
+  "benchmark/snapshot": {
+   "epss": "2026-10-16",
+   "kev": "2026-10-16",
+   "nvd": null,
+   "osv": "2026-10-16"
+  },
+  "tests/sample/snapshot": {
+   "epss": "2026-10-16",
+   "kev": "2026-10-16",
+   "nvd": null,
+   "osv": "2026-10-16"
+  }
+ },
+ "top_n": 3,
+ "totals": {
+  "depscan": {
+   "false_positives": 0,
+   "labelled_affected": 630,
+   "precision": 1.0,
+   "recall": 0.995,
+   "reported": 627,
+   "true_positives": 627
+  },
+  "held_back": 21,
+  "held_back_truly_affected": 0,
+  "naive": {
+   "false_positives": 1158,
+   "labelled_affected": 630,
+   "precision": 0.351,
+   "recall": 0.994,
+   "reported": 1784,
+   "true_positives": 626
+  },
+  "ranking": {
+   "cvss_only": {
+    "fixtures_counted": 7,
+    "hits": 2,
+    "possible": 11,
+    "share": 0.182
+   },
+   "depscan": {
+    "fixtures_counted": 7,
+    "hits": 11,
+    "possible": 11,
+    "share": 1.0
+   },
+   "depscan_without_kev_weight": {
+    "fixtures_counted": 7,
+    "hits": 10,
+    "possible": 11,
+    "share": 0.909
+   }
+  },
+  "reachability": {
+   "cvss_only": {
+    "fixtures_counted": 1,
+    "hits": 2,
+    "possible": 3,
+    "share": 0.667
+   },
+   "depscan_no_project": {
+    "fixtures_counted": 1,
+    "hits": 1,
+    "possible": 3,
+    "share": 0.333
+   },
+   "depscan_with_project": {
+    "fixtures_counted": 1,
+    "hits": 1,
+    "possible": 3,
+    "share": 0.333
+   }
+  }
+ }
+}

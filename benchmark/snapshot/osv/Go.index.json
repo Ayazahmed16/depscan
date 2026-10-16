@@ -1,0 +1,2834 @@
+{
+ "ecosystem": "Go",
+ "packages": {
+  "github.com/dgrijalva/jwt-go": [
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0.0.0-20150717181359-44718f8a89b0"
+         },
+         {
+          "last_affected": "3.2.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2020-26160",
+     "GO-2020-0017",
+     "SNYK-GOLANG-GITHUBCOMDGRIJALVAJWTGO-596515"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-w73w-5m7g-f7qc",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:49:05.293395113Z",
+    "published": "2021-05-18T21:08:21Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Authorization bypass in github.com/dgrijalva/jwt-go",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0.0.0-20150717181359-44718f8a89b0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2020-26160",
+     "GHSA-w73w-5m7g-f7qc",
+     "SNYK-GOLANG-GITHUBCOMDGRIJALVAJWTGO-596515"
+    ],
+    "fix_refs": [
+     "https://github.com/dgrijalva/jwt-go/commit/ec0a89a131e3e8567adcb21254a5cd20a70ea4ab"
+    ],
+    "id": "GO-2020-0017",
+    "label": null,
+    "modified": "2026-07-08T06:49:40.526819528Z",
+    "published": "2021-04-14T20:04:52Z",
+    "severity": [],
+    "summary": "Authorization bypass in github.com/dgrijalva/jwt-go",
+    "withdrawn": null
+   }
+  ],
+  "github.com/gin-gonic/gin": [
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "1.3.1-0.20190301021747-ccb9e902956d"
+         },
+         {
+          "fixed": "1.9.1"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2023-29401",
+     "GO-2023-1737"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-2c4m-59x9-fr2g",
+    "label": "MODERATE",
+    "modified": "2023-11-08T04:12:18.674169Z",
+    "published": "2023-05-12T20:19:25Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Gin Web Framework does not properly sanitize filename parameter of Context.FileAttachment function",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.9.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2023-26125"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-3vp4-m3rf-835h",
+    "label": "MODERATE",
+    "modified": "2023-11-08T04:11:58.943766Z",
+    "published": "2023-05-04T06:30:12Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Improper input validation in github.com/gin-gonic/gin",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.6.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2020-36567",
+     "GO-2020-0001"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-6vm3-jj99-7229",
+    "label": "HIGH",
+    "modified": "2023-11-08T04:03:47.851512Z",
+    "published": "2022-12-27T21:30:20Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Gin's default logger allows unsanitized input that can allow remote attackers to inject arbitrary log lines",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.6.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2019-25211",
+     "GO-2024-2955"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-869c-j7wc-8jqv",
+    "label": "CRITICAL",
+    "modified": "2025-11-03T22:47:01Z",
+    "published": "2024-06-29T06:31:40Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Gin mishandles a wildcard at the end of an origin string",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.7.7"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2020-28483",
+     "GO-2021-0052",
+     "SNYK-GOLANG-GITHUBCOMGINGONICGIN-1041736"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-h395-qcrw-5vmq",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:49:05.801847827Z",
+    "published": "2021-06-23T17:53:21Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:L/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Inconsistent Interpretation of HTTP Requests in github.com/gin-gonic/gin",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.6.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2020-36567",
+     "GHSA-6vm3-jj99-7229"
+    ],
+    "fix_refs": [
+     "https://github.com/gin-gonic/gin/pull/2237",
+     "https://github.com/gin-gonic/gin/commit/a71af9c144f9579f6dbe945341c1df37aaf09c0d"
+    ],
+    "id": "GO-2020-0001",
+    "label": null,
+    "modified": "2024-05-20T16:03:47Z",
+    "published": "2021-04-14T20:04:52Z",
+    "severity": [],
+    "summary": "Arbitrary log line injection in github.com/gin-gonic/gin",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20141229113116-0099840c98ae"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [],
+    "fix_refs": [
+     "https://github.com/gin-gonic/gin/pull/182",
+     "https://github.com/gin-gonic/gin/commit/0099840c98ae1473c5ff0f18bc93a8e13ceed829"
+    ],
+    "id": "GO-2020-0029",
+    "label": null,
+    "modified": "2022-08-29T16:50:59Z",
+    "published": "2021-04-14T20:04:52Z",
+    "severity": [],
+    "summary": "Due to improper HTTP header santization, a malicious user can spoof their\nsource IP address by setting the X-Forwarded-For header. This may allow\na user to bypass IP based restrictions, or obfuscate t",
+    "withdrawn": "2024-05-15T05:37:11.011697Z"
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.7.7"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2020-28483",
+     "GHSA-h395-qcrw-5vmq",
+     "SNYK-GOLANG-GITHUBCOMGINGONICGIN-1041736"
+    ],
+    "fix_refs": [
+     "https://github.com/gin-gonic/gin/pull/2844",
+     "https://github.com/gin-gonic/gin/commit/5929d521715610c9dd14898ebbe1d188d5de8937",
+     "https://github.com/gin-gonic/gin/pull/2632",
+     "https://github.com/gin-gonic/gin/commit/bfc8ca285eb46dad60e037d57c545cd260636711",
+     "https://github.com/gin-gonic/gin/pull/2675"
+    ],
+    "id": "GO-2021-0052",
+    "label": null,
+    "modified": "2026-07-08T05:56:36.895132392Z",
+    "published": "2021-04-14T20:04:52Z",
+    "severity": [],
+    "summary": "Inconsistent interpretation of HTTP Requests in github.com/gin-gonic/gin",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "1.3.1-0.20190301021747-ccb9e902956d"
+         },
+         {
+          "fixed": "1.9.1"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2023-29401",
+     "GHSA-2c4m-59x9-fr2g"
+    ],
+    "fix_refs": [
+     "https://github.com/gin-gonic/gin/pull/3556"
+    ],
+    "id": "GO-2023-1737",
+    "label": null,
+    "modified": "2024-05-20T16:03:47Z",
+    "published": "2023-05-11T18:59:56Z",
+    "severity": [],
+    "summary": "Improper handling of filenames in Content-Disposition HTTP header in github.com/gin-gonic/gin",
+    "withdrawn": null
+   }
+  ],
+  "github.com/gorilla/websocket": [
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.4.1"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2020-27813",
+     "GHSA-jf24-p9p9-4rjh",
+     "GO-2020-0019"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-3xh2-74w9-5vxm",
+    "label": "HIGH",
+    "modified": "2023-11-08T04:03:22.368470Z",
+    "published": "2021-05-18T21:08:02Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Integer overflow in github.com/gorilla/websocket",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.5.3"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "GO-2026-6278"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-w67g-5rqw-f597",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:54.128553228Z",
+    "published": "2026-08-24T21:00:54Z",
+    "severity": [
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Gorilla WebSocket Uses Cryptographically Weak PRNG for WebSocket Mask Key",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.4.1"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2020-27813",
+     "GHSA-3xh2-74w9-5vxm",
+     "GHSA-jf24-p9p9-4rjh"
+    ],
+    "fix_refs": [
+     "https://github.com/gorilla/websocket/pull/537",
+     "https://github.com/gorilla/websocket/commit/5b740c29263eb386f33f265561c8262522f19d37"
+    ],
+    "id": "GO-2020-0019",
+    "label": null,
+    "modified": "2024-05-20T16:03:47Z",
+    "published": "2021-04-14T20:04:52Z",
+    "severity": [],
+    "summary": "Integer overflow in github.com/gorilla/websocket",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.5.3"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "GHSA-w67g-5rqw-f597"
+    ],
+    "fix_refs": [
+     "https://github.com/gorilla/websocket/commit/d67f41855da42d7bccd9ef050c49f7e54e783b95"
+    ],
+    "id": "GO-2026-6278",
+    "label": null,
+    "modified": "2026-08-26T16:27:17.059721476Z",
+    "published": "2026-08-25T15:00:08Z",
+    "severity": [],
+    "summary": "Gorilla WebSocket Uses Cryptographically Weak PRNG for WebSocket Mask Key in github.com/gorilla/websocket",
+    "withdrawn": null
+   }
+  ],
+  "github.com/labstack/echo": [
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "last_affected": "3.3.10"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2026-55677",
+     "GO-2026-6293"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-vfp3-v2gw-7wfq",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:51:14.774124457Z",
+    "published": "2026-08-25T16:13:29Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Echo: Encoded slash (%2F) bypasses route-level protection and exposes static files",
+    "withdrawn": null
+   }
+  ],
+  "golang.org/x/net": [
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20180925071336-cf3bd585ca2a"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2018-17142",
+     "GO-2022-0192"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-2wp2-chmh-r934",
+    "label": "HIGH",
+    "modified": "2024-05-20T20:48:29Z",
+    "published": "2022-05-13T01:19:23Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net/html NULL Pointer Dereference vulnerability",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.13.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2023-3978",
+     "GO-2023-1988"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-2wrh-6pvc-2jm9",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:08.520271871Z",
+    "published": "2023-08-02T21:30:20Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Improper rendering of text nodes in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20190813141303-74dc4d7220e7"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2019-9512",
+     "CVE-2019-9514",
+     "GHSA-hgr8-6h9x-f7q9",
+     "GO-2022-0536"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-39qc-96h7-956f",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:49:07.223896328Z",
+    "published": "2022-05-24T16:53:19Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net/http vulnerable to a reset flood",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.17.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2023-39325",
+     "CVE-2023-39325",
+     "GO-2023-2102"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-4374-p667-p6c8",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:49:24.714188558Z",
+    "published": "2023-10-11T20:35:43Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "HTTP/2 rapid reset can cause excessive work in net/http",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20190125002852-4b62a64f59f7"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2018-17847",
+     "CVE-2018-17848",
+     "GHSA-mv93-wvcp-7m7r",
+     "GO-2022-0197"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-4r78-hx75-jjj2",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:49:19.734133928Z",
+    "published": "2022-05-13T01:19:29Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net/html has Improper Restriction of Operations within the Bounds of a Memory Buffer",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.23.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2023-45288",
+     "CVE-2023-45288",
+     "GO-2024-2687"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-4v7x-pqxf-cx7m",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:11.106451165Z",
+    "published": "2024-04-04T21:30:32Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "net/http, x/net/http2: close connections when receiving too many headers",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.55.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2026-25680",
+     "GO-2026-5028"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-5cv4-jp36-h3mw",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:45.494180024Z",
+    "published": "2026-05-26T13:30:17Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Go Net HTML parser is vulnerable to denial of service",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20180816102801-aaf60122140d"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2018-17075",
+     "GO-2021-0078"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-5p4h-3377-7w67",
+    "label": "HIGH",
+    "modified": "2024-05-20T19:54:47Z",
+    "published": "2022-05-13T01:19:22Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net/html NULL Pointer Dereference vulnerability",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20220906165146-f3363e06e74c"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2022-27664",
+     "CVE-2022-27664",
+     "GO-2022-0969"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-69cg-p879-7622",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:50:07.184512749Z",
+    "published": "2022-09-07T00:01:51Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net/http2 Denial of Service vulnerability",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20210520170846-37e1c6afe023"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2021-33194",
+     "CVE-2021-33194",
+     "GO-2021-0238"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-83g2-8m93-v3w7",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:49:20.895675199Z",
+    "published": "2022-05-24T19:03:21Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net/html Infinite Loop vulnerability",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20180921000356-2f5d2388922f"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2018-17143",
+     "GO-2022-0193"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-fcf9-6fv2-fc5v",
+    "label": "HIGH",
+    "modified": "2024-05-20T21:13:50Z",
+    "published": "2022-05-13T01:19:23Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net/html has Improper Restriction of Operations within the Bounds of a Memory Buffer",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0.0.0-20220524220425-1d687d428aca"
+         },
+         {
+          "fixed": "0.1.1-0.20221104162952-702349b0e862"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2022-41721",
+     "GO-2023-1495"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-fxg5-wq6x-vr4w",
+    "label": "HIGH",
+    "modified": "2026-08-07T08:12:11.339130948Z",
+    "published": "2023-01-14T00:30:23Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net/http2/h2c vulnerable to request smuggling attack",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20210428140749-89ef3d95e781"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2021-31525",
+     "CVE-2021-31525",
+     "GO-2022-0236"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-h86h-8ppg-mxmh",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:49:23.210800038Z",
+    "published": "2022-05-24T19:03:29Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net/http/httpguts vulnerable to Uncontrolled Recursion",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20190813141303-74dc4d7220e7"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2019-9512",
+     "CVE-2019-9514",
+     "GHSA-39qc-96h7-956f",
+     "GO-2022-0536"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-hgr8-6h9x-f7q9",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:49:38.758913878Z",
+    "published": "2022-05-24T16:53:17Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net/http vulnerable to ping floods",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20190125002852-4b62a64f59f7"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2018-17847",
+     "CVE-2018-17848",
+     "GHSA-4r78-hx75-jjj2",
+     "GO-2022-0197"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-mv93-wvcp-7m7r",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:49:23.896743505Z",
+    "published": "2022-05-13T01:26:08Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net/html Improper Validation of Array Index vulnerability",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.17.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-apisix-2023-44487",
+     "BIT-aspnet-core-2023-44487",
+     "BIT-contour-2023-44487",
+     "BIT-dotnet-2023-44487",
+     "BIT-dotnet-sdk-2023-44487",
+     "BIT-envoy-2023-44487",
+     "BIT-golang-2023-44487",
+     "BIT-jenkins-2023-44487",
+     "BIT-kong-2023-44487",
+     "BIT-nginx-2023-44487",
+     "BIT-nginx-gateway-2023-44487",
+     "BIT-node-2023-44487",
+     "BIT-node-min-2023-44487",
+     "BIT-solr-2023-44487",
+     "BIT-tomcat-2023-44487",
+     "BIT-varnish-2023-44487",
+     "CVE-2023-44487"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-qppj-fm5r-hxr3",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:04.757558216Z",
+    "published": "2023-10-10T21:28:24Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L/E:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:A",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "HTTP/2 Stream Cancellation Attack",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.36.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2025-22870",
+     "GO-2025-3503"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-qxp5-gwg8-xv66",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:23.280114085Z",
+    "published": "2025-03-12T22:06:40Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:L",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "HTTP Proxy bypass using IPv6 Zone IDs in golang.org/x/net",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20190125091013-d26f9f9a57f3"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2018-17846",
+     "GO-2020-0014"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-vfw5-hrgq-h5wf",
+    "label": "HIGH",
+    "modified": "2024-05-20T19:40:06Z",
+    "published": "2023-09-25T17:33:10Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "x/net/html Vulnerable to DoS During HTML Parsing",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.38.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2025-22872",
+     "GO-2025-3595"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-vvgc-356p-c3xw",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:24.031676301Z",
+    "published": "2025-04-16T19:22:51Z",
+    "severity": [
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "golang.org/x/net vulnerable to Cross-site Scripting",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.7.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2022-41723",
+     "CVE-2022-41723",
+     "GO-2023-1571"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-vvpx-j8f3-3w6h",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:49:52.107762940Z",
+    "published": "2023-02-17T14:00:02Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net vulnerable to Uncontrolled Resource Consumption",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.4.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2022-41717",
+     "CVE-2022-41717",
+     "GO-2022-1144"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-xrjj-mj9h-534m",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:49:50.728612708Z",
+    "published": "2022-12-08T21:30:19Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "golang.org/x/net/http2 vulnerable to possible excessive memory growth",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20190125091013-d26f9f9a57f3"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2018-17846",
+     "GHSA-vfw5-hrgq-h5wf"
+    ],
+    "fix_refs": [
+     "https://go-review.googlesource.com/c/137275",
+     "https://go.googlesource.com/net/+/d26f9f9a57f3fab6a695bec0d84433c2c50f8bbf"
+    ],
+    "id": "GO-2020-0014",
+    "label": null,
+    "modified": "2024-05-20T16:03:47Z",
+    "published": "2021-04-14T20:04:52Z",
+    "severity": [],
+    "summary": "Infinite loop due to improper handling of \"select\" tags in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20180816102801-aaf60122140d"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2018-17075",
+     "GHSA-5p4h-3377-7w67"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/123776",
+     "https://go.googlesource.com/net/+/aaf60122140d3fcf75376d319f0554393160eb50"
+    ],
+    "id": "GO-2021-0078",
+    "label": null,
+    "modified": "2024-05-20T16:03:47Z",
+    "published": "2021-04-14T20:04:52Z",
+    "severity": [],
+    "summary": "Panic when parsing malformed HTML in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20210520170846-37e1c6afe023"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2021-33194",
+     "CVE-2021-33194",
+     "GHSA-83g2-8m93-v3w7"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/311090",
+     "https://go.googlesource.com/net/+/37e1c6afe02340126705deced573a85ab75209d7"
+    ],
+    "id": "GO-2021-0238",
+    "label": null,
+    "modified": "2026-02-04T04:07:26.699006Z",
+    "published": "2022-02-17T17:33:43Z",
+    "severity": [],
+    "summary": "Infinite loop when parsing inputs in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20180925071336-cf3bd585ca2a"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2018-17142",
+     "GHSA-2wp2-chmh-r934"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/136875",
+     "https://go.googlesource.com/net/+/cf3bd585ca2a5a21b057abd8be7eea2204af89d0"
+    ],
+    "id": "GO-2022-0192",
+    "label": null,
+    "modified": "2024-05-20T16:03:47Z",
+    "published": "2022-07-01T20:11:34Z",
+    "severity": [],
+    "summary": "Incorrect parsing of nested templates in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20180921000356-2f5d2388922f"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2018-17143",
+     "GHSA-fcf9-6fv2-fc5v"
+    ],
+    "fix_refs": [
+     "https://go-review.googlesource.com/c/net/+/136575",
+     "https://go.googlesource.com/net/+/2f5d2388922f370f4355f327fcf4cfe9f5583908"
+    ],
+    "id": "GO-2022-0193",
+    "label": null,
+    "modified": "2024-05-20T16:03:47Z",
+    "published": "2022-07-06T18:14:54Z",
+    "severity": [],
+    "summary": "Panic on unconsidered isindex and template combination in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20190125002852-4b62a64f59f7"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2018-17847",
+     "CVE-2018-17848",
+     "GHSA-4r78-hx75-jjj2",
+     "GHSA-mv93-wvcp-7m7r"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/159397",
+     "https://go.googlesource.com/net/+/4b62a64f59f73840b9ab79204c94fee61cd1ba2c"
+    ],
+    "id": "GO-2022-0197",
+    "label": null,
+    "modified": "2026-02-04T04:06:39.203335Z",
+    "published": "2022-07-01T20:15:19Z",
+    "severity": [],
+    "summary": "Panic when parsing certain inputs in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20210428140749-89ef3d95e781"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2021-31525",
+     "CVE-2021-31525",
+     "GHSA-h86h-8ppg-mxmh"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/313069",
+     "https://go.googlesource.com/net/+/89ef3d95e781148a0951956029c92a211477f7f9"
+    ],
+    "id": "GO-2022-0236",
+    "label": null,
+    "modified": "2026-02-04T02:54:01.110291Z",
+    "published": "2022-07-15T23:04:18Z",
+    "severity": [],
+    "summary": "Panic due to large headers in net/http and golang.org/x/net/http/httpguts",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20211209124913-491a49abca63"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2021-44716",
+     "CVE-2021-44716",
+     "GHSA-vc3p-29h2-gpcp"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/369794"
+    ],
+    "id": "GO-2022-0288",
+    "label": null,
+    "modified": "2024-05-20T16:03:47Z",
+    "published": "2022-07-15T23:08:33Z",
+    "severity": [],
+    "summary": "Unbounded memory growth in net/http and golang.org/x/net/http2",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20190813141303-74dc4d7220e7"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2019-9512",
+     "CVE-2019-9514",
+     "GHSA-39qc-96h7-956f",
+     "GHSA-hgr8-6h9x-f7q9"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/190137",
+     "https://go.googlesource.com/go/+/145e193131eb486077b66009beb051aba07c52a5"
+    ],
+    "id": "GO-2022-0536",
+    "label": null,
+    "modified": "2026-02-04T02:16:01.342268Z",
+    "published": "2022-08-01T22:20:53Z",
+    "severity": [],
+    "summary": "Reset flood in net/http and golang.org/x/net/http",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.0.0-20220906165146-f3363e06e74c"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2022-27664",
+     "CVE-2022-27664",
+     "GHSA-69cg-p879-7622"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/428735"
+    ],
+    "id": "GO-2022-0969",
+    "label": null,
+    "modified": "2026-02-04T02:41:02.475503Z",
+    "published": "2022-09-12T20:23:06Z",
+    "severity": [],
+    "summary": "Denial of service in net/http and golang.org/x/net/http2",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.4.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2022-41717",
+     "CVE-2022-41717",
+     "GHSA-xrjj-mj9h-534m"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/455717",
+     "https://go.dev/cl/455635"
+    ],
+    "id": "GO-2022-1144",
+    "label": null,
+    "modified": "2026-02-04T04:29:40.352025Z",
+    "published": "2022-12-08T19:01:21Z",
+    "severity": [],
+    "summary": "Excessive memory growth in net/http and golang.org/x/net/http2",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0.0.0-20220524220425-1d687d428aca"
+         },
+         {
+          "fixed": "0.1.1-0.20221104162952-702349b0e862"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2022-41721",
+     "GHSA-fxg5-wq6x-vr4w"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/447396"
+    ],
+    "id": "GO-2023-1495",
+    "label": null,
+    "modified": "2026-08-07T08:12:27.419936139Z",
+    "published": "2023-01-13T22:39:40Z",
+    "severity": [],
+    "summary": "Request smuggling due to improper request handling in golang.org/x/net/http2/h2c",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.7.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2022-41723",
+     "CVE-2022-41723",
+     "GHSA-vvpx-j8f3-3w6h"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/468135",
+     "https://go.dev/cl/468295"
+    ],
+    "id": "GO-2023-1571",
+    "label": null,
+    "modified": "2026-02-04T03:36:14.767832Z",
+    "published": "2023-02-16T22:31:36Z",
+    "severity": [],
+    "summary": "Denial of service via crafted HTTP/2 stream in net/http and golang.org/x/net",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.13.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2023-3978",
+     "GHSA-2wrh-6pvc-2jm9"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/514896"
+    ],
+    "id": "GO-2023-1988",
+    "label": null,
+    "modified": "2026-02-04T04:12:22.127281Z",
+    "published": "2023-08-02T15:06:27Z",
+    "severity": [],
+    "summary": "Improper rendering of text nodes in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.17.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2023-39325",
+     "CVE-2023-39325",
+     "GHSA-4374-p667-p6c8"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/534215",
+     "https://go.dev/cl/534235"
+    ],
+    "id": "GO-2023-2102",
+    "label": null,
+    "modified": "2026-09-28T10:56:56.146690341Z",
+    "published": "2023-10-11T16:49:53Z",
+    "severity": [],
+    "summary": "HTTP/2 rapid reset can cause excessive work in net/http",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.23.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2023-45288",
+     "CVE-2023-45288",
+     "GHSA-4v7x-pqxf-cx7m"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/576155"
+    ],
+    "id": "GO-2024-2687",
+    "label": null,
+    "modified": "2026-02-04T04:09:31.762399Z",
+    "published": "2024-04-03T21:12:01Z",
+    "severity": [],
+    "summary": "HTTP/2 CONTINUATION flood in net/http",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.33.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2024-45338",
+     "GHSA-w32m-9786-jp63"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/637536"
+    ],
+    "id": "GO-2024-3333",
+    "label": null,
+    "modified": "2026-03-24T23:55:17.997380Z",
+    "published": "2024-12-18T20:22:06Z",
+    "severity": [],
+    "summary": "Non-linear parsing of case-insensitive content in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.36.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2025-22870",
+     "GHSA-qxp5-gwg8-xv66"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/654697"
+    ],
+    "id": "GO-2025-3503",
+    "label": null,
+    "modified": "2026-04-16T22:45:11.580296Z",
+    "published": "2025-03-12T18:17:07Z",
+    "severity": [],
+    "summary": "HTTP Proxy bypass using IPv6 Zone IDs in golang.org/x/net",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.38.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2025-22872",
+     "GHSA-vvgc-356p-c3xw"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/662715"
+    ],
+    "id": "GO-2025-3595",
+    "label": null,
+    "modified": "2026-02-05T02:43:52.511643Z",
+    "published": "2025-04-16T16:54:55Z",
+    "severity": [],
+    "summary": "Incorrect Neutralization of Input During Web Page Generation in x/net in golang.org/x/net",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.45.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2025-47911",
+     "GHSA-w4gw-w5jq-g9jh"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/709876"
+    ],
+    "id": "GO-2026-4440",
+    "label": null,
+    "modified": "2026-05-15T10:59:23.883331519Z",
+    "published": "2026-02-05T17:23:14Z",
+    "severity": [],
+    "summary": "Quadratic parsing complexity in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.45.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2025-58190"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/709875"
+    ],
+    "id": "GO-2026-4441",
+    "label": null,
+    "modified": "2026-05-15T10:59:23.510056268Z",
+    "published": "2026-02-05T17:23:17Z",
+    "severity": [],
+    "summary": "Infinite parsing loop in golang.org/x/net",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0.50.0"
+         },
+         {
+          "fixed": "0.51.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2026-27141"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/746180"
+    ],
+    "id": "GO-2026-4559",
+    "label": null,
+    "modified": "2026-05-15T10:59:22.740189348Z",
+    "published": "2026-02-26T18:24:17Z",
+    "severity": [],
+    "summary": "Sending certain HTTP/2 frames can cause a server to panic in golang.org/x/net",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.53.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2026-33814",
+     "CVE-2026-33814"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/761581",
+     "https://go.dev/cl/761640"
+    ],
+    "id": "GO-2026-4918",
+    "label": null,
+    "modified": "2026-10-16T10:42:05.228443950Z",
+    "published": "2026-05-07T19:21:40Z",
+    "severity": [],
+    "summary": "Infinite loop in HTTP/2 transport when given bad SETTINGS_MAX_FRAME_SIZE in net/http/internal/http2 in golang.org/x/net",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.55.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2026-42506"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/781700"
+    ],
+    "id": "GO-2026-5025",
+    "label": null,
+    "modified": "2026-05-30T05:14:17.563517047Z",
+    "published": "2026-05-22T02:46:43Z",
+    "severity": [],
+    "summary": "Invoking incorrect handling of namespaced elements in foreign content in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.55.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2026-39821"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/767220"
+    ],
+    "id": "GO-2026-5026",
+    "label": null,
+    "modified": "2026-10-16T10:42:05.164302476Z",
+    "published": "2026-05-22T02:46:43Z",
+    "severity": [],
+    "summary": "Invoking failure to reject ASCII-only Punycode-encoded labels in golang.org/x/net/idna",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.55.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2026-42502"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/781701"
+    ],
+    "id": "GO-2026-5027",
+    "label": null,
+    "modified": "2026-09-22T10:41:48.597564594Z",
+    "published": "2026-05-22T02:46:43Z",
+    "severity": [],
+    "summary": "Invoking incorrect handling of HTML elements in foreign content in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.55.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2026-25680",
+     "GHSA-5cv4-jp36-h3mw"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/781702"
+    ],
+    "id": "GO-2026-5028",
+    "label": null,
+    "modified": "2026-07-01T18:26:19.971496251Z",
+    "published": "2026-05-22T02:46:43Z",
+    "severity": [],
+    "summary": "Invoking denial of service when parsing arbitrary HTML in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.55.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2026-25681"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/781703"
+    ],
+    "id": "GO-2026-5029",
+    "label": null,
+    "modified": "2026-09-22T10:41:48.499970547Z",
+    "published": "2026-05-22T02:46:43Z",
+    "severity": [],
+    "summary": "Invoking incorrect handling of character references in DOCTYPE nodes in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.55.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2026-27136"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/781685"
+    ],
+    "id": "GO-2026-5030",
+    "label": null,
+    "modified": "2026-09-22T10:41:47.813482433Z",
+    "published": "2026-05-22T02:46:43Z",
+    "severity": [],
+    "summary": "Invoking duplicate attributes can cause XSS in golang.org/x/net/html",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.56.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2026-46600",
+     "CVE-2026-46600"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/786345"
+    ],
+    "id": "GO-2026-5942",
+    "label": null,
+    "modified": "2026-08-17T12:25:32.471119200Z",
+    "published": "2026-07-14T17:29:16Z",
+    "severity": [],
+    "summary": "Parsing an invalid SVCB or HTTPS RR can panic in golang.org/x/net/dns/dnsmessage",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.60.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2026-78659",
+     "CVE-2026-78659"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/847185",
+     "https://go.dev/cl/847314"
+    ],
+    "id": "GO-2026-6603",
+    "label": null,
+    "modified": "2026-10-16T09:55:47.068117441Z",
+    "published": "2026-10-08T22:31:09Z",
+    "severity": [],
+    "summary": "HTTP/2 server memory exhaustion due to Trailer headers in net/http",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.60.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2026-78660",
+     "CVE-2026-78660"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/835145",
+     "https://go.dev/cl/836385"
+    ],
+    "id": "GO-2026-6610",
+    "label": null,
+    "modified": "2026-10-16T09:56:04.364467528Z",
+    "published": "2026-10-08T22:31:09Z",
+    "severity": [],
+    "summary": "HTTP/2 transport accepts malformed framing-related headers in net/http",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.60.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2026-78669",
+     "CVE-2026-78669"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/847186",
+     "https://go.dev/cl/847308"
+    ],
+    "id": "GO-2026-6611",
+    "label": null,
+    "modified": "2026-10-16T09:55:38.952277866Z",
+    "published": "2026-10-08T22:31:09Z",
+    "severity": [],
+    "summary": "Excessive CPU consumption from repeated initial window changes in net/http",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.60.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2026-78663",
+     "CVE-2026-78663"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/847187",
+     "https://go.dev/cl/847310"
+    ],
+    "id": "GO-2026-6612",
+    "label": null,
+    "modified": "2026-10-16T09:55:54.129082194Z",
+    "published": "2026-10-08T22:31:09Z",
+    "severity": [],
+    "summary": "Double flow control refund on HTTP/2 server streams in net/http",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.60.0"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "BIT-golang-2026-97032",
+     "CVE-2026-97032"
+    ],
+    "fix_refs": [
+     "https://go.dev/cl/847188",
+     "https://go.dev/cl/847313"
+    ],
+    "id": "GO-2026-6617",
+    "label": null,
+    "modified": "2026-10-16T09:55:57.350751224Z",
+    "published": "2026-10-08T22:31:09Z",
+    "severity": [],
+    "summary": "HTTP/2 server crash due to HPACK encoder race in net/http",
+    "withdrawn": null
+   }
+  ],
+  "gopkg.in/yaml.v2": [
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.2.4"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2022-3064",
+     "GO-2022-0956"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-6q6q-88xp-6f2r",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:49:47.242968658Z",
+    "published": "2022-12-28T00:30:22Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "yaml package for Go can consume excessive amounts of CPU or memory",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.2.3"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2021-4235",
+     "GO-2021-0061"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-r88r-gmrh-7j83",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:49:50.573788321Z",
+    "published": "2022-12-28T00:30:23Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "YAML Go package vulnerable to denial of service",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.2.8"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2019-11254",
+     "GO-2020-0036"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-wxc4-f4m6-wwqv",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:49:10.563747792Z",
+    "published": "2021-12-20T16:55:06Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Excessive Platform Resource Consumption within a Loop in Kubernetes",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.2.8"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2019-11254",
+     "GHSA-wxc4-f4m6-wwqv"
+    ],
+    "fix_refs": [
+     "https://github.com/go-yaml/yaml/pull/555",
+     "https://github.com/go-yaml/yaml/commit/53403b58ad1b561927d19068c655246f2db79d48"
+    ],
+    "id": "GO-2020-0036",
+    "label": null,
+    "modified": "2026-02-04T04:18:29.126333Z",
+    "published": "2021-04-14T20:04:52Z",
+    "severity": [],
+    "summary": "Excessive resource consumption in YAML parsing in gopkg.in/yaml.v2",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.2.3"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2021-4235",
+     "GHSA-r88r-gmrh-7j83"
+    ],
+    "fix_refs": [
+     "https://github.com/go-yaml/yaml/pull/375",
+     "https://github.com/go-yaml/yaml/commit/bb4e33bf68bf89cad44d386192cbed201f35b241"
+    ],
+    "id": "GO-2021-0061",
+    "label": null,
+    "modified": "2026-02-04T03:07:53.209826Z",
+    "published": "2021-04-14T20:04:52Z",
+    "severity": [],
+    "summary": "Denial of service in gopkg.in/yaml.v2",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.2.4"
+         }
+        ],
+        "type": "SEMVER"
+       }
+      ],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2022-3064",
+     "GHSA-6q6q-88xp-6f2r"
+    ],
+    "fix_refs": [
+     "https://github.com/go-yaml/yaml/commit/f221b8435cfb71e54062f6c6e99e9ade30b124d5"
+    ],
+    "id": "GO-2022-0956",
+    "label": null,
+    "modified": "2026-02-04T02:18:50.393856Z",
+    "published": "2022-08-29T22:15:46Z",
+    "severity": [],
+    "summary": "Excessive resource consumption in gopkg.in/yaml.v2",
+    "withdrawn": null
+   }
+  ]
+ }
+}
