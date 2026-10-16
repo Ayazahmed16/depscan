@@ -3,6 +3,7 @@ import { Footer, type Engine } from '../components/layout/Footer'
 import { Header, type Mode } from '../components/layout/Header'
 import { api } from '../lib/api'
 import type { AuditEntry, ExposureGraph, Health, ReviewInput, ScanResult } from '../lib/types'
+import { DependenciesView } from './DependenciesView'
 import { ExposureView } from './ExposureView'
 import { FindingsView } from './FindingsView'
 import { ReviewLogView } from './ReviewLogView'
@@ -132,6 +133,8 @@ export default function ConsoleApp() {
             </>
           ) : mode === 'exposure' ? (
             <ExposureView graph={graph} findings={findings} selectedId={activeId} />
+          ) : mode === 'dependencies' ? (
+            <DependenciesView graph={scan.dependency_graph ?? null} findings={findings} selectedId={activeId} />
           ) : mode === 'timeline' ? (
             <TimelineView findings={findings} selectedId={activeId} onSelect={setSelectedId} />
           ) : (

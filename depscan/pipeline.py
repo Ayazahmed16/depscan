@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .data.feeds import load_epss, load_epss_history, load_kev, load_nvd, snapshot_dates, snapshot_warnings
 from .data.osv import load_osv_index
+from .depgraph import build_dependency_graph
 from .graph import analyze_project
 from .matcher import match_all
 from .matcher.versions import UnparsableVersion, parse_version
@@ -313,6 +314,9 @@ def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | N
         parsed.warnings.append("exposure analysis covers Python (Django) packages only: findings for other ecosystems have no exposure factor")
     # Order: our own matches, then unconfirmed scanner claims, then likely false positives; by risk within each.
     # The risk SCORE is untouched. This only stops a contradicted claim from outranking a confirmed finding.
+    dep_graph = build_dependency_graph(parsed.dependencies)          # why each package is here, from the lock file's links
+    for f in findings:
+        f["dependency_path"] = dep_graph.path_for(f)
     review_summary = apply_reviews(findings, review_store, project, now=_noon(today) if today else None)
     order_findings(findings)
     return {
@@ -326,5 +330,6 @@ def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | N
         "project": project,
         "graph": analysis.render({f["package"] for f in findings if f["ecosystem"] == "PyPI"}) if analysis else None,
         "review_summary": review_summary,
+        "dependency_graph": dep_graph.render(findings),
         "package_actions": package_actions(findings),
     }

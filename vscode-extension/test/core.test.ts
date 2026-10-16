@@ -102,3 +102,13 @@ test('CLI failures become a short readable message', () => {
   assert.match(cliError('ModuleNotFoundError: No module named depscan', 1), /depscan\.repoPath/)
   assert.match(cliError('', 3), /exited with code 3/)
 })
+
+test('a transitive finding shows the route from a direct dependency, a direct one does not', () => {
+  const via = detailsMarkdown(finding({
+    dependency_path: { known: true, direct: false, path_labels: ['express@4.16.0', 'qs@6.5.1'], direct_parents: ['express'], note: 'A transitive dependency, needed through express.' },
+  }))
+  assert.ok(via.includes('## Dependency path') && via.includes('express@4.16.0 → qs@6.5.1') && via.includes('needed through express'))
+  const direct = detailsMarkdown(finding({ dependency_path: { known: true, direct: true, path_labels: ['requests@2.19.0'], direct_parents: [], note: 'A direct dependency.' } }))
+  assert.ok(!direct.includes('## Dependency path'))
+  assert.ok(!detailsMarkdown(finding()).includes('## Dependency path'))                       // older results carry no path
+})

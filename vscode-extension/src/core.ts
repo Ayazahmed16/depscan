@@ -25,6 +25,7 @@ export interface Finding {
   risk: { score: number; factors: { name: string; value: string; weight: number; contribution: number }[] }
   trust: { score: number; signals: { name: string; value: string; effect: number; note: string }[] }
   exposure: { level: string; path_labels: string[]; imported_by: string[]; note: string } | null
+  dependency_path?: { known: boolean; direct: boolean; path_labels: string[]; direct_parents: string[]; note: string }
   advisories?: { id: string; summary: string; published: string | null; modified: string | null; withdrawn: string | null; affected_ranges: string[]; links: { label: string; url: string }[] }[]
   history: { date: string; risk: number; epss: number | null; event: string | null; simulated: boolean }[]
 }
@@ -169,6 +170,10 @@ export function detailsMarkdown(f: Finding): string {
     out.push('', '## Exposure (import-level only)', '', f.exposure.note)
     if (f.exposure.path_labels.length) out.push('', f.exposure.path_labels.join(' → '))
     out.push('', '_Import-level analysis does not follow function calls, so an imported package may never be used._')
+  }
+  if (f.dependency_path && !f.dependency_path.direct) {
+    out.push('', '## Dependency path', '', f.dependency_path.note)
+    if (f.dependency_path.path_labels.length) out.push('', f.dependency_path.path_labels.join(' → '))
   }
   if (f.history.length) {
     out.push('', '## History (real dates only)', '', '| date | risk | EPSS | event |', '|---|---|---|---|')

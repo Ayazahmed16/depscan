@@ -90,7 +90,9 @@ def combine(results: list[ParseResult]) -> ParseResult:
             seen.add((d.name, d.version))
             locked_names.add(d.name)
             m = by_manifest.get(d.name)
-            if m:
+            if m and r.kind == "package-lock.json" and not d.direct:
+                pass  # package-lock knows exactly which copy is direct: a nested copy of the same name stays transitive
+            elif m:
                 d = replace(d, direct=True, scope=m.scope, spec=m.spec, line=m.line)
             elif r.kind != "package-lock.json" and manifests:
                 d = replace(d, direct=False)  # package-lock knows directness itself; others learn it from the manifest

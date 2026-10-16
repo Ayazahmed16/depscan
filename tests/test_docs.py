@@ -7,7 +7,7 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 NOTICE = "No findings does not prove a project is secure."
 DOCS = ["README.md", "docs/ARCHITECTURE.md", "docs/DEMO.md", "docs/BENCHMARK.md", "docs/SCORING.md", "docs/CONTRACT.md",
-        "docs/EXPOSURE.md", "docs/REVIEW.md", "docs/CI.md", "vscode-extension/README.md"]
+        "docs/EXPOSURE.md", "docs/DEPENDENCIES.md", "docs/REVIEW.md", "docs/CI.md", "vscode-extension/README.md"]
 
 
 @pytest.mark.parametrize("name", ["README.md", "docs/ARCHITECTURE.md", "docs/DEMO.md", "docs/SCORING.md", "vscode-extension/README.md"])

@@ -21,32 +21,71 @@ def _dep(name: str, version: str, eco: str, source: str, scope: str = "runtime")
 
 # ---------------------------------------------------------------- yarn.lock (v1 and berry)
 _YARN_VERSION = re.compile(r'^\s+version:?\s+"?([^"\s]+)"?\s*$')
+_YARN_DEP_SECTIONS = ("dependencies:", "optionalDependencies:")
 
 
-def _yarn_name(spec: str) -> str | None:
-    spec = spec.strip().strip('"').removeprefix("npm:")
+def _yarn_split(spec: str) -> tuple[str, str] | None:
+    """'"@scope/pkg@npm:^1.0.0"' -> ('@scope/pkg', '^1.0.0'). None for an alias or an unparsable spec."""
+    spec = spec.strip().strip('"')
     at = spec.rfind("@")
-    return spec[:at].lower() if at > 0 else None
+    if at <= 0:
+        return None
+    name, rng = spec[:at].lower(), spec[at + 1:]
+    rng = rng.removeprefix("npm:")
+    return None if "@" in rng else (name, rng)
+
+
+def _yarn_dep_line(line: str) -> tuple[str, str] | None:
+    """A line inside `dependencies:`: v1 `name "range"`, berry `name: range`. Returns (name, range)."""
+    body = line.strip()
+    m = re.match(r'^("?)(@?[^"\s:]+)\1:?\s+"?([^"]*)"?\s*$', body)
+    if not m:
+        return None
+    return m.group(2).lower(), m.group(3).removeprefix("npm:")
 
 
 def parse_yarn_lock(text: str, source: str = "yarn.lock") -> ParseResult:
-    deps: dict[tuple[str, str], Dependency] = {}
     warnings: list[str] = []
-    header_names: list[str] = []
+    entries: list[dict] = []
+    cur: dict | None = None
+    in_deps = False
     for line in text.splitlines():
         if not line.strip() or line.lstrip().startswith("#"):
             continue
-        if not line.startswith((" ", "\t")) and line.rstrip().endswith(":"):
-            specs = [s for s in line.rstrip()[:-1].split(",")]
-            header_names = [n for n in (_yarn_name(s) for s in specs) if n]
-            if any("@workspace:" in s or "@patch:" in s or "@link:" in s for s in specs):
-                header_names = []  # local workspace / patched entries have no registry version
+        if not line.startswith((" ", "	")) and line.rstrip().endswith(":"):
+            raw = line.rstrip()[:-1].split(",")
+            local = any("@workspace:" in x or "@patch:" in x or "@link:" in x for x in raw)  # no registry version
+            cur = {"specs": [] if local else [sp for sp in (_yarn_split(x) for x in raw) if sp], "version": None, "deps": []}
+            entries.append(cur)
+            in_deps = False
             continue
-        m = _YARN_VERSION.match(line)
-        if m and header_names:
-            for name in set(header_names):
-                deps.setdefault((name, m.group(1)), _dep(name, m.group(1), "npm", source))
-            header_names = []
+        if cur is None:
+            continue
+        indent = len(line) - len(line.lstrip())
+        if indent <= 2:
+            in_deps = line.strip() in _YARN_DEP_SECTIONS
+            m = _YARN_VERSION.match(line)
+            if m:
+                cur["version"] = m.group(1)
+        elif in_deps:
+            dep = _yarn_dep_line(line)
+            if dep:
+                cur["deps"].append(dep)
+    deps: dict[tuple[str, str], Dependency] = {}
+    spec_version: dict[tuple[str, str], str] = {}
+    for e in entries:
+        if e["version"] and e["specs"]:
+            for name, rng in e["specs"]:
+                spec_version[(name, rng)] = e["version"]
+                deps.setdefault((name, e["version"]), _dep(name, e["version"], "npm", source))
+    for e in entries:                                                # who needs whom, with the range resolved to the version yarn chose
+        if not (e["version"] and e["specs"]):
+            continue
+        resolved = {(n, spec_version[(n, r)]) for n, r in e["deps"] if (n, r) in spec_version}
+        for name in {n for n, _ in e["specs"]}:
+            d = deps[(name, e["version"])]
+            d.requires_resolved = sorted(set(d.requires_resolved or []) | resolved)
+            d.requires = sorted({n for n, _ in d.requires_resolved})
     if not deps:
         warnings.append("no packages found: unsupported yarn.lock layout?")
     return ParseResult(list(deps.values()), source, "yarn.lock", warnings)
@@ -66,6 +105,11 @@ def parse_poetry_lock(text: str, source: str = "poetry.lock") -> ParseResult:
         d = _dep(normalize_pypi_name(name), version, "PyPI", source, "dev" if dev else "runtime")
         d.requires = sorted(normalize_pypi_name(r) for r in (pkg.get("dependencies") or {}))  # what it depends on, from the lock file
         deps.append(d)
+    version_of = {}
+    for d in deps:
+        version_of.setdefault(d.name, d.version)
+    for d in deps:                                                   # Poetry locks one version per name, so a name identifies its node
+        d.requires_resolved = [(r, version_of[r]) for r in d.requires or [] if r in version_of]
     return ParseResult(deps, source, "poetry.lock", [])
 
 

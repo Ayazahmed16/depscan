@@ -46,6 +46,16 @@ def exposure_line(x: dict) -> str:
     return f"Exposure: {EXPOSURE_LABEL[e['level']]}.{path} {e['note'][0].upper() + e['note'][1:]}."
 
 
+def dependency_line(x: dict) -> str:
+    """Why a transitive package is in the project (the route from a direct dependency), or why that is unknown. Direct: nothing to add."""
+    d = x.get("dependency_path")
+    if not d or d["direct"]:
+        return ""
+    if d["known"]:
+        return f"Dependency path: {' → '.join(d['path_labels'])}. {d['note']}"
+    return f"Dependency path unknown. {d['note']}"
+
+
 def review_summary_line(result: dict) -> str:
     s = result.get("review_summary")
     if not s:
@@ -99,6 +109,8 @@ def render_markdown(result: dict) -> str:
             out += ["", f"**Recommendation:** {x['recommendation']}", ""]
             if exposure_line(x):
                 out += [exposure_line(x), ""]
+            if dependency_line(x):
+                out += [dependency_line(x), ""]
             out += [f"**{review_line(x)}**", ""]
         decided = [x for x in f if x.get("review")]
         if decided:
@@ -146,7 +158,8 @@ def render_html(result: dict) -> str:
             f"<p>Trust signals (start at {x['trust']['base']}, add the points, clamp to 0-100):</p>"
             f"<table><tr><th>signal</th><th>value</th><th>points</th><th>why</th></tr>{trust_rows}</table>"
             f"<p><b>Recommendation:</b> {e(x['recommendation'])}</p>"
-            f"{f'<p>{e(exposure_line(x))}</p>' if exposure_line(x) else ''}<p><b>{e(review_line(x))}</b></p></section>")
+            f"{f'<p>{e(exposure_line(x))}</p>' if exposure_line(x) else ''}{f'<p>{e(dependency_line(x))}</p>' if dependency_line(x) else ''}"
+            f"<p><b>{e(review_line(x))}</b></p></section>")
     actions = "".join(
         f"<li><b>{e(a['package'])}</b> {e(str(a['version']))} → {e(a['target_version'])} clears {a['clears']} of {a['total']} findings</li>"
         if a["target_version"] else

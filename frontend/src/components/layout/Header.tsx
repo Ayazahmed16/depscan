@@ -1,11 +1,12 @@
 import { useRef, useState } from 'react'
 import { IconReset, IconUpload } from '../../lib/icons'
 
-export type Mode = 'findings' | 'exposure' | 'timeline' | 'review'
+export type Mode = 'findings' | 'exposure' | 'dependencies' | 'timeline' | 'review'
 
 const MODES: { id: Mode; label: string }[] = [
   { id: 'findings', label: 'findings' },
   { id: 'exposure', label: 'exposure' },
+  { id: 'dependencies', label: 'dependencies' },
   { id: 'timeline', label: 'timeline' },
   { id: 'review', label: 'review log' },
 ]

@@ -175,6 +175,18 @@ function Detail({ finding: f, onReview, onRevoke }: {
         </Panel>
       )}
 
+      {f.dependency_path && !f.dependency_path.direct && (
+        <Panel title="Dependency path" aside={<Tag>{f.dependency_path.known ? 'transitive' : 'link unknown'}</Tag>} bodyClassName="flex flex-col gap-2 p-3">
+          <p className="font-sans text-[13px] leading-relaxed text-on-surface">{f.dependency_path.note}</p>
+          {f.dependency_path.path_labels.length > 0 && (
+            <p className="border border-outline-variant bg-surface-container-lowest p-2.5 font-mono text-[10px] leading-relaxed text-on-surface">
+              {f.dependency_path.path_labels.join('  →  ')}
+            </p>
+          )}
+          <p className="font-mono text-[9px] leading-relaxed text-on-surface-variant opacity-80">See the dependencies view for the graph.</p>
+        </Panel>
+      )}
+
       <Panel title="Why it matched" aside={<Badge signal={CONFIDENCE_SIGNAL[f.match.confidence]}>{f.match.confidence}</Badge>} bodyClassName="p-3">
         <ul className="flex flex-col gap-1 border border-outline-variant bg-surface-container-lowest p-2.5 font-mono text-[10px] leading-relaxed text-on-surface">
           {f.match.evidence.map((e, i) => <li key={i}>{e}</li>)}

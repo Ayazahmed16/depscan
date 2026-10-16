@@ -65,6 +65,18 @@ def parse_package_json(text: str, source: str = "package.json") -> ParseResult:
     return ParseResult(deps, source, "package.json", warnings)
 
 
+def _resolve_path(packages: dict, from_path: str, name: str) -> str | None:
+    """Where npm finds `name` for the package installed at `from_path`: its own node_modules, then each parent's, then the root's."""
+    base = from_path
+    while True:
+        candidate = f"{base}/node_modules/{name}" if base else f"node_modules/{name}"
+        if candidate in packages:
+            return candidate
+        if not base:
+            return None
+        base = base[: base.rfind("node_modules/")].rstrip("/")
+
+
 def parse_package_lock(text: str, source: str = "package-lock.json") -> ParseResult:
     """lockfileVersion 2/3: a flat `packages` map keyed by install path. Gives exact + transitive."""
     doc = json.loads(text)
@@ -85,8 +97,21 @@ def parse_package_lock(text: str, source: str = "package-lock.json") -> ParseRes
             continue
         direct = path == f"node_modules/{name}" and (name in direct_runtime or name in direct_dev)
         dev = bool(info.get("dev")) or (direct and name in direct_dev and name not in direct_runtime)
-        deps.append(Dependency(
+        dep = Dependency(
             name=name.lower(), ecosystem="npm", spec=version, version=version, lower_bound=version,
             direct=direct, scope="dev" if dev else "runtime", source=source, resolution="lockfile",
-        ))
+        )
+        # Who this package needs, resolved the way npm resolves them (nested node_modules first), so a vulnerable copy
+        # under one parent is not confused with a safe copy at the root. A peer dependency counts unless it is optional.
+        optional_peers = {k for k, v in (info.get("peerDependenciesMeta") or {}).items() if isinstance(v, dict) and v.get("optional")}
+        wanted = [*(info.get("dependencies") or {}), *(info.get("optionalDependencies") or {}),
+                  *(k for k in (info.get("peerDependencies") or {}) if k not in optional_peers)]
+        resolved: set[tuple[str, str]] = set()
+        for want in wanted:
+            target = _resolve_path(packages, path, want)
+            if target and packages[target].get("version") and not packages[target].get("link"):
+                resolved.add((want.lower(), packages[target]["version"]))
+        dep.requires_resolved = sorted(resolved)
+        dep.requires = sorted({n for n, _ in resolved})
+        deps.append(dep)
     return ParseResult(deps, source, "package-lock.json", [])

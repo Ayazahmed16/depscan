@@ -21,11 +21,13 @@ errors are a plain-text message with a 4xx/5xx status (the console shows the tex
 | `PUT /api/config/weights` | `{weights:{severity,known_exploited,exploit_likelihood,criticality,fix_availability,exposure}}` | same, plus `rescored` |
 | `DELETE /api/config/weights` | | back to the defaults, same shape |
 
-**Scan result:** `{source, scanned_at, kind, dependencies_read, warnings, snapshots, findings[], project, graph, review_summary, package_actions}`.
+**Scan result:** `{source, scanned_at, kind, dependencies_read, warnings, snapshots, findings[], project, graph, dependency_graph, review_summary, package_actions}`.
+`dependency_graph` is `{nodes[], links[], stats, limitation}`; nodes are `{id, label, name, version, scope, kind, depth, findings, max_risk}`.
 
 **Finding:** `key, id, aliases, package, version, ecosystem, direct, scope, summary, cvss, epss, kev, fixed_version, major_bump,
 match{confidence, evidence[]}, risk{score, factors[]}, trust{score, signals[], level}, action, claim_status, recommendation,
 exposure, advisories[], history[], watch, review, review_status`.
+`dependency_path` is `{known, direct, path[], path_labels[], direct_parents[], note}`: the route from a direct dependency to this package (see `docs/DEPENDENCIES.md`).
 `advisories[]` is the evidence: `{id, aliases, summary, published, modified, withdrawn, affected_ranges[], affected_versions_listed, links[{label,url}]}`.
 `history[]` is `{date, risk, epss, event, simulated}`, real dates only (`simulated` is always `false`).
 

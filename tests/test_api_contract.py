@@ -120,3 +120,29 @@ def test_weights_view_matches_its_interface(tmp_path):
     assert required <= set(c.get("/api/config/weights").json())
     health = c.get("/api/health").json()
     assert set(interface_fields("Health")) <= set(health)
+
+
+def test_dependency_paths_and_graph_match_their_interfaces(result):
+    for f in result["findings"]:
+        check(f["dependency_path"], "DependencyPath", f"dependency path of {f['id']}")
+    graph = result["dependency_graph"]
+    check(graph, "DependencyGraph", "dependency graph")
+    assert graph["nodes"]
+    for node in graph["nodes"]:
+        check(node, "DepNode", f"dependency node {node['id']}")
+        assert node["kind"] in ("direct", "transitive", "vulnerable") and node["scope"] in ("runtime", "dev")
+    stats = interface_fields("DependencyGraph")
+    assert "stats" in stats and "limitation" in stats
+
+
+def test_a_transitive_finding_matches_the_dependency_path_interface():
+    import json
+    real = Path(__file__).parent / "fixtures" / "real-npm"
+    snap = Path(__file__).resolve().parent.parent / "benchmark" / "snapshot"
+    res = scan_files([("package.json", (real / "package.json").read_bytes()), ("package-lock.json", (real / "package-lock.json").read_bytes())], DataBundle(snap))
+    transitive = [f for f in res["findings"] if not f["dependency_path"]["direct"]]
+    assert transitive
+    for f in transitive:
+        check(f["dependency_path"], "DependencyPath", f"dependency path of {f['id']}")
+        assert f["dependency_path"]["known"] and f["dependency_path"]["direct_parents"]
+    json.dumps(res["dependency_graph"])

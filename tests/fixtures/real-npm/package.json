@@ -1,0 +1,1 @@
+{"name":"reallock","version":"1.0.0","private":true,"dependencies":{"express":"4.16.0","lodash":"4.17.15","axios":"0.19.0","mocha":"6.2.0"},"devDependencies":{"minimist":"1.2.0"}}

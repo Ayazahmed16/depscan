@@ -48,6 +48,18 @@ export interface HistoryPoint {
   simulated: boolean
 }
 
+/** Why a package is in the project: the route from a direct dependency (from the lock file's links). */
+export interface DependencyPath {
+  known: boolean
+  direct: boolean
+  /** node ids in the dependency graph, direct dependency first, this package last */
+  path: string[]
+  path_labels: string[]
+  /** every direct dependency that needs this package, by name */
+  direct_parents: string[]
+  note: string
+}
+
 /** One advisory record behind a match: what it says, which versions it covers, where to read it. */
 export interface Advisory {
   id: string
@@ -94,12 +106,34 @@ export interface Finding {
     imported_by: string[]         // modules that import the package directly
     note: string
   } | null
+  /** a transitive finding: which direct dependency pulls it in. null/absent for older results. */
+  dependency_path?: DependencyPath
   /** the evidence: the advisory records (OSV) this match rests on */
   advisories?: Advisory[]
   history: HistoryPoint[]
   watch: string | null
   review: ReviewRecord | null
   review_status: ReviewStatus
+}
+
+export interface DepNode {
+  id: string
+  label: string
+  name: string
+  version: string | null
+  scope: 'runtime' | 'dev'
+  kind: 'direct' | 'transitive' | 'vulnerable'
+  /** 1 = a direct dependency; null = no known route from the project */
+  depth: number | null
+  findings: number
+  max_risk: number | null
+}
+export interface DependencyGraph {
+  nodes: DepNode[]
+  links: GraphLink[]
+  stats: { packages: number; direct: number; transitive: number; links_known: boolean; unlinked_transitive: number; vulnerable_packages: number; max_depth: number; shown: number }
+  /** must be shown next to the graph */
+  limitation: string
 }
 
 export interface ScanResult {
@@ -109,6 +143,8 @@ export interface ScanResult {
   project?: string
   /** present when a Django project folder was analysed */
   graph?: ExposureGraph | null
+  /** how packages depend on each other, from the lock files given */
+  dependency_graph?: DependencyGraph | null
   review_summary?: Record<ReviewStatus | 'needs_review', number>
 }
 

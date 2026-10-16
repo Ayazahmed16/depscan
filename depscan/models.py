@@ -33,6 +33,7 @@ class Dependency:
     newest: str | None = None         # newest registry release satisfying the range (step 2)
     registry_status: str | None = None  # resolved | failed | None (not attempted)
     requires: list[str] | None = None   # packages this one depends on, when a lock file says (None = unknown)
+    requires_resolved: list[tuple[str, str]] | None = None  # the same links as exact (name, version), when the lock file lets us resolve them
 
     @property
     def exact(self) -> bool:

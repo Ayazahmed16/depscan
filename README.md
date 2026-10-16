@@ -33,6 +33,10 @@ are in `config/scoring.yaml` and can be changed in the console.
 whether their version ranges agree, whether it was withdrawn or disputed, how fresh it is, and whether the fixed release
 exists. A high-risk finding with low trust is marked verify first, not fix now.
 
+**Dependency graph.** When a lock file records what depends on what (`package-lock.json`, `yarn.lock`, `poetry.lock`), depscan
+builds the graph and names the route from a direct dependency to each vulnerable transitive package, so you know which
+dependency to update. Files that record no links give no graph, and the result says so.
+
 **Exposure** applies to Django projects. depscan reads the code with `ast`, follows URL routes, middleware, startup code
 and commands to the packages they import, and gives each vulnerable package the strongest way it can be reached. This is
 import-level analysis: it shows that code importing a package is reachable, not that the vulnerable function is called.
@@ -73,6 +77,7 @@ numbers describe these fixtures and do not predict performance on real projects.
 ## Limits
 
 - Exposure analysis covers Python and Django only, at import level.
+- The dependency graph needs a lock file that records links; it does not check whether a newer release of the parent still needs the vulnerable version.
 - The trust and exposure points and the risk weights are reasoned defaults, not fitted to data.
 - The Dependency-Check parser follows an assumed report layout that has not been checked against a real report.
 - The exposure analysis has been run on a small hand-written app, not on real projects.
@@ -83,6 +88,6 @@ numbers describe these fixtures and do not predict performance on real projects.
 
 ## Documentation
 
-[Architecture](docs/ARCHITECTURE.md) | [Scoring](docs/SCORING.md) | [Exposure](docs/EXPOSURE.md) | [Review](docs/REVIEW.md) |
+[Architecture](docs/ARCHITECTURE.md) | [Scoring](docs/SCORING.md) | [Exposure](docs/EXPOSURE.md) | [Dependency graph](docs/DEPENDENCIES.md) | [Review](docs/REVIEW.md) |
 [API contract](docs/CONTRACT.md) | [CI](docs/CI.md) | [Benchmark](docs/BENCHMARK.md) | [Demo script](docs/DEMO.md) | [Plan](docs/PLAN.md) |
 [VS Code extension](vscode-extension/README.md)

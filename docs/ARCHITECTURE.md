@@ -19,6 +19,7 @@ package, or runs the project's code.
                           +--> scoring/trust.py    0-100, 13 explainable signals
                           +--> scoring/recommend   next step from risk AND trust
                           +--> graph/              Django import-level exposure (ast, Python only)
+                          +--> depgraph.py         who-needs-whom from lock files: the route to a vulnerable transitive package
                           +--> temporal.py         dated history + watchlist (real dates only)
                           +--> review/store.py     human decisions + hash-chained audit log (SQLite)
                           |
@@ -69,6 +70,9 @@ No machine learning. The weights and trust points are reasoned defaults, not fit
 - **Exposure** (`graph/`): for a Django project, `ast` reads imports and URL routes (never executing code) and builds a
   NetworkX graph from entry points (routes, middleware, startup, commands, tests) to modules to packages. A package gets
   the strongest level that reaches it. Import-level only, Python/Django only; unknown is `None`, not "safe".
+- **Dependency graph** (`depgraph.py`): from the links a lock file records (`package-lock.json`, `yarn.lock`, `poetry.lock`) it names
+  the route from a direct dependency to each vulnerable transitive package, because only the direct dependency can be changed. No
+  links in the files means no graph, not a guess (`docs/DEPENDENCIES.md`).
 - **History** (`temporal.py`): per-finding points from the advisory's published/modified dates, the KEV date added and
   every cached EPSS file, each point re-scored with only what was known then. Nothing is interpolated or simulated. The
   watchlist flags findings below the critical tier whose EPSS rose sharply or that entered KEV recently.

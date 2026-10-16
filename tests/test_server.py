@@ -347,3 +347,10 @@ def test_a_zip_with_too_many_files_is_refused(client, monkeypatch):
     monkeypatch.setattr(server, "MAX_ZIP_FILES", 2)
     r = upload(client, ("p.zip", zip_of({"requirements.txt": REQS, "a.py": b"1", "b.py": b"2"})))
     assert r.status_code == 400 and "more than 2 files" in r.text
+
+
+def test_a_scan_returns_the_dependency_graph_and_paths(client):
+    scan = upload(client, ("requirements.txt", REQS)).json()
+    assert scan["dependency_graph"]["nodes"] and scan["dependency_graph"]["stats"]["links_known"] is False     # a requirements file records no links
+    assert all(f["dependency_path"]["direct"] for f in scan["findings"])
+    assert client.get("/api/findings").json()["dependency_graph"] == scan["dependency_graph"]
