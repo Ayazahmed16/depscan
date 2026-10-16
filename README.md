@@ -48,6 +48,11 @@ For a Django project, point depscan at the project folder (a folder holding `man
 reach, draws the paths, and uses that in the risk score. This is import-level analysis only; it does not follow function
 calls. See [docs/EXPOSURE.md](docs/EXPOSURE.md) for how it works and what it can miss.
 
+The web console: build the frontend once (`cd frontend && npm install && npm run build`), then
+`python -m depscan serve` and open http://127.0.0.1:8000/app (landing page at `/`). Upload dependency files, a scan
+report, or a zip of a Django project; uploads are only read, never installed or run. The API is described in
+[docs/CONTRACT.md](docs/CONTRACT.md). Local only: there is no login, so do not expose it to a network.
+
 Data downloads are integrity-checked (OSV md5, NVD sha256, KEV/EPSS format checks), a bad download never replaces a good
 snapshot, and a scan warns when its data is older than `data.stale_days` (default 14) or NVD is missing.
 

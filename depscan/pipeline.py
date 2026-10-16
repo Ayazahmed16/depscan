@@ -4,7 +4,7 @@ from __future__ import annotations
 import datetime as dt
 from pathlib import Path
 
-from .data.feeds import load_epss, load_kev, load_nvd, snapshot_dates, snapshot_warnings
+from .data.feeds import load_epss, load_epss_history, load_kev, load_nvd, snapshot_dates, snapshot_warnings
 from .data.osv import load_osv_index
 from .graph import analyze_project
 from .matcher import match_all
@@ -16,8 +16,9 @@ from .registry import Registry, resolve_ranges
 from .review import ReviewStore, finding_key
 from .scoring.config import load_config
 from .scoring.recommend import decide_action, minimum_fix, recommendation_text
-from .scoring.risk import compute_risk
+from .scoring.risk import compute_risk, cve_ids
 from .scoring.trust import compute_trust
+from .temporal import build_history, watch_reason
 
 DEFAULT_DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 DEFAULT_REVIEW_DB = Path(__file__).resolve().parent.parent / "state" / "review.sqlite"
@@ -32,6 +33,7 @@ class DataBundle:
         self.osv_api, self.offline, self.osv_transport = osv_api, offline, osv_transport
         self.registry = registry   # None = never resolve ranges (tests, strictly offline runs)
         self._osv: dict[str, dict] = {}
+        self._epss_series: dict[str, list[tuple[str, float]]] = {}
         self.kev = load_kev(data_dir)
         self.epss_date, self.epss = load_epss(data_dir)
         self.nvd = load_nvd(data_dir)          # may be empty if the NVD step was not run
@@ -53,6 +55,13 @@ class DataBundle:
                 raise FileNotFoundError(
                     f"no local advisory index for {ecosystem}: run `python scripts/fetch_data.py --only osv --ecosystems {ecosystem}`")
         return self._osv[ecosystem]
+
+    def epss_series(self, cves: set[str]) -> dict[str, list[tuple[str, float]]]:
+        """{CVE: [(date, epss), ...]} over every cached EPSS file: real history for the timeline. Cached per CVE."""
+        missing = cves - self._epss_series.keys()
+        if missing:
+            self._epss_series.update(load_epss_history(self.data_dir, missing))
+        return {c: self._epss_series[c] for c in cves}
 
 
 def _tidy(text: str) -> str:
@@ -104,7 +113,8 @@ def _parsable(eco: str, v: str) -> bool:
         return False
 
 
-def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposure: dict | None = None, release_exists=None) -> dict:
+def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposure: dict | None = None, release_exists=None,
+                  epss_series: dict | None = None) -> dict:
     dep = match.dependency
     fixed, major = minimum_fix(match)
     risk = compute_risk(match, nvd=bundle.nvd, kev=bundle.kev, epss=bundle.epss,
@@ -113,6 +123,9 @@ def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposure: dict | 
     fix_yanked = bool(fixed and release_exists and release_exists(dep.ecosystem, dep.name, fixed) == "yanked")
     trust = compute_trust(match, nvd=bundle.nvd, kev=bundle.kev, fixed_version=fixed, as_of=bundle.as_of, cfg=cfg, release_exists=release_exists)
     action = decide_action(risk["score"], trust["score"], cfg, uncertain=match.confidence == "uncertain")
+    history = build_history(match, nvd=bundle.nvd, kev=bundle.kev, epss_series=epss_series or {}, fixed_version=fixed,
+                            major_bump=major, exposed=exposure["level"] if exposure else None, cfg=cfg)
+    kev_entry = risk["kev"]
     finding = {
         "id": match.id,
         "aliases": match.aliases,
@@ -135,13 +148,43 @@ def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposure: dict | 
         "claim_status": "contradicted" if match.contradicted else "unconfirmed" if match.scanner_only else "matched",
         "recommendation": recommendation_text(match, fixed, major, action, fix_yanked=fix_yanked),
         "exposure": exposure,       # from the project graph (phase 7), None when no project was analysed or it cannot be known
-        "history": [],
-        "watch": None,
+        "advisories": [describe_advisory(a) for a in match.advisories],
+        "history": history,         # real dated points only; every point has simulated: false (see temporal.py)
+        "watch": None if match.contradicted else watch_reason(history, risk["score"], (kev_entry or {}).get("dateAdded"), bundle.as_of, cfg),
         "review": None,             # filled in by apply_reviews when a person has decided
         "review_status": "pending",  # pending | fix_now | accept_risk | false_positive | expired
     }
     finding["key"] = finding_key(finding)  # stable identity that reviewer decisions attach to
     return finding
+
+
+def _range_text(rng: dict) -> str:
+    """One OSV range as words, e.g. 'introduced 2.0, fixed 2.31.0'."""
+    parts = []
+    for ev in rng.get("events", []):
+        for kind in ("introduced", "fixed", "last_affected", "limit"):
+            if kind in ev:
+                parts.append(f"{kind.replace('_', ' ')} {ev[kind]}")
+    return ", ".join(parts)
+
+
+def describe_advisory(adv: dict) -> dict:
+    """The evidence behind a match: which record, when it was published, which versions it says are affected, where to read it."""
+    ids = [adv["id"], *adv.get("aliases", [])]
+    links = [{"label": f"{adv['id']} on OSV", "url": f"https://osv.dev/vulnerability/{adv['id']}"}]
+    links += [{"label": f"{i} on NVD", "url": f"https://nvd.nist.gov/vuln/detail/{i}"} for i in ids if i.startswith("CVE-")]
+    links += [{"label": "fix reference", "url": u} for u in adv.get("fix_refs", [])]
+    return {
+        "id": adv["id"],
+        "aliases": adv.get("aliases", []),
+        "summary": adv.get("summary") or "",
+        "published": adv.get("published"),
+        "modified": adv.get("modified"),
+        "withdrawn": adv.get("withdrawn"),
+        "affected_ranges": [t for a in adv.get("affected", []) for r in a.get("ranges", []) if (t := _range_text(r))],
+        "affected_versions_listed": sum(len(a.get("versions", [])) for a in adv.get("affected", [])),
+        "links": links,
+    }
 
 
 def package_actions(findings: list[dict]) -> list[dict]:
@@ -223,6 +266,16 @@ def apply_reviews(findings: list[dict], store: ReviewStore | None, project: str,
     return counts
 
 
+def order_findings(findings: list[dict]) -> None:
+    """The displayed order. Our own matches first, then unconfirmed scanner claims, then likely false positives;
+    within each, a finding a person has accepted or marked false positive goes below the ones still open; then by risk.
+    This only orders the list: the risk SCORE is untouched, and a decided finding is never hidden.
+    """
+    tier = {"matched": 0, "unconfirmed": 1, "contradicted": 2}
+    suppressed = {"accept_risk", "false_positive"}
+    findings.sort(key=lambda f: (tier[f["claim_status"]], f["review_status"] in suppressed, -f["risk"]["score"], f["id"], f["package"]))
+
+
 def scan_bytes(name: str, content: bytes, bundle: DataBundle, cfg: dict | None = None) -> dict:
     return scan_files([(name, content)], bundle, cfg)
 
@@ -250,8 +303,9 @@ def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | N
     analysis = analyze_project(project_dir, parsed.dependencies) if project_dir else None   # reads the .py files, never runs them
     if analysis:
         parsed.warnings += analysis.warnings
+    series = bundle.epss_series({c for m in matches for c in cve_ids(m)})
     findings = [
-        build_finding(m, bundle, cfg, release_exists=release_exists,
+        build_finding(m, bundle, cfg, release_exists=release_exists, epss_series=series,
                       exposure=analysis.exposure(m.dependency.name) if analysis and m.dependency.ecosystem == "PyPI" else None)
         for m in matches
     ]
@@ -259,8 +313,8 @@ def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | N
         parsed.warnings.append("exposure analysis covers Python (Django) packages only: findings for other ecosystems have no exposure factor")
     # Order: our own matches, then unconfirmed scanner claims, then likely false positives; by risk within each.
     # The risk SCORE is untouched. This only stops a contradicted claim from outranking a confirmed finding.
-    tier = {"matched": 0, "unconfirmed": 1, "contradicted": 2}
-    findings.sort(key=lambda f: (tier[f["claim_status"]], -f["risk"]["score"], f["id"], f["package"]))
+    review_summary = apply_reviews(findings, review_store, project, now=_noon(today) if today else None)
+    order_findings(findings)
     return {
         "source": name,
         "scanned_at": dt.datetime.now(dt.UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -271,6 +325,6 @@ def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | N
         "findings": findings,
         "project": project,
         "graph": analysis.render({f["package"] for f in findings if f["ecosystem"] == "PyPI"}) if analysis else None,
-        "review_summary": apply_reviews(findings, review_store, project, now=_noon(today) if today else None),
+        "review_summary": review_summary,
         "package_actions": package_actions(findings),
     }

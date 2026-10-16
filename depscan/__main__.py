@@ -4,6 +4,7 @@
     python -m depscan review result.json --list
     python -m depscan review result.json KEY accept_risk --reviewer "Ana" --note "why" --expires 2030-01-31
     python -m depscan audit [--verify]
+    python -m depscan serve [--port 8000] [--offline]
 
 `scan` reads files and never changes them. `review` records a person's decision about a finding; it never changes
 dependency files either. Everything works offline from the cached snapshots in ./data.
@@ -94,6 +95,16 @@ def cmd_audit(args) -> int:
     return 0
 
 
+def cmd_serve(args) -> int:
+    import uvicorn
+
+    from .server import create_app
+    app = create_app(args.data_dir, args.review_db, offline=args.offline)
+    print(f"depscan console: http://{args.host}:{args.port}/app   (Ctrl+C to stop)")
+    uvicorn.run(app, host=args.host, port=args.port, log_level="warning")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="depscan")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -122,8 +133,15 @@ def main(argv: list[str] | None = None) -> int:
     audit.add_argument("--verify", action="store_true", help="recompute the hash chain; exit 1 if it is broken")
     _store_arg(audit)
 
+    serve = sub.add_parser("serve", help="run the web console (reads uploads, never changes them)")
+    serve.add_argument("--host", default="127.0.0.1", help="local only by default: there is no login")
+    serve.add_argument("--port", type=int, default=8000)
+    serve.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
+    serve.add_argument("--offline", action="store_true", help="never use the network")
+    _store_arg(serve)
+
     args = ap.parse_args(argv)
-    return {"scan": cmd_scan, "review": cmd_review, "audit": cmd_audit}[args.cmd](args)
+    return {"scan": cmd_scan, "review": cmd_review, "audit": cmd_audit, "serve": cmd_serve}[args.cmd](args)
 
 
 if __name__ == "__main__":

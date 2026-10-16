@@ -7,6 +7,7 @@ import { ExposureView } from './ExposureView'
 import { FindingsView } from './FindingsView'
 import { ReviewLogView } from './ReviewLogView'
 import { TimelineView } from './TimelineView'
+import { WeightsPanel } from './WeightsPanel'
 
 // Layout fixture is dev-only. `import.meta.env.DEV` is false in a production build,
 // so the fixture module is dropped from the bundle.
@@ -55,11 +56,11 @@ export default function ConsoleApp() {
       .catch(() => setEngine('failed'))
   }, [loadAll])
 
-  async function onUpload(file: File) {
+  async function onUpload(files: File[]) {
     setBusy(true)
     setError(null)
     try {
-      await api.scan(file)
+      await api.scan(files)
       await loadAll()
       setSelectedId(null)
       setMode('findings')
@@ -89,9 +90,8 @@ export default function ConsoleApp() {
   }
 
   const findings = scan?.findings ?? []
-  // Every view shares one selection. Until the user picks, it is the highest-risk finding,
-  // which is also what the findings table shows as selected.
-  const topFinding = [...findings].sort((a, b) => b.risk.score - a.risk.score)[0]
+  // Every view shares one selection. Until the user picks, it is the first row of the findings table.
+  const topFinding = findings[0]
   const activeId = selectedId ?? (topFinding ? topFinding.key : null)
   const meta = scan
     ? [
@@ -126,7 +126,10 @@ export default function ConsoleApp() {
           ) : !scan ? (
             <EmptyState>Drop a requirements.txt, package.json or scan report in the bar above to begin. Files are only read, never changed.</EmptyState>
           ) : mode === 'findings' ? (
-            <FindingsView findings={findings} selectedId={activeId} onSelect={setSelectedId} onReview={onReview} onRevoke={onRevoke} />
+            <>
+              <FindingsView findings={findings} selectedId={activeId} onSelect={setSelectedId} onReview={onReview} onRevoke={onRevoke} />
+              {!useFixture && <WeightsPanel onChanged={loadAll} />}
+            </>
           ) : mode === 'exposure' ? (
             <ExposureView graph={graph} findings={findings} selectedId={activeId} />
           ) : mode === 'timeline' ? (

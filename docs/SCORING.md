@@ -126,7 +126,10 @@ Findings are listed in three tiers, and by risk score (highest first) within eac
    (a likely false positive). It is kept and flagged, never silently dropped.
 
 This is why a contradicted claim does not outrank a confirmed finding even when its raw risk number is higher.
-The risk **score** itself is not changed by the tier. Each finding carries `claim_status`
+Within a tier, a finding a person has marked **accept risk** or **false positive** is listed below the ones still open
+(`fix now` does not move it: the work is still pending). It stays visible with the decision beside it, so reviewer
+status feeds back into the displayed ranking without deleting or re-scoring anything.
+The risk **score** itself is not changed by the tier or by a decision. Each finding carries `claim_status`
 (`matched` / `unconfirmed` / `contradicted`).
 
 ## 3. Trust score (0 to 100)
@@ -200,7 +203,37 @@ Recommendations are text. depscan never edits a manifest or installs anything.
 - **No fix listed:** the recommendation says so and suggests mitigation, an alternative, or monitoring. We never
   guess a version.
 
-## 5. What these scores are not
+## 5. Timeline and watchlist (temporal view)
+
+**History** is built only from dates the sources really give: the advisory's `published` and last `modified` (OSV), the
+day the CVE was added to CISA KEV, and each cached EPSS file (a handful of dated snapshots, not a daily series). Nothing
+is interpolated, so every point carries `simulated: false`; the field exists so a simulated point could never be
+mistaken for a real one.
+
+Each point's risk is the normal risk score recomputed with only what was known on that date: the EPSS value of the newest
+snapshot on or before it, and KEV only from the day it was listed. The factors with no history here (severity, fix
+availability, how the package is used, exposure) are held at today's values. So a rising line means "EPSS or KEV
+changed", nothing more, and between two points the risk is not guessed.
+
+**Watchlist** = findings **not yet in the critical risk tier** that look like they are heading there, from real dated data:
+
+- EPSS rose by at least `epss_rise_abs` (5 percentage points) between the oldest and newest snapshot that scored it, or
+  at least doubled (`epss_rise_ratio`) from a start of `epss_floor` (1%) or more; or
+- the CVE was added to KEV within `kev_recent_days` (30) days of the data snapshot.
+
+The thresholds live in `config/scoring.yaml` (`temporal.watch`) and are reasoned defaults, not fitted. A finding whose
+only support is a contradicted scanner claim is never watched. With only a few EPSS snapshots cached, this is a coarse
+signal.
+
+## 6. Changing the weights
+
+`GET /api/config/weights` shows the six risk weights and the defaults from `config/scoring.yaml`;
+`PUT /api/config/weights` sets new ones (the same six names, none negative, adding up to 1 within 0.01 and then
+normalised) and re-scores the current scan from the stored copy of the upload; `DELETE` goes back to the defaults. A
+changed set is kept in `state/weights.json` (git-ignored) and used on the next start. `config/scoring.yaml` itself is
+never rewritten. The console has the same controls under the findings table.
+
+## 7. What these scores are not
 
 - Not a measurement of real-world exploitation of your application.
 - Not tuned or validated on a large dataset. The default weights are reasoned, documented starting points.

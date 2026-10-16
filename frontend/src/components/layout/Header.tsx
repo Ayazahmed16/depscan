@@ -16,7 +16,7 @@ export function Header({ mode, onModeChange, meta, busy, error, onUpload, onRese
   meta: { label: string; value: string }[]
   busy: boolean
   error: string | null
-  onUpload: (file: File) => void
+  onUpload: (files: File[]) => void
   onReset: () => void
   hasScan: boolean
 }) {
@@ -41,8 +41,8 @@ export function Header({ mode, onModeChange, meta, busy, error, onUpload, onRese
             onDrop={(e) => {
               e.preventDefault()
               setDragging(false)
-              const f = e.dataTransfer.files[0]
-              if (f) onUpload(f)
+              const f = Array.from(e.dataTransfer.files)
+              if (f.length) onUpload(f)
             }}
             className={`flex h-8 min-w-64 cursor-pointer items-center gap-2 border px-2.5 font-mono text-[10px] uppercase tracking-wider transition-colors ${
               dragging ? 'border-primary bg-primary/10 text-on-surface' : 'border-outline-variant bg-surface-container text-on-surface-variant hover:text-on-surface'
@@ -54,17 +54,18 @@ export function Header({ mode, onModeChange, meta, busy, error, onUpload, onRese
             ) : error ? (
               <span className="max-w-56 truncate text-signal-critical">{error}</span>
             ) : (
-              'drop requirements.txt / package.json / report'
+              'drop dependency files, a report, or a project .zip'
             )}
           </button>
           <input
             ref={input}
             type="file"
-            accept=".txt,.json"
+            accept=".txt,.json,.lock,.mod,.sum,.zip"
+            multiple
             className="hidden"
             onChange={(e) => {
-              const f = e.target.files?.[0]
-              if (f) onUpload(f)
+              const f = Array.from(e.target.files ?? [])
+              if (f.length) onUpload(f)
               e.target.value = ''
             }}
           />

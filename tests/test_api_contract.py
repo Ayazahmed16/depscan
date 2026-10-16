@@ -97,3 +97,26 @@ def test_findings_carry_the_review_fields_the_frontend_needs(result):
     from depscan.pipeline import REVIEW_STATUSES
     assert set(REVIEW_STATUSES) == status                                  # backend and frontend agree on every status
     assert set(result["review_summary"]) == status | {"needs_review"}
+
+
+def test_history_points_and_advisories_match_their_interfaces(result):
+    seen = 0
+    for f in result["findings"]:
+        for point in f["history"]:
+            check(point, "HistoryPoint", f"history point of {f['id']}")
+            seen += 1
+        for adv in f["advisories"]:
+            check(adv, "Advisory", f"advisory {adv['id']}")
+            assert all(set(link) == {"label", "url"} for link in adv["links"])
+    assert seen > 0
+
+
+def test_weights_view_matches_its_interface(tmp_path):
+    from fastapi.testclient import TestClient
+
+    from depscan.server import create_app
+    c = TestClient(create_app(SAMPLE / "snapshot", tmp_path / "r.sqlite", dist=tmp_path / "none"))
+    required = {k for k, req in interface_fields("WeightsView").items() if req}
+    assert required <= set(c.get("/api/config/weights").json())
+    health = c.get("/api/health").json()
+    assert set(interface_fields("Health")) <= set(health)

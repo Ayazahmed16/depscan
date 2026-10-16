@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Badge, Tag } from '../components/primitives/Badge'
 import { DataReadout } from '../components/primitives/DataReadout'
 import { ExposureBadge } from '../components/primitives/ExposureBadge'
@@ -32,8 +32,9 @@ export function FindingsView({ findings, selectedId, onSelect, onReview, onRevok
   onReview: (input: ReviewInput) => Promise<void>
   onRevoke: (input: { key: string; note: string; reviewer: string }) => Promise<void>
 }) {
-  // Highest risk first. The backend already orders them; this keeps the table stable if it ever does not.
-  const sorted = useMemo(() => [...findings].sort((a, b) => b.risk.score - a.risk.score), [findings])
+  // The backend decides the order: our own matches by risk, then unconfirmed scanner claims, then likely false
+  // positives, and findings a person has accepted or marked false positive below the open ones.
+  const sorted = findings
   const selected = sorted.find((f) => f.key === selectedId) ?? sorted[0] ?? null
 
   if (findings.length === 0) {
@@ -50,7 +51,7 @@ export function FindingsView({ findings, selectedId, onSelect, onReview, onRevok
       <Panel
         title="Findings"
         icon={<IconWarning size={13} className="text-primary" />}
-        aside={<DataReadout className="text-[10px]" dim>{findings.length} matched, ranked by risk</DataReadout>}
+        aside={<DataReadout className="text-[10px]" dim>{findings.length} matched, ranked by risk (decided ones last)</DataReadout>}
         className="lg:col-span-7"
         bodyClassName="overflow-x-auto"
       >
@@ -179,6 +180,25 @@ function Detail({ finding: f, onReview, onRevoke }: {
           {f.match.evidence.map((e, i) => <li key={i}>{e}</li>)}
         </ul>
       </Panel>
+
+      {f.advisories && f.advisories.length > 0 && (
+        <Panel title="Advisories" aside={<DataReadout className="text-[10px]" dim>{f.advisories.length}</DataReadout>} bodyClassName="flex flex-col gap-2 p-3">
+          {f.advisories.map((a) => (
+            <div key={a.id} className="flex flex-col gap-1 border border-outline-variant bg-surface-container-lowest p-2.5 font-mono text-[10px] leading-relaxed text-on-surface">
+              <span className="text-on-surface">{a.id}{a.aliases.length > 0 && <span className="text-on-surface-variant"> ({a.aliases.join(', ')})</span>}</span>
+              {a.summary && <span className="font-sans text-[12px] text-on-surface-variant">{a.summary}</span>}
+              <span className="text-on-surface-variant">
+                published {a.published?.slice(0, 10) ?? 'unknown'} / modified {a.modified?.slice(0, 10) ?? 'unknown'}
+                {a.withdrawn && <span className="text-signal-critical"> / WITHDRAWN {a.withdrawn.slice(0, 10)}</span>}
+              </span>
+              <span className="text-on-surface-variant">affected: {a.affected_ranges.length ? a.affected_ranges.join(' | ') : `${a.affected_versions_listed} versions listed`}</span>
+              <span className="flex flex-wrap gap-x-3">
+                {a.links.map((l) => <a key={l.url} href={l.url} target="_blank" rel="noreferrer" className="text-signal-info underline">{l.label}</a>)}
+              </span>
+            </div>
+          ))}
+        </Panel>
+      )}
 
       <Panel title="Risk factors" bodyClassName="p-0">
         <FactorTable

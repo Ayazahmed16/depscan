@@ -121,3 +121,13 @@ review:
   # accept_risk and false_positive are suppressions: they must expire, so a forgotten decision cannot hide a finding forever.
   max_suppression_days: 180
   max_suppression_days_critical: 30   # for findings whose risk is in the critical tier
+
+temporal:
+  # The watchlist: findings NOT yet in the critical risk tier that look like they are heading there.
+  # Built only from real dated data (the cached EPSS snapshots and the KEV date added). See docs/SCORING.md.
+  watch:
+    epss_min_points: 2        # need at least this many EPSS snapshots that scored the CVE
+    epss_rise_abs: 0.05       # EPSS rose by 5 percentage points or more between the oldest and newest snapshot ...
+    epss_rise_ratio: 2.0      # ... or at least doubled,
+    epss_floor: 0.01          # but only when it started at 1% or more (doubling 0.001 to 0.002 is noise)
+    kev_recent_days: 30       # or the CVE was added to CISA KEV within this many days of the data snapshot

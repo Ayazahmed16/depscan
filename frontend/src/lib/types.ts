@@ -48,6 +48,20 @@ export interface HistoryPoint {
   simulated: boolean
 }
 
+/** One advisory record behind a match: what it says, which versions it covers, where to read it. */
+export interface Advisory {
+  id: string
+  aliases: string[]
+  summary: string
+  published: string | null
+  modified: string | null
+  withdrawn: string | null
+  /** e.g. 'introduced 0, fixed 2.31.0' */
+  affected_ranges: string[]
+  affected_versions_listed: number
+  links: { label: string; url: string }[]
+}
+
 export interface Finding {
   /** stable identity: ecosystem|package|version|advisory. Reviewer decisions attach to it. */
   key: string
@@ -80,6 +94,8 @@ export interface Finding {
     imported_by: string[]         // modules that import the package directly
     note: string
   } | null
+  /** the evidence: the advisory records (OSV) this match rests on */
+  advisories?: Advisory[]
   history: HistoryPoint[]
   watch: string | null
   review: ReviewRecord | null
@@ -94,6 +110,14 @@ export interface ScanResult {
   /** present when a Django project folder was analysed */
   graph?: ExposureGraph | null
   review_summary?: Record<ReviewStatus | 'needs_review', number>
+}
+
+export interface WeightsView {
+  weights: Record<string, number>
+  defaults: Record<string, number>
+  customised: boolean
+  /** present on a save: the current scan was re-scored with the new weights */
+  rescored?: boolean
 }
 
 export interface Health {
