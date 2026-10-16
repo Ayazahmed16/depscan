@@ -1,0 +1,88 @@
+{
+  "name": "depscan-vscode",
+  "displayName": "depscan: dependency vulnerability triage",
+  "description": "Ranks the vulnerable dependencies in your workspace by risk and trust, offline. Read-only: it never changes your dependency files.",
+  "version": "0.1.0",
+  "publisher": "depscan",
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Linters", "Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/src/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "depscan.scan", "title": "depscan: Scan workspace", "icon": "$(refresh)" },
+      { "command": "depscan.showFinding", "title": "depscan: Show finding details" },
+      { "command": "depscan.reviewFinding", "title": "depscan: Record a review decision", "icon": "$(checklist)" },
+      { "command": "depscan.showAudit", "title": "depscan: Show audit log" },
+      { "command": "depscan.openConsole", "title": "depscan: Open the web console" },
+      { "command": "depscan.clear", "title": "depscan: Clear results", "icon": "$(clear-all)" }
+    ],
+    "viewsContainers": {
+      "activitybar": [{ "id": "depscan", "title": "depscan", "icon": "media/shield.svg" }]
+    },
+    "views": {
+      "depscan": [{ "id": "depscan.findings", "name": "Findings" }]
+    },
+    "viewsWelcome": [
+      {
+        "view": "depscan.findings",
+        "contents": "No scan yet.\n[Scan workspace](command:depscan.scan)\nReads requirements.txt, package.json, lock files and go.mod. Nothing is installed or changed.\nNo findings does not prove a project is secure."
+      }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "depscan.scan", "when": "view == depscan.findings", "group": "navigation@1" },
+        { "command": "depscan.clear", "when": "view == depscan.findings", "group": "navigation@2" }
+      ],
+      "view/item/context": [
+        { "command": "depscan.reviewFinding", "when": "view == depscan.findings && viewItem == finding", "group": "inline" }
+      ]
+    },
+    "configuration": {
+      "title": "depscan",
+      "properties": {
+        "depscan.repoPath": {
+          "type": "string", "default": "",
+          "markdownDescription": "Folder of the depscan project (the one that contains the `depscan` package and `data/`). Empty: the folder above this extension, if it is the depscan repo."
+        },
+        "depscan.pythonPath": {
+          "type": "string", "default": "",
+          "markdownDescription": "Python that has depscan's requirements installed. Empty: the repo's `.venv`, else `python`."
+        },
+        "depscan.dataDir": {
+          "type": "string", "default": "",
+          "markdownDescription": "Folder of cached data snapshots. Empty: `data/` inside the depscan repo."
+        },
+        "depscan.offline": {
+          "type": "boolean", "default": true,
+          "markdownDescription": "Never use the network (version ranges are then tested at their lowest allowed version)."
+        },
+        "depscan.reviewer": {
+          "type": "string", "default": "",
+          "markdownDescription": "Name recorded with review decisions. Typed in, not authenticated. Asked once if empty."
+        },
+        "depscan.scanOnSave": {
+          "type": "boolean", "default": false,
+          "markdownDescription": "Re-scan when a dependency file is saved."
+        },
+        "depscan.consoleUrl": {
+          "type": "string", "default": "http://127.0.0.1:8000/app",
+          "markdownDescription": "Where `depscan: Open the web console` goes. Start it with `python -m depscan serve`."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "tsc -p . && node --test out/test/core.test.js",
+    "package": "npm run build && vsce package --no-dependencies --allow-missing-repository --skip-license"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.4.0"
+  }
+}

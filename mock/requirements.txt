@@ -1,0 +1,9 @@
+# Mock input for trying depscan. Old pinned versions with known advisories, one clean package, one range.
+pyyaml==5.1.2
+requests==2.19.0
+flask==2.2.0
+jinja2==2.10
+urllib3==1.24.1
+pyspark==3.1.1
+django>=3.0,<3.2
+certifi==2024.8.30

@@ -53,6 +53,9 @@ The web console: build the frontend once (`cd frontend && npm install && npm run
 report, or a zip of a Django project; uploads are only read, never installed or run. The API is described in
 [docs/CONTRACT.md](docs/CONTRACT.md). Local only: there is no login, so do not expose it to a network.
 
+VS Code: `vscode-extension/` is a read-only client over the same command line (Problems-panel squiggles, a findings
+tree, details, review decisions). See [vscode-extension/README.md](vscode-extension/README.md).
+
 Data downloads are integrity-checked (OSV md5, NVD sha256, KEV/EPSS format checks), a bad download never replaces a good
 snapshot, and a scan warns when its data is older than `data.stale_days` (default 14) or NVD is missing.
 
