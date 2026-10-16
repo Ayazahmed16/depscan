@@ -1,7 +1,7 @@
 """Recommended next actions. These are text only: depscan never changes a dependency file."""
 from __future__ import annotations
 
-from ..matcher.versions import UnparsableVersion, major_of, parse_version
+from ..matcher.versions import UnparsableVersion, is_prerelease, major_of, parse_version
 from ..models import Match
 
 
@@ -46,7 +46,8 @@ def recommendation_text(match: Match, fixed: str | None, major: bool | None, act
     parts = []
     if fixed:
         parts.append(f"Upgrade {name} from {version} to {fixed} or later"
-                     + (" (major version bump: check the changelog for breaking changes)." if major else " (same major version)."))
+                     + (" (major version bump: check the changelog for breaking changes)." if major else " (same major version).")
+                     + (f" {fixed} is a pre-release: use the first stable release after it." if is_prerelease(dep.ecosystem, fixed) else ""))
     else:
         parts.append(f"No fixed version is listed for {name} {version}. Consider a mitigation, an alternative package, "
                      f"or monitor the advisory for a patch.")

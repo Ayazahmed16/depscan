@@ -1,0 +1,34 @@
+{
+  "_note": "HAND-WRITTEN Dependency-Check-style report for the known sample (not produced by a real scan; the real JSON layout is unverified). The package ids and CVE ids are real, except CVE-2999-0001, which is deliberately made up to model a claim nothing can confirm.",
+  "reportSchema": "1.1",
+  "projectInfo": {"name": "known-sample"},
+  "dependencies": [
+    {
+      "fileName": "flask 1.0",
+      "packages": [{"id": "pkg:pypi/flask@1.0", "confidence": "HIGHEST"}],
+      "vulnerabilities": [
+        {"source": "NVD", "name": "CVE-2023-30861", "severity": "HIGH", "cvssv3": {"baseScore": 7.5, "baseSeverity": "HIGH"}},
+        {"source": "NVD", "name": "CVE-2019-1010083", "severity": "HIGH", "cvssv3": {"baseScore": 7.5, "baseSeverity": "HIGH"}}
+      ]
+    },
+    {
+      "fileName": "jinja2 3.1.6",
+      "packages": [{"id": "pkg:pypi/jinja2@3.1.6", "confidence": "HIGHEST"}],
+      "vulnerabilities": [
+        {"source": "NVD", "name": "CVE-2025-27516", "severity": "MEDIUM", "cvssv3": {"baseScore": 5.4, "baseSeverity": "MEDIUM"}}
+      ]
+    },
+    {
+      "fileName": "six 1.16.0",
+      "packages": [{"id": "pkg:pypi/six@1.16.0", "confidence": "LOW"}],
+      "vulnerabilities": [
+        {"source": "NVD", "name": "CVE-2999-0001", "severity": "HIGH", "cvssv3": {"baseScore": 8.0, "baseSeverity": "HIGH"}}
+      ]
+    },
+    {
+      "fileName": "requests 2.31.0",
+      "packages": [{"id": "pkg:pypi/requests@2.31.0", "confidence": "HIGHEST"}],
+      "vulnerabilities": []
+    }
+  ]
+}

@@ -1,0 +1,6698 @@
+{
+ "ecosystem": "PyPI",
+ "packages": {
+  "flask": [
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "3.1.0"
+         },
+         {
+          "fixed": "3.1.1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.1.0"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2025-47278",
+     "PYSEC-2026-1377"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-4grg-w6v8-c28g",
+    "label": "LOW",
+    "modified": "2026-09-10T03:50:24.238504042Z",
+    "published": "2025-05-13T20:25:26Z",
+    "severity": [
+     {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:P/PR:H/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Flask uses fallback key instead of current signing key",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.12.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.1",
+       "0.10",
+       "0.10.1",
+       "0.11",
+       "0.11.1",
+       "0.12",
+       "0.12.1",
+       "0.12.2",
+       "0.2",
+       "0.3",
+       "0.3.1",
+       "0.4",
+       "0.5",
+       "0.5.1",
+       "0.5.2",
+       "0.6",
+       "0.6.1",
+       "0.7",
+       "0.7.1",
+       "0.7.2",
+       "0.8",
+       "0.8.1",
+       "0.9"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2018-1000656",
+     "PYSEC-2018-66"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-562c-5r94-xh97",
+    "label": "HIGH",
+    "modified": "2025-02-21T05:29:40.872529Z",
+    "published": "2018-08-23T19:10:40Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Flask is vulnerable to Denial of Service via incorrect encoding of JSON data",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.1",
+       "0.10",
+       "0.10.1",
+       "0.11",
+       "0.11.1",
+       "0.12",
+       "0.12.1",
+       "0.12.2",
+       "0.12.3",
+       "0.12.4",
+       "0.12.5",
+       "0.2",
+       "0.3",
+       "0.3.1",
+       "0.4",
+       "0.5",
+       "0.5.1",
+       "0.5.2",
+       "0.6",
+       "0.6.1",
+       "0.7",
+       "0.7.1",
+       "0.7.2",
+       "0.8",
+       "0.8.1",
+       "0.9"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2019-1010083",
+     "PYSEC-2019-179"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-5wv5-4vpf-pj6m",
+    "label": "HIGH",
+    "modified": "2024-09-20T21:24:25.140560Z",
+    "published": "2019-07-19T16:12:46Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Pallets Project Flask is vulnerable to Denial of Service via Unexpected memory usage",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.1",
+       "0.10",
+       "0.10.1",
+       "0.11",
+       "0.11.1",
+       "0.12",
+       "0.12.1",
+       "0.12.2",
+       "0.12.3",
+       "0.12.4",
+       "0.12.5",
+       "0.2",
+       "0.3",
+       "0.3.1",
+       "0.4",
+       "0.5",
+       "0.5.1",
+       "0.5.2",
+       "0.6",
+       "0.6.1",
+       "0.7",
+       "0.7.1",
+       "0.7.2",
+       "0.8",
+       "0.8.1",
+       "0.9",
+       "1.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.1.1",
+       "1.1.2",
+       "1.1.3",
+       "1.1.4",
+       "2.0.0",
+       "2.0.0rc1",
+       "2.0.0rc2",
+       "2.0.1",
+       "2.0.2",
+       "2.0.3",
+       "2.1.0",
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.2.4",
+       "2.2.5",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.0",
+       "3.1.1",
+       "3.1.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2026-27205",
+     "PYSEC-2026-2151"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-68rp-wp8r-4726",
+    "label": "LOW",
+    "modified": "2026-09-10T03:49:54.354981590Z",
+    "published": "2026-02-19T20:45:41Z",
+    "severity": [
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Flask session does not add `Vary: Cookie` header when accessed in some ways",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "2.3.0"
+         },
+         {
+          "fixed": "2.3.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.3.0",
+       "2.3.1"
+      ]
+     },
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.2.5"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.1",
+       "0.10",
+       "0.10.1",
+       "0.11",
+       "0.11.1",
+       "0.12",
+       "0.12.1",
+       "0.12.2",
+       "0.12.3",
+       "0.12.4",
+       "0.12.5",
+       "0.2",
+       "0.3",
+       "0.3.1",
+       "0.4",
+       "0.5",
+       "0.5.1",
+       "0.5.2",
+       "0.6",
+       "0.6.1",
+       "0.7",
+       "0.7.1",
+       "0.7.2",
+       "0.8",
+       "0.8.1",
+       "0.9",
+       "1.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.1.1",
+       "1.1.2",
+       "1.1.3",
+       "1.1.4",
+       "2.0.0",
+       "2.0.0rc1",
+       "2.0.0rc2",
+       "2.0.1",
+       "2.0.2",
+       "2.0.3",
+       "2.1.0",
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.2.4"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2023-30861",
+     "PYSEC-2023-62"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-m2qf-hxjv-5gpq",
+    "label": "HIGH",
+    "modified": "2026-09-10T03:50:01.763387498Z",
+    "published": "2023-05-01T19:22:20Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Flask vulnerable to possible disclosure of permanent session cookie due to missing Vary: Cookie header",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "0.12.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.1",
+       "0.10",
+       "0.10.1",
+       "0.11",
+       "0.11.1",
+       "0.12",
+       "0.12.1",
+       "0.12.2",
+       "0.2",
+       "0.3",
+       "0.3.1",
+       "0.4",
+       "0.5",
+       "0.5.1",
+       "0.5.2",
+       "0.6",
+       "0.6.1",
+       "0.7",
+       "0.7.1",
+       "0.7.2",
+       "0.8",
+       "0.8.1",
+       "0.9"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2018-1000656",
+     "GHSA-562c-5r94-xh97"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2018-66",
+    "label": null,
+    "modified": "2023-11-08T03:59:39.887416Z",
+    "published": "2018-08-20T19:31:00Z",
+    "severity": [],
+    "summary": "The Pallets Project flask version Before 0.12.3 contains a CWE-20: Improper Input Validation vulnerability in flask that can result in Large amount of memory usage possibly leading to denial of servic",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "1.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.1",
+       "0.10",
+       "0.10.1",
+       "0.11",
+       "0.11.1",
+       "0.12",
+       "0.12.1",
+       "0.12.2",
+       "0.12.3",
+       "0.12.4",
+       "0.12.5",
+       "0.2",
+       "0.3",
+       "0.3.1",
+       "0.4",
+       "0.5",
+       "0.5.1",
+       "0.5.2",
+       "0.6",
+       "0.6.1",
+       "0.7",
+       "0.7.1",
+       "0.7.2",
+       "0.8",
+       "0.8.1",
+       "0.9"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2019-1010083",
+     "GHSA-5wv5-4vpf-pj6m"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2019-179",
+    "label": null,
+    "modified": "2023-11-08T04:00:40.602062Z",
+    "published": "2019-07-17T14:15:00Z",
+    "severity": [],
+    "summary": "The Pallets Project Flask before 1.0 is affected by: unexpected memory usage. The impact is: denial of service. The attack vector is: crafted encoded JSON data. The fixed version is: 1. NOTE: this may",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "70f906c51ce49c485f1d355703e9cc3386b1cc2b"
+         },
+         {
+          "fixed": "afd63b16170b7c047f5758eb910c416511e9c965"
+         }
+        ],
+        "repo": "https://github.com/pallets/flask",
+        "type": "GIT"
+       },
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.2.5"
+         },
+         {
+          "introduced": "2.3.0"
+         },
+         {
+          "fixed": "2.3.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.1",
+       "0.10",
+       "0.10.1",
+       "0.11",
+       "0.11.1",
+       "0.12",
+       "0.12.1",
+       "0.12.2",
+       "0.12.3",
+       "0.12.4",
+       "0.12.5",
+       "0.2",
+       "0.3",
+       "0.3.1",
+       "0.4",
+       "0.5",
+       "0.5.1",
+       "0.5.2",
+       "0.6",
+       "0.6.1",
+       "0.7",
+       "0.7.1",
+       "0.7.2",
+       "0.8",
+       "0.8.1",
+       "0.9",
+       "1.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.1.1",
+       "1.1.2",
+       "1.1.3",
+       "1.1.4",
+       "2.0.0",
+       "2.0.0rc1",
+       "2.0.0rc2",
+       "2.0.1",
+       "2.0.2",
+       "2.0.3",
+       "2.1.0",
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.2.4",
+       "2.3.0",
+       "2.3.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2023-30861",
+     "GHSA-m2qf-hxjv-5gpq"
+    ],
+    "fix_refs": [
+     "https://github.com/pallets/flask/commit/70f906c51ce49c485f1d355703e9cc3386b1cc2b",
+     "https://github.com/pallets/flask/commit/afd63b16170b7c047f5758eb910c416511e9c965"
+    ],
+    "id": "PYSEC-2023-62",
+    "label": null,
+    "modified": "2023-11-08T04:12:28.231927Z",
+    "published": "2023-05-02T18:15:00Z",
+    "severity": [],
+    "summary": "Flask is a lightweight WSGI web application framework. When all of the following conditions are met, a response containing data intended for one client may be cached and subsequently sent by the proxy",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "3.1.0"
+         },
+         {
+          "fixed": "3.1.1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.1.0"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2025-47278",
+     "GHSA-4grg-w6v8-c28g"
+    ],
+    "fix_refs": [
+     "https://github.com/pallets/flask/commit/73d6504063bfa00666a92b07a28aaf906c532f09"
+    ],
+    "id": "PYSEC-2026-1377",
+    "label": null,
+    "modified": "2026-07-07T17:47:38.870624830Z",
+    "published": "2026-07-07T16:02:52.410162Z",
+    "severity": [
+     {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:P/PR:H/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Flask uses fallback key instead of current signing key",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.1",
+       "0.10",
+       "0.10.1",
+       "0.11",
+       "0.11.1",
+       "0.12",
+       "0.12.1",
+       "0.12.2",
+       "0.12.3",
+       "0.12.4",
+       "0.12.5",
+       "0.2",
+       "0.3",
+       "0.3.1",
+       "0.4",
+       "0.5",
+       "0.5.1",
+       "0.5.2",
+       "0.6",
+       "0.6.1",
+       "0.7",
+       "0.7.1",
+       "0.7.2",
+       "0.8",
+       "0.8.1",
+       "0.9",
+       "1.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.1.1",
+       "1.1.2",
+       "1.1.3",
+       "1.1.4",
+       "2.0.0",
+       "2.0.0rc1",
+       "2.0.0rc2",
+       "2.0.1",
+       "2.0.2",
+       "2.0.3",
+       "2.1.0",
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.2.4",
+       "2.2.5",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.0",
+       "3.1.1",
+       "3.1.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2026-27205",
+     "GHSA-68rp-wp8r-4726"
+    ],
+    "fix_refs": [
+     "https://github.com/pallets/flask/commit/089cb86dd22bff589a4eafb7ab8e42dc357623b4"
+    ],
+    "id": "PYSEC-2026-2151",
+    "label": null,
+    "modified": "2026-07-13T07:15:25.033843440Z",
+    "published": "2026-02-21T06:17:00.910Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Flask is a web server gateway interface (WSGI) web application framework. In versions 3.1.2 and below, when the session object is accessed, Flask should set the Vary: Cookie header., resulting in a Us",
+    "withdrawn": null
+   }
+  ],
+  "jinja2": [
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.10.1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.10",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8",
+       "2.8.1",
+       "2.9",
+       "2.9.1",
+       "2.9.2",
+       "2.9.3",
+       "2.9.4",
+       "2.9.5",
+       "2.9.6"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2019-10906",
+     "PYSEC-2019-217"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-462w-v97r-4m45",
+    "label": "HIGH",
+    "modified": "2024-09-24T21:03:59.802687Z",
+    "published": "2019-04-10T14:30:24Z",
+    "severity": [
+     {
+      "score": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Jinja2 sandbox escape via string formatting",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.7.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2014-1402",
+     "PYSEC-2014-8"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-8r7q-cvjq-x353",
+    "label": "HIGH",
+    "modified": "2024-09-24T18:48:44.375484Z",
+    "published": "2022-05-14T04:04:14Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Incorrect Privilege Assignment in Jinja2",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.6"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.10",
+       "2.10.1",
+       "2.10.2",
+       "2.10.3",
+       "2.11.0",
+       "2.11.1",
+       "2.11.2",
+       "2.11.3",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8",
+       "2.8.1",
+       "2.9",
+       "2.9.1",
+       "2.9.2",
+       "2.9.3",
+       "2.9.4",
+       "2.9.5",
+       "2.9.6",
+       "3.0.0",
+       "3.0.0a1",
+       "3.0.0rc1",
+       "3.0.0rc2",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.0",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.1.4",
+       "3.1.5"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2025-27516",
+     "PYSEC-2026-1471"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-cpwx-vrp4-4pq7",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:49:48.526758681Z",
+    "published": "2025-03-05T20:40:14Z",
+    "severity": [
+     {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Jinja2 vulnerable to sandbox breakout through attr filter selecting format method",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.7.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2014-0012",
+     "PYSEC-2014-82"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-fqh9-2qgg-h84h",
+    "label": "MODERATE",
+    "modified": "2024-09-23T20:03:14.751414Z",
+    "published": "2022-05-17T04:01:00Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Insecure Temporary File in Jinja2",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.11.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.10",
+       "2.10.1",
+       "2.10.2",
+       "2.10.3",
+       "2.11.0",
+       "2.11.1",
+       "2.11.2",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8",
+       "2.8.1",
+       "2.9",
+       "2.9.1",
+       "2.9.2",
+       "2.9.3",
+       "2.9.4",
+       "2.9.5",
+       "2.9.6"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2020-28493",
+     "PYSEC-2021-66",
+     "SNYK-PYTHON-JINJA2-1012994"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-g3rq-g295-4j3m",
+    "label": "MODERATE",
+    "modified": "2025-02-14T05:26:14.565160Z",
+    "published": "2021-03-19T21:28:05Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Regular Expression Denial of Service (ReDoS) in Jinja2",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "3.0.0"
+         },
+         {
+          "fixed": "3.1.5"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.0",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.1.4"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2024-56201",
+     "PYSEC-2026-1472"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-gmj6-6f8f-6699",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:56.152882717Z",
+    "published": "2024-12-23T17:54:12Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Jinja has a sandbox breakout through malicious filenames",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.10",
+       "2.10.1",
+       "2.10.2",
+       "2.10.3",
+       "2.11.0",
+       "2.11.1",
+       "2.11.2",
+       "2.11.3",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8",
+       "2.8.1",
+       "2.9",
+       "2.9.1",
+       "2.9.2",
+       "2.9.3",
+       "2.9.4",
+       "2.9.5",
+       "2.9.6",
+       "3.0.0",
+       "3.0.0a1",
+       "3.0.0rc1",
+       "3.0.0rc2",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.0",
+       "3.1.1",
+       "3.1.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2024-22195",
+     "PYSEC-2026-1473"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-h5c8-rqwp-cp95",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:00.236017440Z",
+    "published": "2024-01-11T15:20:48Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Jinja vulnerable to HTML attribute injection when passing user input as keys to xmlattr filter",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.4"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.10",
+       "2.10.1",
+       "2.10.2",
+       "2.10.3",
+       "2.11.0",
+       "2.11.1",
+       "2.11.2",
+       "2.11.3",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8",
+       "2.8.1",
+       "2.9",
+       "2.9.1",
+       "2.9.2",
+       "2.9.3",
+       "2.9.4",
+       "2.9.5",
+       "2.9.6",
+       "3.0.0",
+       "3.0.0a1",
+       "3.0.0rc1",
+       "3.0.0rc2",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.0",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2024-34064",
+     "PYSEC-2026-1474"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-h75v-3vvj-5mfj",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:13.786450101Z",
+    "published": "2024-05-06T14:20:59Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Jinja vulnerable to HTML attribute injection when passing user input as keys to xmlattr filter",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.8.1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2016-10745",
+     "PYSEC-2019-220"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-hj2j-77xm-mc5v",
+    "label": "HIGH",
+    "modified": "2024-09-24T21:04:16.963502Z",
+    "published": "2019-04-10T14:30:13Z",
+    "severity": [
+     {
+      "score": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Jinja2 sandbox escape vulnerability",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.5"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.10",
+       "2.10.1",
+       "2.10.2",
+       "2.10.3",
+       "2.11.0",
+       "2.11.1",
+       "2.11.2",
+       "2.11.3",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8",
+       "2.8.1",
+       "2.9",
+       "2.9.1",
+       "2.9.2",
+       "2.9.3",
+       "2.9.4",
+       "2.9.5",
+       "2.9.6",
+       "3.0.0",
+       "3.0.0a1",
+       "3.0.0rc1",
+       "3.0.0rc2",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.0",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.1.4"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2024-56326",
+     "PYSEC-2026-1475"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-q2x7-8rv6-6q7h",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:21.662855250Z",
+    "published": "2024-12-23T17:56:08Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Jinja has a sandbox breakout through indirect reference to format method",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.7.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2014-1402",
+     "GHSA-8r7q-cvjq-x353"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2014-8",
+    "label": null,
+    "modified": "2023-11-08T03:57:34.512953Z",
+    "published": "2014-05-19T14:55:00Z",
+    "severity": [],
+    "summary": "The default configuration for bccache.FileSystemBytecodeCache in Jinja2 before 2.7.2 does not properly create temporary files, which allows local users to gain privileges via a crafted .cache file wit",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "acb672b6a179567632e032f547582f30fa2f4aa7"
+         }
+        ],
+        "repo": "https://github.com/mitsuhiko/jinja2",
+        "type": "GIT"
+       },
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.7.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2014-0012",
+     "GHSA-fqh9-2qgg-h84h"
+    ],
+    "fix_refs": [
+     "https://github.com/mitsuhiko/jinja2/commit/acb672b6a179567632e032f547582f30fa2f4aa7"
+    ],
+    "id": "PYSEC-2014-82",
+    "label": null,
+    "modified": "2026-06-10T17:01:55.953302840Z",
+    "published": "2014-05-19T14:55:00Z",
+    "severity": [],
+    "summary": "FileSystemBytecodeCache in Jinja2 2.7.2 does not properly create temporary directories, which allows local users to gain privileges by pre-creating a temporary directory with a user's uid.  NOTE: this",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.10.1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.10",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8",
+       "2.8.1",
+       "2.9",
+       "2.9.1",
+       "2.9.2",
+       "2.9.3",
+       "2.9.4",
+       "2.9.5",
+       "2.9.6"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2019-10906",
+     "GHSA-462w-v97r-4m45"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2019-217",
+    "label": null,
+    "modified": "2023-11-08T04:00:58.644982Z",
+    "published": "2019-04-07T00:29:00Z",
+    "severity": [],
+    "summary": "In Pallets Jinja before 2.10.1, str.format_map allows a sandbox escape.",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "9b53045c34e61013dc8f09b7e52a555fa16bed16"
+         }
+        ],
+        "repo": "https://github.com/pallets/jinja",
+        "type": "GIT"
+       },
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.8.1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2016-10745",
+     "GHSA-hj2j-77xm-mc5v"
+    ],
+    "fix_refs": [
+     "https://github.com/pallets/jinja/commit/9b53045c34e61013dc8f09b7e52a555fa16bed16"
+    ],
+    "id": "PYSEC-2019-220",
+    "label": null,
+    "modified": "2023-11-08T03:58:21.453618Z",
+    "published": "2019-04-08T13:29:00Z",
+    "severity": [],
+    "summary": "In Pallets Jinja before 2.8.1, str.format allows a sandbox escape.",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.11.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0rc1",
+       "2.0",
+       "2.1",
+       "2.1.1",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8",
+       "2.8.1",
+       "2.9",
+       "2.9.1",
+       "2.9.2",
+       "2.9.3",
+       "2.9.4",
+       "2.9.5",
+       "2.9.6",
+       "2.10",
+       "2.10.1",
+       "2.10.2",
+       "2.10.3",
+       "2.11.0",
+       "2.11.1",
+       "2.11.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2020-28493",
+     "GHSA-g3rq-g295-4j3m",
+     "SNYK-PYTHON-JINJA2-1012994"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2021-66",
+    "label": null,
+    "modified": "2023-11-08T04:03:28.543308Z",
+    "published": "2021-02-01T20:15:00Z",
+    "severity": [],
+    "summary": "This affects the package jinja2 from 0.0.0 and before 2.11.3. The ReDoS vulnerability is mainly due to the `_punctuation_re regex` operator and its use of multiple wildcards. The last wildcard is the ",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [],
+      "versions": []
+     }
+    ],
+    "aliases": [
+     "CVE-2025-49142",
+     "GHSA-wjw6-95h5-4jpx",
+     "PYSEC-2025-79"
+    ],
+    "fix_refs": [
+     "https://github.com/nautobot/nautobot/pull/7417",
+     "https://github.com/nautobot/nautobot/pull/7429"
+    ],
+    "id": "PYSEC-2025-74",
+    "label": null,
+    "modified": "2026-06-09T17:00:05.532500015Z",
+    "published": "2025-06-10T16:15:42.293Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Nautobot is a Network Source of Truth and Network Automation Platform. All users of Nautobot versions prior to 2.4.10 or prior to 1.6.32 are potentially affected. Due to insufficient security configur",
+    "withdrawn": "2026-06-09T15:56:00Z"
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.6"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.10",
+       "2.10.1",
+       "2.10.2",
+       "2.10.3",
+       "2.11.0",
+       "2.11.1",
+       "2.11.2",
+       "2.11.3",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8",
+       "2.8.1",
+       "2.9",
+       "2.9.1",
+       "2.9.2",
+       "2.9.3",
+       "2.9.4",
+       "2.9.5",
+       "2.9.6",
+       "3.0.0",
+       "3.0.0a1",
+       "3.0.0rc1",
+       "3.0.0rc2",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.0",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.1.4",
+       "3.1.5"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2025-27516",
+     "GHSA-cpwx-vrp4-4pq7"
+    ],
+    "fix_refs": [
+     "https://github.com/pallets/jinja/commit/90457bbf33b8662926ae65cdde4c4c32e756e403"
+    ],
+    "id": "PYSEC-2026-1471",
+    "label": null,
+    "modified": "2026-07-07T17:46:43.358335981Z",
+    "published": "2026-07-07T14:34:50.446969Z",
+    "severity": [
+     {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Jinja2 vulnerable to sandbox breakout through attr filter selecting format method",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "3.0.0"
+         },
+         {
+          "fixed": "3.1.5"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.0",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.1.4"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2024-56201",
+     "GHSA-gmj6-6f8f-6699"
+    ],
+    "fix_refs": [
+     "https://github.com/pallets/jinja/commit/767b23617628419ae3709ccfb02f9602ae9fe51f"
+    ],
+    "id": "PYSEC-2026-1472",
+    "label": null,
+    "modified": "2026-07-07T17:46:46.013371684Z",
+    "published": "2026-07-07T14:34:47.677447Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Jinja has a sandbox breakout through malicious filenames",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.10",
+       "2.10.1",
+       "2.10.2",
+       "2.10.3",
+       "2.11.0",
+       "2.11.1",
+       "2.11.2",
+       "2.11.3",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8",
+       "2.8.1",
+       "2.9",
+       "2.9.1",
+       "2.9.2",
+       "2.9.3",
+       "2.9.4",
+       "2.9.5",
+       "2.9.6",
+       "3.0.0",
+       "3.0.0a1",
+       "3.0.0rc1",
+       "3.0.0rc2",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.0",
+       "3.1.1",
+       "3.1.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2024-22195",
+     "GHSA-h5c8-rqwp-cp95"
+    ],
+    "fix_refs": [
+     "https://github.com/pallets/jinja/commit/716795349a41d4983a9a4771f7d883c96ea17be7"
+    ],
+    "id": "PYSEC-2026-1473",
+    "label": null,
+    "modified": "2026-07-07T17:46:13.853151947Z",
+    "published": "2026-07-07T11:45:29.949639Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Jinja vulnerable to HTML attribute injection when passing user input as keys to xmlattr filter",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.4"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.10",
+       "2.10.1",
+       "2.10.2",
+       "2.10.3",
+       "2.11.0",
+       "2.11.1",
+       "2.11.2",
+       "2.11.3",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8",
+       "2.8.1",
+       "2.9",
+       "2.9.1",
+       "2.9.2",
+       "2.9.3",
+       "2.9.4",
+       "2.9.5",
+       "2.9.6",
+       "3.0.0",
+       "3.0.0a1",
+       "3.0.0rc1",
+       "3.0.0rc2",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.0",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2024-34064",
+     "GHSA-h75v-3vvj-5mfj"
+    ],
+    "fix_refs": [
+     "https://github.com/pallets/jinja/commit/0668239dc6b44ef38e7a6c9f91f312fd4ca581cb"
+    ],
+    "id": "PYSEC-2026-1474",
+    "label": null,
+    "modified": "2026-07-07T17:46:13.832160246Z",
+    "published": "2026-07-07T11:45:41.875280Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Jinja vulnerable to HTML attribute injection when passing user input as keys to xmlattr filter",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.5"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.0",
+       "2.0rc1",
+       "2.1",
+       "2.1.1",
+       "2.10",
+       "2.10.1",
+       "2.10.2",
+       "2.10.3",
+       "2.11.0",
+       "2.11.1",
+       "2.11.2",
+       "2.11.3",
+       "2.2",
+       "2.2.1",
+       "2.3",
+       "2.3.1",
+       "2.4",
+       "2.4.1",
+       "2.5",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.5.4",
+       "2.5.5",
+       "2.6",
+       "2.7",
+       "2.7.1",
+       "2.7.2",
+       "2.7.3",
+       "2.8",
+       "2.8.1",
+       "2.9",
+       "2.9.1",
+       "2.9.2",
+       "2.9.3",
+       "2.9.4",
+       "2.9.5",
+       "2.9.6",
+       "3.0.0",
+       "3.0.0a1",
+       "3.0.0rc1",
+       "3.0.0rc2",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.0",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.1.4"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2024-56326",
+     "GHSA-q2x7-8rv6-6q7h"
+    ],
+    "fix_refs": [
+     "https://github.com/pallets/jinja/commit/48b0687e05a5466a91cd5812d604fa37ad0943b4"
+    ],
+    "id": "PYSEC-2026-1475",
+    "label": null,
+    "modified": "2026-07-07T17:46:13.842466429Z",
+    "published": "2026-07-07T14:34:47.732576Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Jinja has a sandbox breakout through indirect reference to format method",
+    "withdrawn": null
+   }
+  ],
+  "pyspark": [
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.3.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5",
+       "2.4.6",
+       "2.4.7",
+       "2.4.8",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.2.0",
+       "3.2.1",
+       "3.2.2",
+       "3.2.3",
+       "3.2.4",
+       "3.3.0",
+       "3.3.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2023-22946",
+     "CVE-2023-22946",
+     "PYSEC-2023-44"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-329j-jfvr-rhr6",
+    "label": "CRITICAL",
+    "modified": "2024-10-15T18:49:31.436249Z",
+    "published": "2023-04-17T09:30:23Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Apache Spark vulnerable to Improper Privilege Management",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.2.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5",
+       "2.4.6",
+       "2.4.7",
+       "2.4.8",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.2.0",
+       "3.2.1"
+      ]
+     },
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "3.3.0"
+         },
+         {
+          "fixed": "3.3.1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.3.0"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2022-31777",
+     "CVE-2022-31777",
+     "PYSEC-2022-42976"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-43xg-8wmj-cw8h",
+    "label": "MODERATE",
+    "modified": "2025-12-18T16:17:11.831234Z",
+    "published": "2022-11-01T19:00:29Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Apache Spark vulnerable to Log Injection",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5",
+       "2.4.6",
+       "2.4.7",
+       "2.4.8",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2"
+      ]
+     },
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "3.2.0"
+         },
+         {
+          "fixed": "3.2.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.2.0",
+       "3.2.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2022-33891",
+     "CVE-2022-33891",
+     "PYSEC-2022-236"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-4x9r-j582-cgr8",
+    "label": "HIGH",
+    "modified": "2026-06-09T13:15:17.419178115Z",
+    "published": "2022-07-19T00:00:29Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H/E:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:L/SI:L/SA:N/E:A",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Apache Spark UI can allow impersonation if ACLs enabled",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "3.1.1"
+         },
+         {
+          "fixed": "3.2.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.2.0",
+       "3.2.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2023-32007",
+     "CVE-2023-32007",
+     "PYSEC-2023-72"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-59hw-j9g6-mfg3",
+    "label": "HIGH",
+    "modified": "2026-06-09T13:04:11Z",
+    "published": "2023-05-02T09:30:17Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:L/SI:L/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Apache Spark UI vulnerable to Command Injection",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "2.2.0"
+         },
+         {
+          "fixed": "2.2.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.2.0",
+       "2.2.1"
+      ]
+     },
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.1.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2018-1334",
+     "PYSEC-2018-25"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-6mqq-8r44-vmjc",
+    "label": "MODERATE",
+    "modified": "2024-10-21T21:27:08.927152Z",
+    "published": "2019-03-14T15:41:04Z",
+    "severity": [
+     {
+      "score": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:H/A:N",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Exposure of Sensitive Information to an Unauthorized Actor in Apache Spark",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.4.4"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5",
+       "2.4.6",
+       "2.4.7",
+       "2.4.8",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.2.0",
+       "3.2.1",
+       "3.2.2",
+       "3.2.3",
+       "3.2.4",
+       "3.3.0",
+       "3.3.1",
+       "3.3.2",
+       "3.3.3",
+       "3.3.4",
+       "3.4.0",
+       "3.4.1",
+       "3.4.2",
+       "3.4.3"
+      ]
+     },
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "3.5.0"
+         },
+         {
+          "fixed": "3.5.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.5.0",
+       "3.5.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2025-55039",
+     "PYSEC-2025-184"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-6p6v-m64v-jx8q",
+    "label": "LOW",
+    "modified": "2026-06-08T20:00:14.668355331Z",
+    "published": "2025-10-15T09:30:17Z",
+    "severity": [
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N/E:P",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Apache Spark has Inadequate Encryption Strength",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.1.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2017-12612",
+     "PYSEC-2017-147"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-8rhc-48pp-52gr",
+    "label": "HIGH",
+    "modified": "2024-11-26T19:07:38.712373Z",
+    "published": "2018-11-09T17:43:25Z",
+    "severity": [
+     {
+      "score": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Apache Spark Deserialization of Untrusted Data vulnerability",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "3.0.0"
+         },
+         {
+          "fixed": "3.5.8"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.2.0",
+       "3.2.1",
+       "3.2.2",
+       "3.2.3",
+       "3.2.4",
+       "3.3.0",
+       "3.3.1",
+       "3.3.2",
+       "3.3.3",
+       "3.3.4",
+       "3.4.0",
+       "3.4.1",
+       "3.4.2",
+       "3.4.3",
+       "3.4.4",
+       "3.5.0",
+       "3.5.1",
+       "3.5.2",
+       "3.5.3",
+       "3.5.4",
+       "3.5.5",
+       "3.5.6",
+       "3.5.7"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2026-32773",
+     "CVE-2026-32773",
+     "PYSEC-2026-3966"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-9437-39hj-3c93",
+    "label": "MODERATE",
+    "modified": "2026-10-05T23:10:51.868340776Z",
+    "published": "2026-09-02T12:31:29Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Apache Spark History Server allows stored cross-site scripting through unescaped application names",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5",
+       "2.4.6",
+       "2.4.7",
+       "2.4.8",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2021-38296",
+     "CVE-2021-38296",
+     "PYSEC-2022-186"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-9rr6-jpg7-9jg6",
+    "label": "HIGH",
+    "modified": "2024-10-25T21:03:01.673493Z",
+    "published": "2022-03-11T00:02:36Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Authentication Bypass by Capture-replay in Apache Spark",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.3.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2019-10099",
+     "PYSEC-2019-114"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-fp5j-3fpf-mhj5",
+    "label": "HIGH",
+    "modified": "2024-10-24T22:35:50.837996Z",
+    "published": "2019-08-08T15:18:22Z",
+    "severity": [
+     {
+      "score": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Sensitive data written to disk unencrypted in Spark",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "2.3.0"
+         },
+         {
+          "fixed": "2.3.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.3.0",
+       "2.3.1"
+      ]
+     },
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "1.0.2"
+         },
+         {
+          "fixed": "2.2.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2018-11760",
+     "PYSEC-2019-169"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-fvxv-9xxr-h7wj",
+    "label": "MODERATE",
+    "modified": "2024-12-04T05:31:59.907142Z",
+    "published": "2019-02-07T18:02:21Z",
+    "severity": [
+     {
+      "score": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Pyspark User Impersonation Vulnerability",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.4.6"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2020-9480",
+     "CVE-2020-9480",
+     "PYSEC-2020-95"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-wgx7-jwwm-cgjv",
+    "label": "CRITICAL",
+    "modified": "2024-10-15T16:40:37.173246Z",
+    "published": "2022-02-10T23:05:20Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Improper Authentication in Apache Spark",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.1.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2017-12612",
+     "GHSA-8rhc-48pp-52gr"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2017-147",
+    "label": null,
+    "modified": "2024-11-25T22:42:11.091237Z",
+    "published": "2017-09-13T16:29:00Z",
+    "severity": [
+     {
+      "score": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "In Apache Spark 1.6.0 until 2.1.1, the launcher API performs unsafe deserialization of data received by its socket. This makes applications launched programmatically using the launcher API potentially",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "2.2.0"
+         },
+         {
+          "fixed": "2.2.2"
+         },
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.1.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.2.0",
+       "2.2.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2018-1334",
+     "GHSA-6mqq-8r44-vmjc"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2018-25",
+    "label": null,
+    "modified": "2026-06-10T17:01:41.861758514Z",
+    "published": "2018-07-12T13:29:00Z",
+    "severity": [],
+    "summary": "In Apache Spark 1.0.0 to 2.1.2, 2.2.0 to 2.2.1, and 2.3.0, when using PySpark or SparkR, it's possible for a different local user to connect to the Spark application and impersonate the user running t",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.3.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2019-10099",
+     "GHSA-fp5j-3fpf-mhj5"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2019-114",
+    "label": null,
+    "modified": "2026-06-10T17:01:42.545106499Z",
+    "published": "2019-08-07T17:15:00Z",
+    "severity": [],
+    "summary": "Prior to Spark 2.3.3, in certain situations Spark would write user data to local disk unencrypted, even if spark.io.encryption.enabled=true. This includes cached blocks that are fetched to disk (contr",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "2.3.0"
+         },
+         {
+          "fixed": "2.3.2"
+         },
+         {
+          "introduced": "1.0.2"
+         },
+         {
+          "fixed": "2.2.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.3.0",
+       "2.3.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2018-11760",
+     "GHSA-fvxv-9xxr-h7wj"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2019-169",
+    "label": null,
+    "modified": "2023-11-08T03:59:46.761283Z",
+    "published": "2019-02-04T17:29:00Z",
+    "severity": [],
+    "summary": "When using PySpark , it's possible for a different local user to connect to the Spark application and impersonate the user running the Spark application. This affects versions 1.x, 2.0.x, 2.1.x, 2.2.0",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.3.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2"
+      ]
+     }
+    ],
+    "aliases": [],
+    "fix_refs": [],
+    "id": "PYSEC-2019-44",
+    "label": null,
+    "modified": "2023-03-14T07:01:09.349985Z",
+    "published": "2019-08-07T17:15:00Z",
+    "severity": [],
+    "summary": "Prior to Spark 2.3.3, in certain situations Spark would write user data to local disk unencrypted, even if spark.io.encryption.enabled=true. This includes cached blocks that are fetched to disk (contr",
+    "withdrawn": "2023-03-14T07:01:09.349985Z"
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.4.6"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2020-9480",
+     "CVE-2020-9480",
+     "GHSA-wgx7-jwwm-cgjv"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2020-95",
+    "label": null,
+    "modified": "2026-06-10T17:01:36.994430040Z",
+    "published": "2020-06-23T22:15:00Z",
+    "severity": [],
+    "summary": "In Apache Spark 2.4.5 and earlier, a standalone resource manager's master may be configured to require authentication (spark.authenticate) via a shared secret. When enabled, however, a specially-craft",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.3"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5",
+       "2.4.6",
+       "2.4.7",
+       "2.4.8",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2021-38296",
+     "CVE-2021-38296",
+     "GHSA-9rr6-jpg7-9jg6"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2022-186",
+    "label": null,
+    "modified": "2023-12-06T01:01:25.567486Z",
+    "published": "2022-03-10T09:15:00Z",
+    "severity": [],
+    "summary": "Apache Spark supports end-to-end encryption of RPC connections via \"spark.authenticate\" and \"spark.network.crypto.enabled\". In versions 3.1.2 and earlier, it uses a bespoke mutual authentication proto",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.1.3"
+         },
+         {
+          "introduced": "3.2.0"
+         },
+         {
+          "fixed": "3.2.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5",
+       "2.4.6",
+       "2.4.7",
+       "2.4.8",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2",
+       "3.2.0",
+       "3.2.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2022-33891",
+     "CVE-2022-33891",
+     "GHSA-4x9r-j582-cgr8"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2022-236",
+    "label": null,
+    "modified": "2026-06-08T10:15:10.715856081Z",
+    "published": "2022-07-18T07:15:00Z",
+    "severity": [],
+    "summary": "The Apache Spark UI offers the possibility to enable ACLs via the configuration option spark.acls.enable. With an authentication filter, this checks whether a user has access permissions to view or mo",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.2.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5",
+       "2.4.6",
+       "2.4.7",
+       "2.4.8",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.2.0",
+       "3.2.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2022-31777",
+     "CVE-2022-31777",
+     "GHSA-43xg-8wmj-cw8h"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2022-42976",
+    "label": null,
+    "modified": "2026-06-10T17:01:37.003052396Z",
+    "published": "2022-11-01T16:15:00Z",
+    "severity": [],
+    "summary": "A stored cross-site scripting (XSS) vulnerability in Apache Spark 3.2.1 and earlier, and 3.3.0, allows remote attackers to execute arbitrary JavaScript in the web browser of a user, by including a mal",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.4.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5",
+       "2.4.6",
+       "2.4.7",
+       "2.4.8",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.2.0",
+       "3.2.1",
+       "3.2.2",
+       "3.2.3",
+       "3.2.4",
+       "3.3.0",
+       "3.3.1",
+       "3.3.2",
+       "3.3.3",
+       "3.3.4"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2023-22946",
+     "CVE-2023-22946",
+     "GHSA-329j-jfvr-rhr6"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2023-44",
+    "label": null,
+    "modified": "2026-06-10T17:01:37.151759446Z",
+    "published": "2023-04-17T08:15:00Z",
+    "severity": [],
+    "summary": "In Apache Spark versions prior to 3.4.0, applications using spark-submit can specify a 'proxy-user' to run as, limiting privileges. The application can execute code with the privileges of the submitti",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.2.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5",
+       "2.4.6",
+       "2.4.7",
+       "2.4.8",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.2.0",
+       "3.2.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2023-32007",
+     "CVE-2023-32007",
+     "GHSA-59hw-j9g6-mfg3"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2023-72",
+    "label": null,
+    "modified": "2026-06-10T17:01:44.853682289Z",
+    "published": "2023-05-02T09:15:00Z",
+    "severity": [],
+    "summary": "** UNSUPPORTED WHEN ASSIGNED ** The Apache Spark UI offers the possibility to enable ACLs via the configuration option spark.acls.enable. With an authentication filter, this checks whether a user has ",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3.4.4"
+         },
+         {
+          "introduced": "3.5.0"
+         },
+         {
+          "fixed": "3.5.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.1",
+       "2.1.2",
+       "2.1.3",
+       "2.2.0",
+       "2.2.1",
+       "2.2.2",
+       "2.2.3",
+       "2.3.0",
+       "2.3.1",
+       "2.3.2",
+       "2.3.3",
+       "2.3.4",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.4.4",
+       "2.4.5",
+       "2.4.6",
+       "2.4.7",
+       "2.4.8",
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.2.0",
+       "3.2.1",
+       "3.2.2",
+       "3.2.3",
+       "3.2.4",
+       "3.3.0",
+       "3.3.1",
+       "3.3.2",
+       "3.3.3",
+       "3.3.4",
+       "3.4.0",
+       "3.4.1",
+       "3.4.2",
+       "3.4.3",
+       "3.5.0",
+       "3.5.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2025-55039",
+     "GHSA-6p6v-m64v-jx8q"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2025-184",
+    "label": null,
+    "modified": "2026-06-10T17:01:44.915328547Z",
+    "published": "2025-10-15T08:15:38.460Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "This issue affects Apache Spark versions before  3.4.4,\u00a03.5.2 and 4.0.0.\n \n\n\nApache Spark versions before 4.0.0, 3.5.2 and 3.4.4 use an insecure default network encryption cipher for RPC communication",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "3.0.0"
+         },
+         {
+          "fixed": "3.5.8"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.0.0",
+       "3.0.1",
+       "3.0.2",
+       "3.0.3",
+       "3.1.1",
+       "3.1.2",
+       "3.1.3",
+       "3.2.0",
+       "3.2.1",
+       "3.2.2",
+       "3.2.3",
+       "3.2.4",
+       "3.3.0",
+       "3.3.1",
+       "3.3.2",
+       "3.3.3",
+       "3.3.4",
+       "3.4.0",
+       "3.4.1",
+       "3.4.2",
+       "3.4.3",
+       "3.4.4",
+       "3.5.0",
+       "3.5.1",
+       "3.5.2",
+       "3.5.3",
+       "3.5.4",
+       "3.5.5",
+       "3.5.6",
+       "3.5.7"
+      ]
+     }
+    ],
+    "aliases": [
+     "BIT-spark-2026-32773",
+     "CVE-2026-32773",
+     "GHSA-9437-39hj-3c93"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2026-3966",
+    "label": null,
+    "modified": "2026-10-15T14:45:14.801306067Z",
+    "published": "2026-09-02T11:17:20.173Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "There is a lack of XSS escaping in the Spark History Server prior to 3.5.8 which allows a malicious Spark job to generate arbitrary unescaped frontend code which could lead to a minimal privilege esca",
+    "withdrawn": null
+   }
+  ],
+  "pyyaml": [
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "5.1"
+         },
+         {
+          "fixed": "5.2"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "5.1",
+       "5.1.1",
+       "5.1.2",
+       "5.2b1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2019-20477",
+     "PYSEC-2020-176"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-3pqx-4fqf-j49f",
+    "label": "CRITICAL",
+    "modified": "2024-10-25T21:23:11.506576Z",
+    "published": "2021-04-20T16:40:42Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Deserialization of Untrusted Data in PyYAML",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "5.1b7"
+         },
+         {
+          "fixed": "5.3.1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "5.1",
+       "5.1.1",
+       "5.1.2",
+       "5.1b7",
+       "5.2",
+       "5.2b1",
+       "5.3",
+       "5.3b1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2020-1747",
+     "PYSEC-2020-96"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-6757-jp84-gxfx",
+    "label": "CRITICAL",
+    "modified": "2026-05-04T08:57:14.897560893Z",
+    "published": "2021-04-20T16:14:24Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Improper Input Validation in PyYAML",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "5.4"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.01",
+       "3.02",
+       "3.03",
+       "3.04",
+       "3.05",
+       "3.06",
+       "3.07",
+       "3.08",
+       "3.09",
+       "3.10",
+       "3.11",
+       "3.12",
+       "3.13",
+       "3.13b1",
+       "3.13rc1",
+       "4.2b1",
+       "4.2b2",
+       "4.2b4",
+       "5.1",
+       "5.1.1",
+       "5.1.2",
+       "5.1b1",
+       "5.1b3",
+       "5.1b5",
+       "5.1b7",
+       "5.2",
+       "5.2b1",
+       "5.3",
+       "5.3.1",
+       "5.3b1",
+       "5.4b1",
+       "5.4b2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2020-14343",
+     "PYSEC-2021-142"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-8q59-q68h-6hv4",
+    "label": "CRITICAL",
+    "modified": "2026-02-04T03:33:10.792778Z",
+    "published": "2021-03-25T21:26:26Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Improper Input Validation in PyYAML",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "5.1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.01",
+       "3.02",
+       "3.03",
+       "3.04",
+       "3.05",
+       "3.06",
+       "3.07",
+       "3.08",
+       "3.09",
+       "3.10",
+       "3.11",
+       "3.12",
+       "3.13",
+       "3.13b1",
+       "3.13rc1",
+       "4.2b1",
+       "4.2b2",
+       "4.2b4",
+       "5.1b1",
+       "5.1b3",
+       "5.1b5",
+       "5.1b7"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2017-18342",
+     "PYSEC-2018-49"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-rprw-h62v-c2w7",
+    "label": "CRITICAL",
+    "modified": "2026-07-01T17:45:34.796248930Z",
+    "published": "2019-01-04T17:45:26Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "PyYAML insecurely deserializes YAML strings leading to arbitrary code execution",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "5.1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.01",
+       "3.02",
+       "3.03",
+       "3.04",
+       "3.05",
+       "3.06",
+       "3.07",
+       "3.08",
+       "3.09",
+       "3.10",
+       "3.11",
+       "3.12",
+       "3.13",
+       "3.13b1",
+       "3.13rc1",
+       "4.2b1",
+       "4.2b2",
+       "4.2b4",
+       "5.1b1",
+       "5.1b3",
+       "5.1b5",
+       "5.1b7"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2017-18342",
+     "GHSA-rprw-h62v-c2w7"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2018-49",
+    "label": null,
+    "modified": "2023-11-08T03:59:15.614863Z",
+    "published": "2018-06-27T12:29:00Z",
+    "severity": [],
+    "summary": "In PyYAML before 5.1, the yaml.load() API could execute arbitrary code if used with untrusted data. The load() function has been deprecated in version 5.1 and the 'UnsafeLoader' has been introduced fo",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "5.1"
+         },
+         {
+          "fixed": "5.2b1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "5.1",
+       "5.1.1",
+       "5.1.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2019-20477",
+     "GHSA-3pqx-4fqf-j49f"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2020-176",
+    "label": null,
+    "modified": "2023-11-08T04:01:30.627114Z",
+    "published": "2020-02-19T04:15:00Z",
+    "severity": [],
+    "summary": "PyYAML 5.1 through 5.1.2 has insufficient restrictions on the load and load_all functions because of a class deserialization issue, e.g., Popen is a class in the subprocess module. NOTE: this issue ex",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "5.1"
+         },
+         {
+          "fixed": "5.2b1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "5.1",
+       "5.1.1",
+       "5.1.2"
+      ]
+     }
+    ],
+    "aliases": [],
+    "fix_refs": [],
+    "id": "PYSEC-2020-195",
+    "label": null,
+    "modified": "2023-03-14T07:01:09.421524Z",
+    "published": "2020-02-19T04:15:00Z",
+    "severity": [],
+    "summary": "PyYAML 5.1 through 5.1.2 has insufficient restrictions on the load and load_all functions because of a class deserialization issue, e.g., Popen is a class in the subprocess module. NOTE: this issue ex",
+    "withdrawn": "2023-03-14T07:01:09.421524Z"
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "5.1"
+         },
+         {
+          "fixed": "5.3.1"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "5.1",
+       "5.1.1",
+       "5.1.2",
+       "5.2b1",
+       "5.2",
+       "5.3b1",
+       "5.3"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2020-1747",
+     "GHSA-6757-jp84-gxfx"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2020-96",
+    "label": null,
+    "modified": "2026-05-04T08:57:14.897560893Z",
+    "published": "2020-03-24T15:15:00Z",
+    "severity": [],
+    "summary": "A vulnerability was discovered in the PyYAML library in versions before 5.3.1, where it is susceptible to arbitrary code execution when it processes untrusted YAML files through the full_load method o",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "5.4"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "3.01",
+       "3.02",
+       "3.03",
+       "3.04",
+       "3.05",
+       "3.06",
+       "3.07",
+       "3.08",
+       "3.09",
+       "3.10",
+       "3.11",
+       "3.12",
+       "3.13",
+       "3.13b1",
+       "3.13rc1",
+       "4.2b1",
+       "4.2b2",
+       "4.2b4",
+       "5.1",
+       "5.1.1",
+       "5.1.2",
+       "5.1b1",
+       "5.1b3",
+       "5.1b5",
+       "5.1b7",
+       "5.2",
+       "5.2b1",
+       "5.3",
+       "5.3.1",
+       "5.3b1",
+       "5.4b1",
+       "5.4b2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2020-14343",
+     "GHSA-8q59-q68h-6hv4"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2021-142",
+    "label": null,
+    "modified": "2023-11-08T04:02:26.414885Z",
+    "published": "2021-02-09T21:15:00Z",
+    "severity": [],
+    "summary": "A vulnerability was discovered in the PyYAML library in versions before 5.4, where it is susceptible to arbitrary code execution when it processes untrusted YAML files through the full_load method or ",
+    "withdrawn": null
+   }
+  ],
+  "requests": [
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.3.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.0.1",
+       "0.10.0",
+       "0.10.1",
+       "0.10.2",
+       "0.10.3",
+       "0.10.4",
+       "0.10.6",
+       "0.10.7",
+       "0.10.8",
+       "0.11.1",
+       "0.11.2",
+       "0.12.0",
+       "0.12.01",
+       "0.12.1",
+       "0.13.0",
+       "0.13.1",
+       "0.13.2",
+       "0.13.3",
+       "0.13.4",
+       "0.13.5",
+       "0.13.6",
+       "0.13.7",
+       "0.13.8",
+       "0.13.9",
+       "0.14.0",
+       "0.14.1",
+       "0.14.2",
+       "0.2.0",
+       "0.2.1",
+       "0.2.2",
+       "0.2.3",
+       "0.2.4",
+       "0.3.0",
+       "0.3.1",
+       "0.3.2",
+       "0.3.3",
+       "0.3.4",
+       "0.4.0",
+       "0.4.1",
+       "0.5.0",
+       "0.5.1",
+       "0.6.0",
+       "0.6.1",
+       "0.6.2",
+       "0.6.3",
+       "0.6.4",
+       "0.6.5",
+       "0.6.6",
+       "0.7.0",
+       "0.7.1",
+       "0.7.2",
+       "0.7.3",
+       "0.7.4",
+       "0.7.5",
+       "0.7.6",
+       "0.8.0",
+       "0.8.1",
+       "0.8.2",
+       "0.8.3",
+       "0.8.4",
+       "0.8.5",
+       "0.8.6",
+       "0.8.7",
+       "0.8.8",
+       "0.8.9",
+       "0.9.0",
+       "0.9.1",
+       "0.9.2",
+       "0.9.3",
+       "1.0.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.2.0",
+       "1.2.1",
+       "1.2.2",
+       "1.2.3",
+       "2.0.0",
+       "2.0.1",
+       "2.1.0",
+       "2.2.0",
+       "2.2.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2014-1830",
+     "PYSEC-2014-14"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-652x-xj99-gmcc",
+    "label": "MODERATE",
+    "modified": "2024-10-21T22:22:54.104555Z",
+    "published": "2022-05-14T02:09:22Z",
+    "severity": [
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Exposure of Sensitive Information to an Unauthorized Actor in Requests",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.32.4"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.0.1",
+       "0.10.0",
+       "0.10.1",
+       "0.10.2",
+       "0.10.3",
+       "0.10.4",
+       "0.10.6",
+       "0.10.7",
+       "0.10.8",
+       "0.11.1",
+       "0.11.2",
+       "0.12.0",
+       "0.12.01",
+       "0.12.1",
+       "0.13.0",
+       "0.13.1",
+       "0.13.2",
+       "0.13.3",
+       "0.13.4",
+       "0.13.5",
+       "0.13.6",
+       "0.13.7",
+       "0.13.8",
+       "0.13.9",
+       "0.14.0",
+       "0.14.1",
+       "0.14.2",
+       "0.2.0",
+       "0.2.1",
+       "0.2.2",
+       "0.2.3",
+       "0.2.4",
+       "0.3.0",
+       "0.3.1",
+       "0.3.2",
+       "0.3.3",
+       "0.3.4",
+       "0.4.0",
+       "0.4.1",
+       "0.5.0",
+       "0.5.1",
+       "0.6.0",
+       "0.6.1",
+       "0.6.2",
+       "0.6.3",
+       "0.6.4",
+       "0.6.5",
+       "0.6.6",
+       "0.7.0",
+       "0.7.1",
+       "0.7.2",
+       "0.7.3",
+       "0.7.4",
+       "0.7.5",
+       "0.7.6",
+       "0.8.0",
+       "0.8.1",
+       "0.8.2",
+       "0.8.3",
+       "0.8.4",
+       "0.8.5",
+       "0.8.6",
+       "0.8.7",
+       "0.8.8",
+       "0.8.9",
+       "0.9.0",
+       "0.9.1",
+       "0.9.2",
+       "0.9.3",
+       "1.0.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.2.0",
+       "1.2.1",
+       "1.2.2",
+       "1.2.3",
+       "2.0.0",
+       "2.0.1",
+       "2.1.0",
+       "2.10.0",
+       "2.11.0",
+       "2.11.1",
+       "2.12.0",
+       "2.12.1",
+       "2.12.2",
+       "2.12.3",
+       "2.12.4",
+       "2.12.5",
+       "2.13.0",
+       "2.14.0",
+       "2.14.1",
+       "2.14.2",
+       "2.15.0",
+       "2.15.1",
+       "2.16.0",
+       "2.16.1",
+       "2.16.2",
+       "2.16.3",
+       "2.16.4",
+       "2.16.5",
+       "2.17.0",
+       "2.17.1",
+       "2.17.2",
+       "2.17.3",
+       "2.18.0",
+       "2.18.1",
+       "2.18.2",
+       "2.18.3",
+       "2.18.4",
+       "2.19.0",
+       "2.19.1",
+       "2.2.0",
+       "2.2.1",
+       "2.20.0",
+       "2.20.1",
+       "2.21.0",
+       "2.22.0",
+       "2.23.0",
+       "2.24.0",
+       "2.25.0",
+       "2.25.1",
+       "2.26.0",
+       "2.27.0",
+       "2.27.1",
+       "2.28.0",
+       "2.28.1",
+       "2.28.2",
+       "2.29.0",
+       "2.3.0",
+       "2.30.0",
+       "2.31.0",
+       "2.32.0",
+       "2.32.1",
+       "2.32.2",
+       "2.32.3",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.5.0",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.6.0",
+       "2.6.1",
+       "2.6.2",
+       "2.7.0",
+       "2.8.0",
+       "2.8.1",
+       "2.9.0",
+       "2.9.1",
+       "2.9.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2024-47081",
+     "PYSEC-2026-1872"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-9hjg-9r4m-mvj7",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:25.139398550Z",
+    "published": "2025-06-09T19:06:08Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Requests vulnerable to .netrc credentials leak via malicious URLs",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.32.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.0.1",
+       "0.10.0",
+       "0.10.1",
+       "0.10.2",
+       "0.10.3",
+       "0.10.4",
+       "0.10.6",
+       "0.10.7",
+       "0.10.8",
+       "0.11.1",
+       "0.11.2",
+       "0.12.0",
+       "0.12.01",
+       "0.12.1",
+       "0.13.0",
+       "0.13.1",
+       "0.13.2",
+       "0.13.3",
+       "0.13.4",
+       "0.13.5",
+       "0.13.6",
+       "0.13.7",
+       "0.13.8",
+       "0.13.9",
+       "0.14.0",
+       "0.14.1",
+       "0.14.2",
+       "0.2.0",
+       "0.2.1",
+       "0.2.2",
+       "0.2.3",
+       "0.2.4",
+       "0.3.0",
+       "0.3.1",
+       "0.3.2",
+       "0.3.3",
+       "0.3.4",
+       "0.4.0",
+       "0.4.1",
+       "0.5.0",
+       "0.5.1",
+       "0.6.0",
+       "0.6.1",
+       "0.6.2",
+       "0.6.3",
+       "0.6.4",
+       "0.6.5",
+       "0.6.6",
+       "0.7.0",
+       "0.7.1",
+       "0.7.2",
+       "0.7.3",
+       "0.7.4",
+       "0.7.5",
+       "0.7.6",
+       "0.8.0",
+       "0.8.1",
+       "0.8.2",
+       "0.8.3",
+       "0.8.4",
+       "0.8.5",
+       "0.8.6",
+       "0.8.7",
+       "0.8.8",
+       "0.8.9",
+       "0.9.0",
+       "0.9.1",
+       "0.9.2",
+       "0.9.3",
+       "1.0.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.2.0",
+       "1.2.1",
+       "1.2.2",
+       "1.2.3",
+       "2.0.0",
+       "2.0.1",
+       "2.1.0",
+       "2.10.0",
+       "2.11.0",
+       "2.11.1",
+       "2.12.0",
+       "2.12.1",
+       "2.12.2",
+       "2.12.3",
+       "2.12.4",
+       "2.12.5",
+       "2.13.0",
+       "2.14.0",
+       "2.14.1",
+       "2.14.2",
+       "2.15.0",
+       "2.15.1",
+       "2.16.0",
+       "2.16.1",
+       "2.16.2",
+       "2.16.3",
+       "2.16.4",
+       "2.16.5",
+       "2.17.0",
+       "2.17.1",
+       "2.17.2",
+       "2.17.3",
+       "2.18.0",
+       "2.18.1",
+       "2.18.2",
+       "2.18.3",
+       "2.18.4",
+       "2.19.0",
+       "2.19.1",
+       "2.2.0",
+       "2.2.1",
+       "2.20.0",
+       "2.20.1",
+       "2.21.0",
+       "2.22.0",
+       "2.23.0",
+       "2.24.0",
+       "2.25.0",
+       "2.25.1",
+       "2.26.0",
+       "2.27.0",
+       "2.27.1",
+       "2.28.0",
+       "2.28.1",
+       "2.28.2",
+       "2.29.0",
+       "2.3.0",
+       "2.30.0",
+       "2.31.0",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.5.0",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.6.0",
+       "2.6.1",
+       "2.6.2",
+       "2.7.0",
+       "2.8.0",
+       "2.8.1",
+       "2.9.0",
+       "2.9.1",
+       "2.9.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2024-35195",
+     "PYSEC-2026-1873"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-9wx4-h78v-vm56",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:13.740879755Z",
+    "published": "2024-05-20T20:15:00Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:H/I:H/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Requests `Session` object does not verify requests after making first request with verify=False",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.3.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.0.1",
+       "0.10.0",
+       "0.10.1",
+       "0.10.2",
+       "0.10.3",
+       "0.10.4",
+       "0.10.6",
+       "0.10.7",
+       "0.10.8",
+       "0.11.1",
+       "0.11.2",
+       "0.12.0",
+       "0.12.01",
+       "0.12.1",
+       "0.13.0",
+       "0.13.1",
+       "0.13.2",
+       "0.13.3",
+       "0.13.4",
+       "0.13.5",
+       "0.13.6",
+       "0.13.7",
+       "0.13.8",
+       "0.13.9",
+       "0.14.0",
+       "0.14.1",
+       "0.14.2",
+       "0.2.0",
+       "0.2.1",
+       "0.2.2",
+       "0.2.3",
+       "0.2.4",
+       "0.3.0",
+       "0.3.1",
+       "0.3.2",
+       "0.3.3",
+       "0.3.4",
+       "0.4.0",
+       "0.4.1",
+       "0.5.0",
+       "0.5.1",
+       "0.6.0",
+       "0.6.1",
+       "0.6.2",
+       "0.6.3",
+       "0.6.4",
+       "0.6.5",
+       "0.6.6",
+       "0.7.0",
+       "0.7.1",
+       "0.7.2",
+       "0.7.3",
+       "0.7.4",
+       "0.7.5",
+       "0.7.6",
+       "0.8.0",
+       "0.8.1",
+       "0.8.2",
+       "0.8.3",
+       "0.8.4",
+       "0.8.5",
+       "0.8.6",
+       "0.8.7",
+       "0.8.8",
+       "0.8.9",
+       "0.9.0",
+       "0.9.1",
+       "0.9.2",
+       "0.9.3",
+       "1.0.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.2.0",
+       "1.2.1",
+       "1.2.2",
+       "1.2.3",
+       "2.0.0",
+       "2.0.1",
+       "2.1.0",
+       "2.2.0",
+       "2.2.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2014-1829",
+     "PYSEC-2014-13"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-cfj3-7x9c-4p3h",
+    "label": "MODERATE",
+    "modified": "2024-10-26T22:51:23.384075Z",
+    "published": "2022-05-17T03:49:35Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+      "type": "CVSS_V3"
+     },
+     {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+     }
+    ],
+    "summary": "Exposure of Sensitive Information to an Unauthorized Actor in Requests",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.33.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.0.1",
+       "0.10.0",
+       "0.10.1",
+       "0.10.2",
+       "0.10.3",
+       "0.10.4",
+       "0.10.6",
+       "0.10.7",
+       "0.10.8",
+       "0.11.1",
+       "0.11.2",
+       "0.12.0",
+       "0.12.01",
+       "0.12.1",
+       "0.13.0",
+       "0.13.1",
+       "0.13.2",
+       "0.13.3",
+       "0.13.4",
+       "0.13.5",
+       "0.13.6",
+       "0.13.7",
+       "0.13.8",
+       "0.13.9",
+       "0.14.0",
+       "0.14.1",
+       "0.14.2",
+       "0.2.0",
+       "0.2.1",
+       "0.2.2",
+       "0.2.3",
+       "0.2.4",
+       "0.3.0",
+       "0.3.1",
+       "0.3.2",
+       "0.3.3",
+       "0.3.4",
+       "0.4.0",
+       "0.4.1",
+       "0.5.0",
+       "0.5.1",
+       "0.6.0",
+       "0.6.1",
+       "0.6.2",
+       "0.6.3",
+       "0.6.4",
+       "0.6.5",
+       "0.6.6",
+       "0.7.0",
+       "0.7.1",
+       "0.7.2",
+       "0.7.3",
+       "0.7.4",
+       "0.7.5",
+       "0.7.6",
+       "0.8.0",
+       "0.8.1",
+       "0.8.2",
+       "0.8.3",
+       "0.8.4",
+       "0.8.5",
+       "0.8.6",
+       "0.8.7",
+       "0.8.8",
+       "0.8.9",
+       "0.9.0",
+       "0.9.1",
+       "0.9.2",
+       "0.9.3",
+       "1.0.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.2.0",
+       "1.2.1",
+       "1.2.2",
+       "1.2.3",
+       "2.0.0",
+       "2.0.1",
+       "2.1.0",
+       "2.10.0",
+       "2.11.0",
+       "2.11.1",
+       "2.12.0",
+       "2.12.1",
+       "2.12.2",
+       "2.12.3",
+       "2.12.4",
+       "2.12.5",
+       "2.13.0",
+       "2.14.0",
+       "2.14.1",
+       "2.14.2",
+       "2.15.0",
+       "2.15.1",
+       "2.16.0",
+       "2.16.1",
+       "2.16.2",
+       "2.16.3",
+       "2.16.4",
+       "2.16.5",
+       "2.17.0",
+       "2.17.1",
+       "2.17.2",
+       "2.17.3",
+       "2.18.0",
+       "2.18.1",
+       "2.18.2",
+       "2.18.3",
+       "2.18.4",
+       "2.19.0",
+       "2.19.1",
+       "2.2.0",
+       "2.2.1",
+       "2.20.0",
+       "2.20.1",
+       "2.21.0",
+       "2.22.0",
+       "2.23.0",
+       "2.24.0",
+       "2.25.0",
+       "2.25.1",
+       "2.26.0",
+       "2.27.0",
+       "2.27.1",
+       "2.28.0",
+       "2.28.1",
+       "2.28.2",
+       "2.29.0",
+       "2.3.0",
+       "2.30.0",
+       "2.31.0",
+       "2.32.0",
+       "2.32.1",
+       "2.32.2",
+       "2.32.3",
+       "2.32.4",
+       "2.32.5",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.5.0",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.6.0",
+       "2.6.1",
+       "2.6.2",
+       "2.7.0",
+       "2.8.0",
+       "2.8.1",
+       "2.9.0",
+       "2.9.1",
+       "2.9.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2026-25645",
+     "PYSEC-2026-2275"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-gc5v-m9x4-r6x2",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:39.207922076Z",
+    "published": "2026-03-25T16:56:28Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:N/I:H/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "2.3.0"
+         },
+         {
+          "fixed": "2.31.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.10.0",
+       "2.11.0",
+       "2.11.1",
+       "2.12.0",
+       "2.12.1",
+       "2.12.2",
+       "2.12.3",
+       "2.12.4",
+       "2.12.5",
+       "2.13.0",
+       "2.14.0",
+       "2.14.1",
+       "2.14.2",
+       "2.15.0",
+       "2.15.1",
+       "2.16.0",
+       "2.16.1",
+       "2.16.2",
+       "2.16.3",
+       "2.16.4",
+       "2.16.5",
+       "2.17.0",
+       "2.17.1",
+       "2.17.2",
+       "2.17.3",
+       "2.18.0",
+       "2.18.1",
+       "2.18.2",
+       "2.18.3",
+       "2.18.4",
+       "2.19.0",
+       "2.19.1",
+       "2.20.0",
+       "2.20.1",
+       "2.21.0",
+       "2.22.0",
+       "2.23.0",
+       "2.24.0",
+       "2.25.0",
+       "2.25.1",
+       "2.26.0",
+       "2.27.0",
+       "2.27.1",
+       "2.28.0",
+       "2.28.1",
+       "2.28.2",
+       "2.29.0",
+       "2.3.0",
+       "2.30.0",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.5.0",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.6.0",
+       "2.6.1",
+       "2.6.2",
+       "2.7.0",
+       "2.8.0",
+       "2.8.1",
+       "2.9.0",
+       "2.9.1",
+       "2.9.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2023-32681",
+     "PYSEC-2023-74"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-j8r2-6x86-q33q",
+    "label": "MODERATE",
+    "modified": "2026-09-10T03:50:01.756149727Z",
+    "published": "2023-05-22T20:36:32Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Unintended leak of Proxy-Authorization header in requests",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "2.1.0"
+         },
+         {
+          "fixed": "2.6.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.0",
+       "2.2.0",
+       "2.2.1",
+       "2.3.0",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.5.0",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2015-2296",
+     "PYSEC-2015-17"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-pg2w-x9wp-vw92",
+    "label": "MODERATE",
+    "modified": "2024-12-01T05:57:02.796059Z",
+    "published": "2022-05-13T01:11:23Z",
+    "severity": [],
+    "summary": "Python Requests Session Fixation",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.20.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.0.1",
+       "0.10.0",
+       "0.10.1",
+       "0.10.2",
+       "0.10.3",
+       "0.10.4",
+       "0.10.6",
+       "0.10.7",
+       "0.10.8",
+       "0.11.1",
+       "0.11.2",
+       "0.12.0",
+       "0.12.01",
+       "0.12.1",
+       "0.13.0",
+       "0.13.1",
+       "0.13.2",
+       "0.13.3",
+       "0.13.4",
+       "0.13.5",
+       "0.13.6",
+       "0.13.7",
+       "0.13.8",
+       "0.13.9",
+       "0.14.0",
+       "0.14.1",
+       "0.14.2",
+       "0.2.0",
+       "0.2.1",
+       "0.2.2",
+       "0.2.3",
+       "0.2.4",
+       "0.3.0",
+       "0.3.1",
+       "0.3.2",
+       "0.3.3",
+       "0.3.4",
+       "0.4.0",
+       "0.4.1",
+       "0.5.0",
+       "0.5.1",
+       "0.6.0",
+       "0.6.1",
+       "0.6.2",
+       "0.6.3",
+       "0.6.4",
+       "0.6.5",
+       "0.6.6",
+       "0.7.0",
+       "0.7.1",
+       "0.7.2",
+       "0.7.3",
+       "0.7.4",
+       "0.7.5",
+       "0.7.6",
+       "0.8.0",
+       "0.8.1",
+       "0.8.2",
+       "0.8.3",
+       "0.8.4",
+       "0.8.5",
+       "0.8.6",
+       "0.8.7",
+       "0.8.8",
+       "0.8.9",
+       "0.9.0",
+       "0.9.1",
+       "0.9.2",
+       "0.9.3",
+       "1.0.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.2.0",
+       "1.2.1",
+       "1.2.2",
+       "1.2.3",
+       "2.0.0",
+       "2.0.1",
+       "2.1.0",
+       "2.10.0",
+       "2.11.0",
+       "2.11.1",
+       "2.12.0",
+       "2.12.1",
+       "2.12.2",
+       "2.12.3",
+       "2.12.4",
+       "2.12.5",
+       "2.13.0",
+       "2.14.0",
+       "2.14.1",
+       "2.14.2",
+       "2.15.0",
+       "2.15.1",
+       "2.16.0",
+       "2.16.1",
+       "2.16.2",
+       "2.16.3",
+       "2.16.4",
+       "2.16.5",
+       "2.17.0",
+       "2.17.1",
+       "2.17.2",
+       "2.17.3",
+       "2.18.0",
+       "2.18.1",
+       "2.18.2",
+       "2.18.3",
+       "2.18.4",
+       "2.19.0",
+       "2.19.1",
+       "2.2.0",
+       "2.2.1",
+       "2.3.0",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.5.0",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.6.0",
+       "2.6.1",
+       "2.6.2",
+       "2.7.0",
+       "2.8.0",
+       "2.8.1",
+       "2.9.0",
+       "2.9.1",
+       "2.9.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2018-18074",
+     "PYSEC-2018-28"
+    ],
+    "fix_refs": [],
+    "id": "GHSA-x84v-xcm2-53pg",
+    "label": "HIGH",
+    "modified": "2024-10-21T21:42:55.896669Z",
+    "published": "2018-10-29T19:06:46Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Insufficiently Protected Credentials in Requests",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.3.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.0.1",
+       "0.10.0",
+       "0.10.1",
+       "0.10.2",
+       "0.10.3",
+       "0.10.4",
+       "0.10.6",
+       "0.10.7",
+       "0.10.8",
+       "0.11.1",
+       "0.11.2",
+       "0.12.0",
+       "0.12.01",
+       "0.12.1",
+       "0.13.0",
+       "0.13.1",
+       "0.13.2",
+       "0.13.3",
+       "0.13.4",
+       "0.13.5",
+       "0.13.6",
+       "0.13.7",
+       "0.13.8",
+       "0.13.9",
+       "0.14.0",
+       "0.14.1",
+       "0.14.2",
+       "0.2.0",
+       "0.2.1",
+       "0.2.2",
+       "0.2.3",
+       "0.2.4",
+       "0.3.0",
+       "0.3.1",
+       "0.3.2",
+       "0.3.3",
+       "0.3.4",
+       "0.4.0",
+       "0.4.1",
+       "0.5.0",
+       "0.5.1",
+       "0.6.0",
+       "0.6.1",
+       "0.6.2",
+       "0.6.3",
+       "0.6.4",
+       "0.6.5",
+       "0.6.6",
+       "0.7.0",
+       "0.7.1",
+       "0.7.2",
+       "0.7.3",
+       "0.7.4",
+       "0.7.5",
+       "0.7.6",
+       "0.8.0",
+       "0.8.1",
+       "0.8.2",
+       "0.8.3",
+       "0.8.4",
+       "0.8.5",
+       "0.8.6",
+       "0.8.7",
+       "0.8.8",
+       "0.8.9",
+       "0.9.0",
+       "0.9.1",
+       "0.9.2",
+       "0.9.3",
+       "1.0.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.2.0",
+       "1.2.1",
+       "1.2.2",
+       "1.2.3",
+       "2.0.0",
+       "2.0.1",
+       "2.1.0",
+       "2.2.0",
+       "2.2.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2014-1829",
+     "GHSA-cfj3-7x9c-4p3h"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2014-13",
+    "label": null,
+    "modified": "2023-11-08T03:57:34.760439Z",
+    "published": "2014-10-15T14:55:00Z",
+    "severity": [],
+    "summary": "Requests (aka python-requests) before 2.3.0 allows remote servers to obtain a netrc password by reading the Authorization header in a redirected request.",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.3.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.0.1",
+       "0.10.0",
+       "0.10.1",
+       "0.10.2",
+       "0.10.3",
+       "0.10.4",
+       "0.10.6",
+       "0.10.7",
+       "0.10.8",
+       "0.11.1",
+       "0.11.2",
+       "0.12.0",
+       "0.12.01",
+       "0.12.1",
+       "0.13.0",
+       "0.13.1",
+       "0.13.2",
+       "0.13.3",
+       "0.13.4",
+       "0.13.5",
+       "0.13.6",
+       "0.13.7",
+       "0.13.8",
+       "0.13.9",
+       "0.14.0",
+       "0.14.1",
+       "0.14.2",
+       "0.2.0",
+       "0.2.1",
+       "0.2.2",
+       "0.2.3",
+       "0.2.4",
+       "0.3.0",
+       "0.3.1",
+       "0.3.2",
+       "0.3.3",
+       "0.3.4",
+       "0.4.0",
+       "0.4.1",
+       "0.5.0",
+       "0.5.1",
+       "0.6.0",
+       "0.6.1",
+       "0.6.2",
+       "0.6.3",
+       "0.6.4",
+       "0.6.5",
+       "0.6.6",
+       "0.7.0",
+       "0.7.1",
+       "0.7.2",
+       "0.7.3",
+       "0.7.4",
+       "0.7.5",
+       "0.7.6",
+       "0.8.0",
+       "0.8.1",
+       "0.8.2",
+       "0.8.3",
+       "0.8.4",
+       "0.8.5",
+       "0.8.6",
+       "0.8.7",
+       "0.8.8",
+       "0.8.9",
+       "0.9.0",
+       "0.9.1",
+       "0.9.2",
+       "0.9.3",
+       "1.0.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.2.0",
+       "1.2.1",
+       "1.2.2",
+       "1.2.3",
+       "2.0.0",
+       "2.0.1",
+       "2.1.0",
+       "2.2.0",
+       "2.2.1"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2014-1830",
+     "GHSA-652x-xj99-gmcc"
+    ],
+    "fix_refs": [],
+    "id": "PYSEC-2014-14",
+    "label": null,
+    "modified": "2023-11-08T03:57:34.820933Z",
+    "published": "2014-10-15T14:55:00Z",
+    "severity": [],
+    "summary": "Requests (aka python-requests) before 2.3.0 allows remote servers to obtain sensitive information by reading the Proxy-Authorization header in a redirected request.",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "3bd8afbff29e50b38f889b2f688785a669b9aafc"
+         }
+        ],
+        "repo": "https://github.com/kennethreitz/requests",
+        "type": "GIT"
+       },
+       {
+        "events": [
+         {
+          "introduced": "2.1.0"
+         },
+         {
+          "fixed": "2.6.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.1.0",
+       "2.2.0",
+       "2.2.1",
+       "2.3.0",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.5.0",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "v2.5.2",
+       "v2.5.1",
+       "v2.5.0",
+       "v2.4.3",
+       "v2.4.2",
+       "v2.4.1",
+       "v2.4.0",
+       "v2.3.0",
+       "v2.2.1",
+       "v2.2.0",
+       "v2.1.0",
+       "v2.0.1",
+       "v2.0.0",
+       "v2.0",
+       "2.0",
+       "v1.2.3",
+       "v1.2.2",
+       "v1.2.1",
+       "v1.2.0",
+       "v1.1.0",
+       "v1.0.4",
+       "v1.0.3",
+       "v1.0.2",
+       "v1.0.1",
+       "v1.0.0",
+       "v0.14.2",
+       "v0.14.0",
+       "v0.14.1",
+       "v0.13.9",
+       "v0.13.7",
+       "v0.13.6",
+       "v0.13.5",
+       "v0.13.4",
+       "v0.13.3",
+       "v0.13.2",
+       "v0.13.1",
+       "v0.13.0",
+       "v0.12.1",
+       "v0.12.0",
+       "v0.11.1",
+       "v0.10.8",
+       "v0.10.7",
+       "v0.10.6",
+       "v0.10.5",
+       "v0.10.4",
+       "v0.10.3",
+       "v0.10.2",
+       "v0.10.1",
+       "v0.10.0",
+       "v0.9.3",
+       "v0.9.1",
+       "v0.9.0",
+       "v0.8.9",
+       "v0.8.8",
+       "v0.6.4",
+       "v0.6.3",
+       "v0.5.1",
+       "v0.5.0",
+       "v0.4.1",
+       "v0.4.0",
+       "v0.3.4",
+       "v0.3.3",
+       "v0.3.2",
+       "v0.3.0",
+       "v0.2.4",
+       "v0.2.3",
+       "v0.2.2",
+       "v0.2.1",
+       "v0.2.0"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2015-2296",
+     "GHSA-pg2w-x9wp-vw92"
+    ],
+    "fix_refs": [
+     "https://github.com/kennethreitz/requests/commit/3bd8afbff29e50b38f889b2f688785a669b9aafc"
+    ],
+    "id": "PYSEC-2015-17",
+    "label": null,
+    "modified": "2026-06-10T17:02:37.461577652Z",
+    "published": "2015-03-18T16:59:00Z",
+    "severity": [],
+    "summary": "The resolve_redirects function in sessions.py in requests 2.1.0 through 2.5.3 allows remote attackers to conduct session fixation attacks via a cookie without a host value in a redirect.",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "c45d7c49ea75133e52ab22a8e9e13173938e36ff"
+         }
+        ],
+        "repo": "https://github.com/requests/requests",
+        "type": "GIT"
+       },
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.20.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.0.1",
+       "0.10.0",
+       "0.10.1",
+       "0.10.2",
+       "0.10.3",
+       "0.10.4",
+       "0.10.6",
+       "0.10.7",
+       "0.10.8",
+       "0.11.1",
+       "0.11.2",
+       "0.12.0",
+       "0.12.01",
+       "0.12.1",
+       "0.13.0",
+       "0.13.1",
+       "0.13.2",
+       "0.13.3",
+       "0.13.4",
+       "0.13.5",
+       "0.13.6",
+       "0.13.7",
+       "0.13.8",
+       "0.13.9",
+       "0.14.0",
+       "0.14.1",
+       "0.14.2",
+       "0.2.0",
+       "0.2.1",
+       "0.2.2",
+       "0.2.3",
+       "0.2.4",
+       "0.3.0",
+       "0.3.1",
+       "0.3.2",
+       "0.3.3",
+       "0.3.4",
+       "0.4.0",
+       "0.4.1",
+       "0.5.0",
+       "0.5.1",
+       "0.6.0",
+       "0.6.1",
+       "0.6.2",
+       "0.6.3",
+       "0.6.4",
+       "0.6.5",
+       "0.6.6",
+       "0.7.0",
+       "0.7.1",
+       "0.7.2",
+       "0.7.3",
+       "0.7.4",
+       "0.7.5",
+       "0.7.6",
+       "0.8.0",
+       "0.8.1",
+       "0.8.2",
+       "0.8.3",
+       "0.8.4",
+       "0.8.5",
+       "0.8.6",
+       "0.8.7",
+       "0.8.8",
+       "0.8.9",
+       "0.9.0",
+       "0.9.1",
+       "0.9.2",
+       "0.9.3",
+       "1.0.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.2.0",
+       "1.2.1",
+       "1.2.2",
+       "1.2.3",
+       "2.0.0",
+       "2.0.1",
+       "2.1.0",
+       "2.10.0",
+       "2.11.0",
+       "2.11.1",
+       "2.12.0",
+       "2.12.1",
+       "2.12.2",
+       "2.12.3",
+       "2.12.4",
+       "2.12.5",
+       "2.13.0",
+       "2.14.0",
+       "2.14.1",
+       "2.14.2",
+       "2.15.0",
+       "2.15.1",
+       "2.16.0",
+       "2.16.1",
+       "2.16.2",
+       "2.16.3",
+       "2.16.4",
+       "2.16.5",
+       "2.17.0",
+       "2.17.1",
+       "2.17.2",
+       "2.17.3",
+       "2.18.0",
+       "2.18.1",
+       "2.18.2",
+       "2.18.3",
+       "2.18.4",
+       "2.19.0",
+       "2.19.1",
+       "2.2.0",
+       "2.2.1",
+       "2.3.0",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.5.0",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.6.0",
+       "2.6.1",
+       "2.6.2",
+       "2.7.0",
+       "2.8.0",
+       "2.8.1",
+       "2.9.0",
+       "2.9.1",
+       "2.9.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2018-18074",
+     "GHSA-x84v-xcm2-53pg"
+    ],
+    "fix_refs": [
+     "https://github.com/requests/requests/commit/c45d7c49ea75133e52ab22a8e9e13173938e36ff"
+    ],
+    "id": "PYSEC-2018-28",
+    "label": null,
+    "modified": "2023-11-08T04:00:04.815794Z",
+    "published": "2018-10-09T17:29:00Z",
+    "severity": [],
+    "summary": "The Requests package before 2.20.0 for Python sends an HTTP Authorization header to an http URI upon receiving a same-hostname https-to-http redirect, which makes it easier for remote attackers to dis",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "74ea7cf7a6a27a4eeb2ae24e162bcc942a6706d5"
+         }
+        ],
+        "repo": "https://github.com/psf/requests",
+        "type": "GIT"
+       },
+       {
+        "events": [
+         {
+          "introduced": "2.3.0"
+         },
+         {
+          "fixed": "2.31.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "2.10.0",
+       "2.11.0",
+       "2.11.1",
+       "2.12.0",
+       "2.12.1",
+       "2.12.2",
+       "2.12.3",
+       "2.12.4",
+       "2.12.5",
+       "2.13.0",
+       "2.14.0",
+       "2.14.1",
+       "2.14.2",
+       "2.15.0",
+       "2.15.1",
+       "2.16.0",
+       "2.16.1",
+       "2.16.2",
+       "2.16.3",
+       "2.16.4",
+       "2.16.5",
+       "2.17.0",
+       "2.17.1",
+       "2.17.2",
+       "2.17.3",
+       "2.18.0",
+       "2.18.1",
+       "2.18.2",
+       "2.18.3",
+       "2.18.4",
+       "2.19.0",
+       "2.19.1",
+       "2.20.0",
+       "2.20.1",
+       "2.21.0",
+       "2.22.0",
+       "2.23.0",
+       "2.24.0",
+       "2.25.0",
+       "2.25.1",
+       "2.26.0",
+       "2.27.0",
+       "2.27.1",
+       "2.28.0",
+       "2.28.1",
+       "2.28.2",
+       "2.29.0",
+       "2.3.0",
+       "2.30.0",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.5.0",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.6.0",
+       "2.6.1",
+       "2.6.2",
+       "2.7.0",
+       "2.8.0",
+       "2.8.1",
+       "2.9.0",
+       "2.9.1",
+       "2.9.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2023-32681",
+     "GHSA-j8r2-6x86-q33q"
+    ],
+    "fix_refs": [
+     "https://github.com/psf/requests/commit/74ea7cf7a6a27a4eeb2ae24e162bcc942a6706d5"
+    ],
+    "id": "PYSEC-2023-74",
+    "label": null,
+    "modified": "2023-11-08T04:12:35.436175Z",
+    "published": "2023-05-26T18:15:00Z",
+    "severity": [],
+    "summary": "Requests is a HTTP library. Since Requests 2.3.0, Requests has been leaking Proxy-Authorization headers to destination servers when redirected to an HTTPS endpoint. This is a product of how we use `re",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.32.4"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.0.1",
+       "0.10.0",
+       "0.10.1",
+       "0.10.2",
+       "0.10.3",
+       "0.10.4",
+       "0.10.6",
+       "0.10.7",
+       "0.10.8",
+       "0.11.1",
+       "0.11.2",
+       "0.12.0",
+       "0.12.01",
+       "0.12.1",
+       "0.13.0",
+       "0.13.1",
+       "0.13.2",
+       "0.13.3",
+       "0.13.4",
+       "0.13.5",
+       "0.13.6",
+       "0.13.7",
+       "0.13.8",
+       "0.13.9",
+       "0.14.0",
+       "0.14.1",
+       "0.14.2",
+       "0.2.0",
+       "0.2.1",
+       "0.2.2",
+       "0.2.3",
+       "0.2.4",
+       "0.3.0",
+       "0.3.1",
+       "0.3.2",
+       "0.3.3",
+       "0.3.4",
+       "0.4.0",
+       "0.4.1",
+       "0.5.0",
+       "0.5.1",
+       "0.6.0",
+       "0.6.1",
+       "0.6.2",
+       "0.6.3",
+       "0.6.4",
+       "0.6.5",
+       "0.6.6",
+       "0.7.0",
+       "0.7.1",
+       "0.7.2",
+       "0.7.3",
+       "0.7.4",
+       "0.7.5",
+       "0.7.6",
+       "0.8.0",
+       "0.8.1",
+       "0.8.2",
+       "0.8.3",
+       "0.8.4",
+       "0.8.5",
+       "0.8.6",
+       "0.8.7",
+       "0.8.8",
+       "0.8.9",
+       "0.9.0",
+       "0.9.1",
+       "0.9.2",
+       "0.9.3",
+       "1.0.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.2.0",
+       "1.2.1",
+       "1.2.2",
+       "1.2.3",
+       "2.0.0",
+       "2.0.1",
+       "2.1.0",
+       "2.10.0",
+       "2.11.0",
+       "2.11.1",
+       "2.12.0",
+       "2.12.1",
+       "2.12.2",
+       "2.12.3",
+       "2.12.4",
+       "2.12.5",
+       "2.13.0",
+       "2.14.0",
+       "2.14.1",
+       "2.14.2",
+       "2.15.0",
+       "2.15.1",
+       "2.16.0",
+       "2.16.1",
+       "2.16.2",
+       "2.16.3",
+       "2.16.4",
+       "2.16.5",
+       "2.17.0",
+       "2.17.1",
+       "2.17.2",
+       "2.17.3",
+       "2.18.0",
+       "2.18.1",
+       "2.18.2",
+       "2.18.3",
+       "2.18.4",
+       "2.19.0",
+       "2.19.1",
+       "2.2.0",
+       "2.2.1",
+       "2.20.0",
+       "2.20.1",
+       "2.21.0",
+       "2.22.0",
+       "2.23.0",
+       "2.24.0",
+       "2.25.0",
+       "2.25.1",
+       "2.26.0",
+       "2.27.0",
+       "2.27.1",
+       "2.28.0",
+       "2.28.1",
+       "2.28.2",
+       "2.29.0",
+       "2.3.0",
+       "2.30.0",
+       "2.31.0",
+       "2.32.0",
+       "2.32.1",
+       "2.32.2",
+       "2.32.3",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.5.0",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.6.0",
+       "2.6.1",
+       "2.6.2",
+       "2.7.0",
+       "2.8.0",
+       "2.8.1",
+       "2.9.0",
+       "2.9.1",
+       "2.9.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2024-47081",
+     "GHSA-9hjg-9r4m-mvj7"
+    ],
+    "fix_refs": [
+     "https://github.com/psf/requests/commit/96ba401c1296ab1dda74a2365ef36d88f7d144ef"
+    ],
+    "id": "PYSEC-2026-1872",
+    "label": null,
+    "modified": "2026-07-07T17:47:00.332079836Z",
+    "published": "2026-07-07T16:02:54.151964Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Requests vulnerable to .netrc credentials leak via malicious URLs",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.32.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.0.1",
+       "0.10.0",
+       "0.10.1",
+       "0.10.2",
+       "0.10.3",
+       "0.10.4",
+       "0.10.6",
+       "0.10.7",
+       "0.10.8",
+       "0.11.1",
+       "0.11.2",
+       "0.12.0",
+       "0.12.01",
+       "0.12.1",
+       "0.13.0",
+       "0.13.1",
+       "0.13.2",
+       "0.13.3",
+       "0.13.4",
+       "0.13.5",
+       "0.13.6",
+       "0.13.7",
+       "0.13.8",
+       "0.13.9",
+       "0.14.0",
+       "0.14.1",
+       "0.14.2",
+       "0.2.0",
+       "0.2.1",
+       "0.2.2",
+       "0.2.3",
+       "0.2.4",
+       "0.3.0",
+       "0.3.1",
+       "0.3.2",
+       "0.3.3",
+       "0.3.4",
+       "0.4.0",
+       "0.4.1",
+       "0.5.0",
+       "0.5.1",
+       "0.6.0",
+       "0.6.1",
+       "0.6.2",
+       "0.6.3",
+       "0.6.4",
+       "0.6.5",
+       "0.6.6",
+       "0.7.0",
+       "0.7.1",
+       "0.7.2",
+       "0.7.3",
+       "0.7.4",
+       "0.7.5",
+       "0.7.6",
+       "0.8.0",
+       "0.8.1",
+       "0.8.2",
+       "0.8.3",
+       "0.8.4",
+       "0.8.5",
+       "0.8.6",
+       "0.8.7",
+       "0.8.8",
+       "0.8.9",
+       "0.9.0",
+       "0.9.1",
+       "0.9.2",
+       "0.9.3",
+       "1.0.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.2.0",
+       "1.2.1",
+       "1.2.2",
+       "1.2.3",
+       "2.0.0",
+       "2.0.1",
+       "2.1.0",
+       "2.10.0",
+       "2.11.0",
+       "2.11.1",
+       "2.12.0",
+       "2.12.1",
+       "2.12.2",
+       "2.12.3",
+       "2.12.4",
+       "2.12.5",
+       "2.13.0",
+       "2.14.0",
+       "2.14.1",
+       "2.14.2",
+       "2.15.0",
+       "2.15.1",
+       "2.16.0",
+       "2.16.1",
+       "2.16.2",
+       "2.16.3",
+       "2.16.4",
+       "2.16.5",
+       "2.17.0",
+       "2.17.1",
+       "2.17.2",
+       "2.17.3",
+       "2.18.0",
+       "2.18.1",
+       "2.18.2",
+       "2.18.3",
+       "2.18.4",
+       "2.19.0",
+       "2.19.1",
+       "2.2.0",
+       "2.2.1",
+       "2.20.0",
+       "2.20.1",
+       "2.21.0",
+       "2.22.0",
+       "2.23.0",
+       "2.24.0",
+       "2.25.0",
+       "2.25.1",
+       "2.26.0",
+       "2.27.0",
+       "2.27.1",
+       "2.28.0",
+       "2.28.1",
+       "2.28.2",
+       "2.29.0",
+       "2.3.0",
+       "2.30.0",
+       "2.31.0",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.5.0",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.6.0",
+       "2.6.1",
+       "2.6.2",
+       "2.7.0",
+       "2.8.0",
+       "2.8.1",
+       "2.9.0",
+       "2.9.1",
+       "2.9.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2024-35195",
+     "GHSA-9wx4-h78v-vm56"
+    ],
+    "fix_refs": [
+     "https://github.com/psf/requests/commit/a58d7f2ffb4d00b46dca2d70a3932a0b37e22fac"
+    ],
+    "id": "PYSEC-2026-1873",
+    "label": null,
+    "modified": "2026-07-07T17:46:36.762141019Z",
+    "published": "2026-07-07T11:45:42.890131Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:H/I:H/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Requests `Session` object does not verify requests after making first request with verify=False",
+    "withdrawn": null
+   },
+   {
+    "affected": [
+     {
+      "ranges": [
+       {
+        "events": [
+         {
+          "introduced": "0"
+         },
+         {
+          "fixed": "2.33.0"
+         }
+        ],
+        "type": "ECOSYSTEM"
+       }
+      ],
+      "versions": [
+       "0.0.1",
+       "0.10.0",
+       "0.10.1",
+       "0.10.2",
+       "0.10.3",
+       "0.10.4",
+       "0.10.6",
+       "0.10.7",
+       "0.10.8",
+       "0.11.1",
+       "0.11.2",
+       "0.12.0",
+       "0.12.01",
+       "0.12.1",
+       "0.13.0",
+       "0.13.1",
+       "0.13.2",
+       "0.13.3",
+       "0.13.4",
+       "0.13.5",
+       "0.13.6",
+       "0.13.7",
+       "0.13.8",
+       "0.13.9",
+       "0.14.0",
+       "0.14.1",
+       "0.14.2",
+       "0.2.0",
+       "0.2.1",
+       "0.2.2",
+       "0.2.3",
+       "0.2.4",
+       "0.3.0",
+       "0.3.1",
+       "0.3.2",
+       "0.3.3",
+       "0.3.4",
+       "0.4.0",
+       "0.4.1",
+       "0.5.0",
+       "0.5.1",
+       "0.6.0",
+       "0.6.1",
+       "0.6.2",
+       "0.6.3",
+       "0.6.4",
+       "0.6.5",
+       "0.6.6",
+       "0.7.0",
+       "0.7.1",
+       "0.7.2",
+       "0.7.3",
+       "0.7.4",
+       "0.7.5",
+       "0.7.6",
+       "0.8.0",
+       "0.8.1",
+       "0.8.2",
+       "0.8.3",
+       "0.8.4",
+       "0.8.5",
+       "0.8.6",
+       "0.8.7",
+       "0.8.8",
+       "0.8.9",
+       "0.9.0",
+       "0.9.1",
+       "0.9.2",
+       "0.9.3",
+       "1.0.0",
+       "1.0.1",
+       "1.0.2",
+       "1.0.3",
+       "1.0.4",
+       "1.1.0",
+       "1.2.0",
+       "1.2.1",
+       "1.2.2",
+       "1.2.3",
+       "2.0.0",
+       "2.0.1",
+       "2.1.0",
+       "2.10.0",
+       "2.11.0",
+       "2.11.1",
+       "2.12.0",
+       "2.12.1",
+       "2.12.2",
+       "2.12.3",
+       "2.12.4",
+       "2.12.5",
+       "2.13.0",
+       "2.14.0",
+       "2.14.1",
+       "2.14.2",
+       "2.15.0",
+       "2.15.1",
+       "2.16.0",
+       "2.16.1",
+       "2.16.2",
+       "2.16.3",
+       "2.16.4",
+       "2.16.5",
+       "2.17.0",
+       "2.17.1",
+       "2.17.2",
+       "2.17.3",
+       "2.18.0",
+       "2.18.1",
+       "2.18.2",
+       "2.18.3",
+       "2.18.4",
+       "2.19.0",
+       "2.19.1",
+       "2.2.0",
+       "2.2.1",
+       "2.20.0",
+       "2.20.1",
+       "2.21.0",
+       "2.22.0",
+       "2.23.0",
+       "2.24.0",
+       "2.25.0",
+       "2.25.1",
+       "2.26.0",
+       "2.27.0",
+       "2.27.1",
+       "2.28.0",
+       "2.28.1",
+       "2.28.2",
+       "2.29.0",
+       "2.3.0",
+       "2.30.0",
+       "2.31.0",
+       "2.32.0",
+       "2.32.1",
+       "2.32.2",
+       "2.32.3",
+       "2.32.4",
+       "2.32.5",
+       "2.4.0",
+       "2.4.1",
+       "2.4.2",
+       "2.4.3",
+       "2.5.0",
+       "2.5.1",
+       "2.5.2",
+       "2.5.3",
+       "2.6.0",
+       "2.6.1",
+       "2.6.2",
+       "2.7.0",
+       "2.8.0",
+       "2.8.1",
+       "2.9.0",
+       "2.9.1",
+       "2.9.2"
+      ]
+     }
+    ],
+    "aliases": [
+     "CVE-2026-25645",
+     "GHSA-gc5v-m9x4-r6x2"
+    ],
+    "fix_refs": [
+     "https://github.com/psf/requests/commit/66d21cb07bd6255b1280291c4fafb71803cdb3b7"
+    ],
+    "id": "PYSEC-2026-2275",
+    "label": null,
+    "modified": "2026-07-13T07:15:43.964902190Z",
+    "published": "2026-03-25T17:16:52.970Z",
+    "severity": [
+     {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
+      "type": "CVSS_V3"
+     }
+    ],
+    "summary": "Requests is a HTTP library. Prior to version 2.33.0, the `requests.utils.extract_zipped_paths()` utility function uses a predictable filename when extracting files from zip archives into the system te",
+    "withdrawn": null
+   }
+  ],
+  "six": []
+ }
+}

@@ -1,0 +1,8 @@
+# Known test sample (phase 4). Pins chosen so the expected result is easy to reason about.
+# See tests/test_known_sample.py and tests/sample/labels.yaml for the expected answers.
+pyspark==3.2.1     # vulnerable, and one of its CVEs is on the CISA KEV list
+pyyaml==5.1.2      # vulnerable; also hit by a WITHDRAWN advisory -> one uncertain match
+flask==1.0         # vulnerable (two advisories)
+requests==2.31.0   # lightly vulnerable
+jinja2==3.1.6      # has many advisories, all fixed before 3.1.6 -> a naive name match is a false positive
+six==1.16.0        # clean: no advisories at all

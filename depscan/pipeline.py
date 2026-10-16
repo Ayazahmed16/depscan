@@ -78,6 +78,8 @@ def build_finding(match: Match, bundle: DataBundle, cfg: dict, exposed: bool | N
         "match": {"confidence": match.confidence, "evidence": match.evidence},
         "risk": {"score": risk["score"], "factors": risk["factors"], "notes": risk["notes"]},
         "action": action,
+        # matched = found by our advisory data; unconfirmed = only a scan report claims it; contradicted = advisory data says it is NOT affected
+        "claim_status": "contradicted" if match.contradicted else "unconfirmed" if match.scanner_only else "matched",
         "recommendation": recommendation_text(match, fixed, major, action),
         "exposure": None,
         "history": [],
@@ -158,7 +160,10 @@ def scan_files(files: list[tuple[str, bytes]], bundle: DataBundle, cfg: dict | N
                 f"{len(idx.failed)} {e} package(s) could NOT be checked: OSV.dev was unreachable and nothing was cached. "
                 f"Their absence from the findings is not a clean result.")
     findings = [build_finding(m, bundle, cfg) for m in matches]
-    findings.sort(key=lambda f: (-f["risk"]["score"], f["id"], f["package"]))
+    # Order: our own matches, then unconfirmed scanner claims, then likely false positives; by risk within each.
+    # The risk SCORE is untouched. This only stops a contradicted claim from outranking a confirmed finding.
+    tier = {"matched": 0, "unconfirmed": 1, "contradicted": 2}
+    findings.sort(key=lambda f: (tier[f["claim_status"]], -f["risk"]["score"], f["id"], f["package"]))
     return {
         "source": name,
         "scanned_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),

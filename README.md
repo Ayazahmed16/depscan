@@ -34,6 +34,9 @@ A lock file beside the manifest (`package-lock.json`, `yarn.lock`, `Pipfile.lock
 automatically. Supported inputs: `requirements.txt`, `package.json`, `package-lock.json`, `yarn.lock`,
 `poetry.lock`, `Pipfile.lock`, `go.mod`, `go.sum`, and OWASP Dependency-Check JSON.
 
+Known test sample: `tests/sample/` (real, frozen advisory records) with expected results in `tests/test_known_sample.py`
+and labels in `tests/sample/labels.yaml` (**unverified, needs the owner's check**).
+
 Scoring: [docs/SCORING.md](docs/SCORING.md), weights in [config/scoring.yaml](config/scoring.yaml).
 Plan and data sources: [docs/PLAN.md](docs/PLAN.md). Tests: `pytest`.
 

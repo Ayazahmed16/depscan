@@ -1,0 +1,10 @@
+{
+ "vulnerabilities": [
+  {
+   "cveID": "CVE-2022-33891",
+   "dateAdded": "2023-03-07",
+   "dueDate": "2023-03-28",
+   "knownRansomwareCampaignUse": "Unknown"
+  }
+ ]
+}

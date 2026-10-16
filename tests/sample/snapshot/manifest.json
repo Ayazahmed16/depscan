@@ -1,0 +1,12 @@
+{
+ "note": "Extract of the live cache for the packages listed in scripts/make_sample_snapshot.py. No NVD data (so severity comes from OSV CVSS vectors).",
+ "osv:PyPI": {
+  "snapshot_date": "2026-10-16"
+ },
+ "kev": {
+  "snapshot_date": "2026-10-16"
+ },
+ "epss": {
+  "snapshot_date": "2026-10-16"
+ }
+}

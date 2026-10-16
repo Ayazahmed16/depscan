@@ -105,6 +105,19 @@ affected and another says it is not, the match stays as strong as its best evide
 written into the evidence and counted by the **trust** score in phase 5. It is not counted twice.
 A withdrawn record next to live records is noted but does not weaken the match.
 
+### List order
+
+Findings are listed in three tiers, and by risk score (highest first) within each tier:
+
+1. **matched**: found by depscan's own advisory data.
+2. **unconfirmed**: only a scan report claims it and no advisory mentions it for this package.
+3. **contradicted**: a scan report claims it but the advisory data says this version is **not** affected
+   (a likely false positive). It is kept and flagged, never silently dropped.
+
+This is why a contradicted claim does not outrank a confirmed finding even when its raw risk number is higher.
+The risk **score** itself is not changed by the tier. Each finding carries `claim_status`
+(`matched` / `unconfirmed` / `contradicted`).
+
 ## 3. Recommendations
 
 Recommendations are text. depscan never edits a manifest or installs anything.

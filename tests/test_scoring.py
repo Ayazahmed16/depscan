@@ -139,3 +139,10 @@ def test_recommendation_text_is_advice_only_and_covers_the_cases():
     fp = make()
     fp.scanner_only, fp.contradicted = True, True
     assert "false positive" in recommendation_text(fp, None, None, "verify_first")
+
+
+def test_prerelease_fix_version_is_flagged_in_the_recommendation():
+    # real case from the known sample: PyYAML CVE-2019-20477 is "fixed" in 5.2b1, a beta
+    txt = recommendation_text(make(), "1.5b1", False, "fix_now")
+    assert "pre-release" in txt and "first stable release" in txt
+    assert "pre-release" not in recommendation_text(make(), "1.5", False, "fix_now")

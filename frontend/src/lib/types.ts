@@ -56,6 +56,8 @@ export interface Finding {
   risk: { score: number; factors: RiskFactor[] }
   trust: { score: number; signals: TrustSignal[] }
   action: Action
+  /** matched = our data found it; unconfirmed = only a scan report claims it; contradicted = our data says not affected */
+  claim_status?: 'matched' | 'unconfirmed' | 'contradicted'
   recommendation: string
   exposure: { exposed: boolean; path: string[] } | null
   history: HistoryPoint[]

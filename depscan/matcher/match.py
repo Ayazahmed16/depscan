@@ -150,7 +150,8 @@ def match_dependency(dep: Dependency, advisories: list[dict]) -> list[Match]:
         ]
         contradicted = any(res[0] is False for _, res in contradicting)
         if contradicted:
-            why = f"advisory data says {version} is NOT affected: " + "; ".join(res[2] for _, res in contradicting if res[0] is False)
+            reasons = dict.fromkeys(res[2] for _, res in contradicting if res[0] is False)  # same reason from 2 sources: say it once
+            why = f"advisory data says {version} is NOT affected: " + "; ".join(reasons)
         else:
             why = f"no advisory in the OSV snapshot confirms it for {dep.name} {version}"
         matches.append(Match(

@@ -79,6 +79,14 @@ def parse_version(ecosystem: str, text: str):
         raise UnparsableVersion(text) from e
 
 
+def is_prerelease(ecosystem: str, text: str) -> bool:
+    try:
+        v = parse_version(ecosystem, text)
+    except UnparsableVersion:
+        return False
+    return bool(v.is_prerelease if isinstance(v, Version) else v.pre)
+
+
 def major_of(ecosystem: str, text: str) -> int | None:
     try:
         v = parse_version(ecosystem, text)

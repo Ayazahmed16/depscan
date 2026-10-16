@@ -1,0 +1,42 @@
+# Labels for the known sample (phase 4).
+#
+# !!! NEEDS MANUAL VERIFICATION !!!
+# These labels were written by the assistant, not by the project owner. They were produced by reading each
+# advisory's affected range in tests/sample/snapshot/osv/PyPI.index.json against the pinned version. Treat them
+# as a draft, not as ground truth, until the owner has checked them and set `verified_by_owner: true`.
+#
+# What the labels mean:
+#   affected        the published advisory range includes this exact version. It says nothing about whether
+#                   the vulnerable code path is reachable in an application.
+#   retracted       the only advisory was withdrawn by its publisher; whether it ever applied is unknown.
+#   false_positive  a scan report claims it, but the advisory range does NOT include this version.
+#   unconfirmed     a scan report claims it and no advisory in the snapshot mentions it.
+#   clean           no advisory in the snapshot affects this package at this version.
+verified_by_owner: false
+
+inputs:
+  requirements.txt:
+    - {package: pyspark, version: "3.2.1", advisory: CVE-2022-33891, label: affected, basis: "introduced 3.2.0, fixed 3.2.2", note: "on the CISA KEV list"}
+    - {package: pyspark, version: "3.2.1", advisory: CVE-2023-32007, label: affected, basis: "introduced 3.1.1, fixed 3.2.2"}
+    - {package: pyspark, version: "3.2.1", advisory: CVE-2023-22946, label: affected, basis: "introduced 0, fixed 3.3.2 (GHSA) / 3.4.0 (PYSEC): the sources disagree on the fix"}
+    - {package: pyspark, version: "3.2.1", advisory: CVE-2025-55039, label: affected, basis: "introduced 0, fixed 3.4.4"}
+    - {package: pyspark, version: "3.2.1", advisory: CVE-2026-32773, label: affected, basis: "introduced 3.0.0, fixed 3.5.8"}
+    - {package: pyspark, version: "3.2.1", advisory: CVE-2022-31777, label: affected, basis: "introduced 0, fixed 3.2.2"}
+    - {package: pyyaml, version: "5.1.2", advisory: CVE-2020-14343, label: affected, basis: "introduced 0, fixed 5.4"}
+    - {package: pyyaml, version: "5.1.2", advisory: CVE-2020-1747, label: affected, basis: "introduced 5.1, fixed 5.3.1"}
+    - {package: pyyaml, version: "5.1.2", advisory: CVE-2019-20477, label: affected, basis: "introduced 5.1, fixed 5.2 (GHSA) / 5.2b1 (PYSEC, a pre-release)"}
+    - {package: pyyaml, version: "5.1.2", advisory: PYSEC-2020-195, label: retracted, basis: "introduced 5.1, fixed 5.2b1; record withdrawn 2023-03-14"}
+    - {package: flask, version: "1.0", advisory: CVE-2023-30861, label: affected, basis: "introduced 0, fixed 2.2.5"}
+    - {package: flask, version: "1.0", advisory: CVE-2026-27205, label: affected, basis: "introduced 0, fixed 3.1.3"}
+    - {package: requests, version: "2.31.0", advisory: CVE-2024-35195, label: affected, basis: "introduced 0, fixed 2.32.0"}
+    - {package: requests, version: "2.31.0", advisory: CVE-2024-47081, label: affected, basis: "introduced 0, fixed 2.32.4"}
+    - {package: requests, version: "2.31.0", advisory: CVE-2026-25645, label: affected, basis: "introduced 0, fixed 2.33.0"}
+    - {package: jinja2, version: "3.1.6", label: clean, note: "21 advisories exist, all fixed in 3.1.6 or earlier: a name-only scanner would flag every one"}
+    - {package: six, version: "1.16.0", label: clean, note: "no advisories"}
+    - {package: flask, version: "1.0", advisory: CVE-2019-1010083, label: not_listed, basis: "fixed 1.0: the pinned version IS the fix (boundary case)"}
+
+  scan-report.json:
+    - {package: flask, version: "1.0", advisory: CVE-2023-30861, label: affected, basis: "introduced 0, fixed 2.2.5"}
+    - {package: flask, version: "1.0", advisory: CVE-2019-1010083, label: false_positive, basis: "fixed 1.0: scanner flags the boundary version"}
+    - {package: jinja2, version: "3.1.6", advisory: CVE-2025-27516, label: false_positive, basis: "fixed 3.1.6: scanner flags the boundary version"}
+    - {package: six, version: "1.16.0", advisory: CVE-2999-0001, label: unconfirmed, note: "made-up id used to model a claim nothing can confirm"}
