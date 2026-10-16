@@ -1,5 +1,9 @@
 # Phase 0: Plan
 
+> **Historical.** This is the plan written before building; the data-source research below is still accurate. What was
+> actually built (and where it differs, for example Go support, the `temporal.py` and `server.py` modules instead of
+> `history/` and `api/`) is in [ARCHITECTURE.md](ARCHITECTURE.md) and the README.
+
 Project: **depscan**, evidence-based prioritisation of vulnerable dependencies, with uncertainty.
 Problem statement: Cybersecurity 3 (dependency vulnerability prioritisation). It must list findings with
 evidence, rank them with documented factors, recommend actions, require human review, and never change
